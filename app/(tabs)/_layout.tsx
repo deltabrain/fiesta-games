@@ -1,12 +1,43 @@
 import { Tabs } from 'expo-router';
 import { StyleSheet } from 'react-native';
+import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 
 export default function TabLayout() {
 	return (
 		<Tabs screenOptions={{ tabBarStyle: styles.root, headerShown: false }} backBehavior="history">
-			<Tabs.Screen name="index" options={{ title: 'Home' }} />
-			<Tabs.Screen name="(teufeln)" options={{ title: 'Teufeln' }} />
-			<Tabs.Screen name="(hol)/index" options={{ title: 'Higher or Lower' }} />
+			<Tabs.Screen
+				name="index"
+				options={{
+					title: 'Home',
+					tabBarIcon(props) {
+						return <TabBarIcon {...props} name="home" />;
+					},
+				}}
+			/>
+			<Tabs.Screen
+				name="(teufeln)"
+				options={{
+					title: 'Teufeln',
+					tabBarIcon(props) {
+						return <TabBarIcon {...props} name="dice" />;
+					},
+				}}
+			/>
+			<Tabs.Screen
+				name="(hol)/index"
+				options={{
+					title: 'Higher or Lower',
+					tabBarIcon(props) {
+						// TODO: get this working
+						return (
+							<div>
+								<TabBarIcon {...props} name="arrow-down" />
+								<TabBarIcon {...props} name="arrow-up" />
+							</div>
+						);
+					},
+				}}
+			/>
 		</Tabs>
 	);
 }
