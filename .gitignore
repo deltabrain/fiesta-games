@@ -9,6 +9,8 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 *.bat
+*.sh
+*.out
 web-build/
 
 # macOS
