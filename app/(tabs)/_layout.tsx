@@ -28,13 +28,8 @@ export default function TabLayout() {
 				options={{
 					title: 'Higher or Lower',
 					tabBarIcon(props) {
-						// TODO: get this working
-						return (
-							<div>
-								<TabBarIcon {...props} name="arrow-down" />
-								<TabBarIcon {...props} name="arrow-up" />
-							</div>
-						);
+						// TODO: get up/down arrow somehow
+						return <TabBarIcon {...props} name="card" />;
 					},
 				}}
 			/>
