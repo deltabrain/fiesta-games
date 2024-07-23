@@ -4,7 +4,7 @@ import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 
 export default function TabLayout() {
 	return (
-		<Tabs screenOptions={{ tabBarStyle: styles.root, headerShown: false }} backBehavior="history">
+		<Tabs screenOptions={{ tabBarStyle: styles.tabBar, headerShown: false }} backBehavior="history">
 			<Tabs.Screen
 				name="(tabs)/(home)"
 				options={{
@@ -37,7 +37,7 @@ export default function TabLayout() {
 }
 
 const styles = StyleSheet.create({
-	root: {
+	tabBar: {
 		backgroundColor: '#333333',
 	},
 });
