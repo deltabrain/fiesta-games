@@ -1,11 +1,10 @@
-import { StyleSheet } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import { ThemedView } from '@/components/ThemedView';
+import { StyleSheet, Image } from 'react-native';
 
 export default function Teufeln() {
 	return (
 		<ThemedView style={styles.default}>
-			<Ionicons name="heart" size={24} color="red" />
+			<Image source={require('@/assets/images/card_png')} />;
 		</ThemedView>
 	);
 }

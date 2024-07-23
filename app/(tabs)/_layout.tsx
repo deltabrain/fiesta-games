@@ -29,7 +29,7 @@ export default function TabLayout() {
 					title: 'Higher or Lower',
 					tabBarIcon(props) {
 						// TODO: get up/down arrow somehow
-						return <TabBarIcon {...props} name="card" />;
+						return <TabBarIcon {...props} name="diamond" />;
 					},
 				}}
 			/>
