@@ -1,9 +1,43 @@
-import { Stack } from 'expo-router';
+import { Tabs } from 'expo-router';
+import { StyleSheet } from 'react-native';
+import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 
-export default function RootLayout() {
+export default function TabLayout() {
 	return (
-		<Stack screenOptions={{ headerShown: false, statusBarHidden: true }}>
-			<Stack.Screen name="(tabs)" />
-		</Stack>
+		<Tabs screenOptions={{ tabBarStyle: styles.root, headerShown: false }} backBehavior="history">
+			<Tabs.Screen
+				name="(tabs)/(home)"
+				options={{
+					title: 'Home',
+					tabBarIcon(props) {
+						return <TabBarIcon {...props} name="home" />;
+					},
+				}}
+			/>
+			<Tabs.Screen
+				name="(tabs)/(teufeln)"
+				options={{
+					title: 'Teufeln',
+					tabBarIcon(props) {
+						return <TabBarIcon {...props} name="dice" />;
+					},
+				}}
+			/>
+			<Tabs.Screen
+				name="(tabs)/(hol)"
+				options={{
+					title: 'Higher or Lower',
+					tabBarIcon(props) {
+						return <TabBarIcon {...props} name="diamond" />;
+					},
+				}}
+			/>
+		</Tabs>
 	);
 }
+
+const styles = StyleSheet.create({
+	root: {
+		backgroundColor: '#333333',
+	},
+});

@@ -1,7 +1,6 @@
 import { ThemedView } from '@/components/ThemedView';
 import { Button, StyleSheet } from 'react-native';
 import { CardView } from '@/components/Card';
-import { useEffect } from 'react';
 
 enum Suit {
 	Spades = 'spades',
