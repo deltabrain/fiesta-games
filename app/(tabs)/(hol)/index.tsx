@@ -4,7 +4,7 @@ import { StyleSheet, Image } from 'react-native';
 export default function Teufeln() {
 	return (
 		<ThemedView style={styles.default}>
-			<Image source={require('@/assets/images/card_png')} />;
+			<Image source={require('@/assets/images/card_png/')} />;
 		</ThemedView>
 	);
 }
