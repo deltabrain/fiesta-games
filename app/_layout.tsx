@@ -1,6 +1,6 @@
+import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Tabs } from 'expo-router';
 import { StyleSheet } from 'react-native';
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 
 export default function TabLayout() {
 	return (
