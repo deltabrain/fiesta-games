@@ -1,4 +1,3 @@
-// TODO: lookup table for cards
 import { Image } from 'react-native';
 
 const cardImages: Record<string, any> = {
