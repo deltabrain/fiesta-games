@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { ThemedView } from '@/components/ThemedView';
 
-export default function HomeScreen() {
+export default function Home() {
 	return (
 		<ThemedView style={styles.default}>
 			<Ionicons name="heart" size={24} color="red" />
