@@ -2,52 +2,27 @@ import { CardView } from '@/components/Card';
 import { ThemedView } from '@/components/ThemedView';
 import { Button, StyleSheet } from 'react-native';
 
-// TODO: rename card files to the pattern '[Suit][Rank].png' and uncomment the new enums and delete the old ones
-
-/* enum Suit {
-	Spades,
-	Hearts,
-	Diamonds,
-	Clubs,
-} */
-
-/* enum Rank {
-	Two,
-	Three,
-	Four,
-	Five,
-	Six,
-	Seven,
-	Eight,
-	Nine,
-	Ten,
-	Jack,
-	Queen,
-	King,
-	Ace,
-} */
-
 enum Suit {
-	Spades = 'spades',
-	Hearts = 'hearts',
-	Diamonds = 'diamonds',
-	Clubs = 'clubs',
+	Spades = 'Spades',
+	Hearts = 'Hearts',
+	Diamonds = 'Diamonds',
+	Clubs = 'Clubs',
 }
 
 enum Rank {
-	Two = 'two_of_',
-	Three = 'three_of_',
-	Four = 'four_of_',
-	Five = 'five_of_',
-	Six = 'six_of_',
-	Seven = 'seven_of_',
-	Eight = 'eight_of_',
-	Nine = 'nine_of_',
-	Ten = 'ten_of_',
-	Jack = 'jack_of_',
-	Queen = 'queen_of_',
-	King = 'king_of_',
-	Ace = 'ace_of_',
+	Two = 'Two',
+	Three = 'Three',
+	Four = 'Four',
+	Five = 'Five',
+	Six = 'Six',
+	Seven = 'Seven',
+	Eight = 'Eight',
+	Nine = 'Nine',
+	Ten = 'Ten',
+	Jack = 'Jack',
+	Queen = 'Queen',
+	King = 'King',
+	Ace = 'Ace',
 }
 
 interface Card {
@@ -66,14 +41,14 @@ function shuffleDeck(deck: Card[]) {
 	}
 }
 
-export default function Teufeln() {
+export default function HigherOrLower() {
 	shuffleDeck(currentDeck);
 	console.log(currentDeck[0]);
 	return (
 		<ThemedView style={styles.default}>
 			<Button title="Higher" onPress={() => console.log('Higher')} />
 			<Button title="Lower" onPress={() => console.log('Lower')} />
-			<CardView card={currentDeck[0].rank + currentDeck[0].suit} />
+			<CardView card={currentDeck[0].suit + currentDeck[0].rank} />
 			<Button title="Shuffle" onPress={() => shuffleDeck(currentDeck)} />
 		</ThemedView>
 	);
