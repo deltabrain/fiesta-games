@@ -1,6 +1,7 @@
 import { CardView } from '@/components/Card';
 import { ThemedView } from '@/components/ThemedView';
 import { Button, StyleSheet } from 'react-native';
+import { useState } from 'react';
 
 enum Suit {
 	Spades = 'Spades',
@@ -35,20 +36,30 @@ const fullDeck: Card[] = Object.values(Suit).flatMap((suit) => Object.values(Ran
 var currentDeck: Card[] = fullDeck;
 
 function shuffleDeck(deck: Card[]) {
+	lastCard = deck[0];
 	for (let i = deck.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1));
 		[deck[i], deck[j]] = [deck[j], deck[i]];
 	}
 }
 
+shuffleDeck(currentDeck);
+var lastCard: Card = currentDeck[0];
+
 export default function HigherOrLower() {
-	shuffleDeck(currentDeck);
+	const [seed, setSeed] = useState(1);
+	const reset = () => {
+		setSeed(Math.random());
+	};
 	console.log(currentDeck[0]);
+	// TODO: render the firstCardView only if deck.length < 52
+	// later: maybe use multiple return statements to render multiple views, idk if that's possible and/or good practice
 	return (
 		<ThemedView style={styles.default}>
-			<Button title="Higher" onPress={() => console.log('Higher')} />
+			<CardView key={seed + 1} card={lastCard.suit + lastCard.rank} small />
+			<Button title="Higher" onPress={() => reset()} />
 			<Button title="Lower" onPress={() => console.log('Lower')} />
-			<CardView card={currentDeck[0].suit + currentDeck[0].rank} />
+			<CardView key={seed} card={currentDeck[0].suit + currentDeck[0].rank} />
 			<Button title="Shuffle" onPress={() => shuffleDeck(currentDeck)} />
 		</ThemedView>
 	);

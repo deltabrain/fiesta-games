@@ -1,4 +1,5 @@
 import { Image } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const cardImages: Record<string, any> = {
 	SpadesAce: require('@/assets/images/cards/SpadesAce.png'),
@@ -67,6 +68,20 @@ const cardImages: Record<string, any> = {
 	ClubsKing: require('@/assets/images/cards/ClubsKing.png'),
 };
 
-export function CardView({ card }: { card: string }) {
-	return <Image source={cardImages[card]} style={{ width: 320, height: 464 }} />;
+export function CardView({ card, small }: { card: string; small?: boolean }) {
+	return <Image source={cardImages[card]} style={small ? { ...styles.small } : { ...styles.default }} />;
 }
+
+const styles = StyleSheet.create({
+	default: {
+		width: 320,
+		height: 464,
+		borderRadius: 16,
+	},
+	small: {
+		width: 80,
+		height: 116,
+		borderRadius: 4,
+		// TODO: place this on the left or something
+	},
+});
