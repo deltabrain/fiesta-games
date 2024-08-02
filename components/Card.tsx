@@ -77,11 +77,15 @@ const styles = StyleSheet.create({
 		width: 320,
 		height: 464,
 		borderRadius: 16,
+		marginLeft: 25,
 	},
 	small: {
 		width: 80,
 		height: 116,
+		margin: 25,
 		borderRadius: 4,
 		// TODO: place this on the left or something
+		justifyContent: 'flex-start',
+		flexDirection: 'column',
 	},
 });
