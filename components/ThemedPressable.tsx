@@ -1,17 +1,16 @@
-import { type PressableProps, StyleSheet, Pressable } from 'react-native';
+import { type PressableProps, Pressable } from 'react-native';
 
 import { useThemeColor } from '@/hooks/useThemeColor';
 
 export type ThemedPressableProps = PressableProps & {
+	style?: any;
 	lightColor?: string;
 	darkColor?: string;
 	type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link';
 };
 
 export function ThemedPressable({ style, lightColor, darkColor, type = 'default', ...rest }: ThemedPressableProps) {
-	const color = useThemeColor({ light: lightColor, dark: darkColor }, 'button');
+	const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'button');
 
-	return <Pressable style={[{ color }, style]} {...rest} />;
+	return <Pressable style={[{ backgroundColor }, style]} {...rest} />;
 }
-
-const styles = StyleSheet.create({});

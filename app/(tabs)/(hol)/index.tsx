@@ -1,8 +1,8 @@
 import { CardView } from '@/components/Card';
 import { ThemedView } from '@/components/ThemedView';
-import { Text, Pressable, StyleSheet, View } from 'react-native';
+import { ThemedPressable } from '@/components/ThemedPressable';
+import { Text, Pressable, StyleSheet } from 'react-native';
 import { useState } from 'react';
-import { Colors } from '@/constants/Colors';
 
 enum Suit {
 	Spades = 'Spades',
@@ -60,9 +60,9 @@ export default function HigherOrLower() {
 			<CardView key={seed + 1} card={lastCard.suit + lastCard.rank} small />
 			<CardView key={seed} card={currentDeck[0].suit + currentDeck[0].rank} />
 			<ThemedView style={styles.buttonContainer}>
-				<Pressable style={styles.button} onPress={() => reset()}>
+				<ThemedPressable style={styles.button} onPress={() => reset()}>
 					<Text style={styles.text}>Higher</Text>
-				</Pressable>
+				</ThemedPressable>
 				<Pressable style={styles.button} onPress={() => console.log('Lower')}>
 					<Text style={styles.text}>Lower</Text>
 				</Pressable>
