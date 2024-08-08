@@ -1,7 +1,8 @@
 import { CardView } from '@/components/Card';
 import { ThemedView } from '@/components/ThemedView';
 import { ThemedPressable } from '@/components/ThemedPressable';
-import { Text, Pressable, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
+
 import { useState } from 'react';
 
 enum Suit {
