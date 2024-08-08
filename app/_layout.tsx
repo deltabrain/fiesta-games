@@ -2,6 +2,8 @@ import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Tabs } from 'expo-router';
 import { StyleSheet } from 'react-native';
 
+// TODO: add button to toggle fullscreen mode, hide tab bar on fullscreen mode
+
 export default function TabLayout() {
 	return (
 		<Tabs screenOptions={{ tabBarStyle: styles.tabBar, headerShown: false }} backBehavior="history">

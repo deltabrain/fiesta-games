@@ -72,20 +72,20 @@ export function CardView({ card, small }: { card: string; small?: boolean }) {
 	return <Image source={cardImages[card]} style={small ? { ...styles.small } : { ...styles.default }} />;
 }
 
+// TODO: make the dimensions dynamic
 const styles = StyleSheet.create({
 	default: {
 		width: 320,
-		height: 464,
+		height: '60%',
 		borderRadius: 16,
-		marginLeft: 25,
 	},
 	small: {
 		width: 80,
 		height: 116,
 		margin: 25,
-		borderRadius: 4,
+		borderRadius: 6,
 		// TODO: place this on the left or something
-		justifyContent: 'flex-start',
+		alignSelf: 'flex-start',
 		flexDirection: 'column',
 	},
 });

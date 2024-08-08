@@ -50,13 +50,13 @@ var lastCard: Card = currentDeck[0];
 
 export default function HigherOrLower() {
 	const [seed, setSeed] = useState(1);
-	// later: use this to reset the deck when it's empty
+	// later: use this to reset the deck when it's empty, remove eslint disable
+	// eslint-disable-next-line @typescript-eslint/no-unused-vars
 	const reset = () => {
 		setSeed(Math.random());
 	};
 	console.log(currentDeck[0]);
 	// TODO: render the firstCardView only if deck.length < 52
-	// later: maybe use multiple return statements to render multiple views, idk if that's possible and/or good practice
 	return (
 		<ThemedView style={styles.default}>
 			<CardView key={seed + 1} card={lastCard.suit + lastCard.rank} small />
@@ -82,6 +82,8 @@ export default function HigherOrLower() {
 const styles = StyleSheet.create({
 	default: {
 		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 	text: {
 		fontSize: 20,
