@@ -60,12 +60,18 @@ export default function HigherOrLower() {
 			<CardView key={seed + 1} card={lastCard.suit + lastCard.rank} small />
 			<CardView key={seed} card={currentDeck[0].suit + currentDeck[0].rank} />
 			<ThemedView style={styles.buttonContainer}>
-				<ThemedPressable style={styles.button} onPress={() => reset()}>
-					<Text style={styles.text}>Higher</Text>
-				</ThemedPressable>
-				<Pressable style={styles.button} onPress={() => console.log('Lower')}>
-					<Text style={styles.text}>Lower</Text>
-				</Pressable>
+				<ThemedPressable
+					contentType="text"
+					content="Higher"
+					style={styles.button}
+					onPress={() => console.log('Higher')}
+				/>
+				<ThemedPressable
+					contentType="text"
+					content="Lower"
+					style={styles.button}
+					onPress={() => console.log('Lower')}
+				/>
 			</ThemedView>
 		</ThemedView>
 	);
@@ -84,12 +90,14 @@ const styles = StyleSheet.create({
 		display: 'flex',
 		flex: 1,
 		flexDirection: 'row',
-		justifyContent: 'space-between',
+		justifyContent: 'space-around',
+		width: '100%',
 	},
 	button: {
 		padding: 10,
 		margin: 10,
+		marginTop: 20,
 		height: 50,
-		width: 150,
+		width: '45%',
 	},
 });
