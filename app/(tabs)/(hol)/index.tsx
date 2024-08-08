@@ -50,6 +50,7 @@ var lastCard: Card = currentDeck[0];
 
 export default function HigherOrLower() {
 	const [seed, setSeed] = useState(1);
+	// later: use this to reset the deck when it's empty
 	const reset = () => {
 		setSeed(Math.random());
 	};
