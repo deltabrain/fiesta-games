@@ -17,6 +17,7 @@ export const Colors = {
 		buttonBackground: '#0a7ea4',
 		buttonBorder: '#0b9eb4',
 		buttonText: '#dfdfdf',
+		barBackground: '#efefef',
 	},
 	dark: {
 		text: '#ecedee',
@@ -28,5 +29,6 @@ export const Colors = {
 		buttonBackground: '#0a7ea4',
 		buttonBorder: '#0b9eb4',
 		buttonText: '#dfdfdf',
+		barBackground: '#1c1f21',
 	},
 };
