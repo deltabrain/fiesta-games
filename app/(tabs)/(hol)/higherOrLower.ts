@@ -78,7 +78,7 @@ function updateDeck(slice: boolean): void {
 	remainingCards = currentDeck.length - 1;
 }
 
-//TODO: add red or black part of the game
+//TODO!: add red or black part of the game
 export async function checkWin(action: Action): Promise<boolean> {
 	var win =
 		action === Action.Higher
