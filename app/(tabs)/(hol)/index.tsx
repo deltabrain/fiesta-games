@@ -1,78 +1,57 @@
-import { CardView } from '@/components/Card';
-import { ThemedView } from '@/components/ThemedView';
+import { CardView } from '@/components/CardView';
 import { ThemedPressable } from '@/components/ThemedPressable';
-import { StyleSheet } from 'react-native';
-
+import { ThemedView } from '@/components/ThemedView';
+import { Modal, StyleSheet } from 'react-native';
 import { useState } from 'react';
+import * as hol from './higherOrLower';
+import { ThemedText } from '@/components/ThemedText';
 
-enum Suit {
-	Spades = 'Spades',
-	Hearts = 'Hearts',
-	Diamonds = 'Diamonds',
-	Clubs = 'Clubs',
-}
-
-enum Rank {
-	Two = 'Two',
-	Three = 'Three',
-	Four = 'Four',
-	Five = 'Five',
-	Six = 'Six',
-	Seven = 'Seven',
-	Eight = 'Eight',
-	Nine = 'Nine',
-	Ten = 'Ten',
-	Jack = 'Jack',
-	Queen = 'Queen',
-	King = 'King',
-	Ace = 'Ace',
-}
-
-interface Card {
-	suit: Suit;
-	rank: Rank;
-}
-
-const fullDeck: Card[] = Object.values(Suit).flatMap((suit) => Object.values(Rank).map((rank) => ({ suit, rank })));
-
-var currentDeck: Card[] = fullDeck;
-
-function shuffleDeck(deck: Card[]) {
-	lastCard = deck[0];
-	for (let i = deck.length - 1; i > 0; i--) {
-		const j = Math.floor(Math.random() * (i + 1));
-		[deck[i], deck[j]] = [deck[j], deck[i]];
-	}
-}
-
-shuffleDeck(currentDeck);
-var lastCard: Card = currentDeck[0];
+hol.initDeck();
 
 export default function HigherOrLower() {
-	const [seed, setSeed] = useState(1);
-	// later: use this to reset the deck when it's empty, remove eslint disable
-	// eslint-disable-next-line @typescript-eslint/no-unused-vars
-	const reset = () => {
-		setSeed(Math.random());
-	};
-	console.log(currentDeck[0]);
-	// TODO: render the firstCardView only if deck.length < 52
+	function updateCards() {
+		console.log('updating cards');
+		setCurrentCardName(hol.getCurrentCardName());
+		setLastCardName(hol.getLastCardName());
+		setScore(hol.getScore());
+		setRemainingCards(hol.getRemainingCards());
+	}
+	const [currentCardName, setCurrentCardName] = useState(hol.getCurrentCardName());
+	const [lastCardName, setLastCardName] = useState(hol.getLastCardName());
+	const [score, setScore] = useState(hol.getScore());
+	const [remainingCards, setRemainingCards] = useState(hol.getRemainingCards());
+	const [showScorePopup, setShowScorePopup] = useState(false);
 	return (
 		<ThemedView style={styles.default}>
-			<CardView key={seed + 1} card={lastCard.suit + lastCard.rank} small />
-			<CardView key={seed} card={currentDeck[0].suit + currentDeck[0].rank} />
+			<ThemedView style={styles.topContainer}>
+				<CardView visible={true} small card={lastCardName} />
+				<ThemedView style={styles.textContainer}>
+					<ThemedText style={styles.text}>Streak: {score}</ThemedText>
+					<ThemedText style={styles.text}>Remaining Cards: {remainingCards}</ThemedText>
+				</ThemedView>
+			</ThemedView>
+			<CardView card={currentCardName} />
 			<ThemedView style={styles.buttonContainer}>
+				<Modal visible={setTimeout(() => setShowScorePopup(false), 1000) && showScorePopup} />
 				<ThemedPressable
 					contentType="text"
 					content="Higher"
 					style={styles.button}
-					onPress={() => console.log('Higher')}
+					onPress={async () => {
+						if (!(await hol.checkWin(hol.Action.Higher))) {
+							setShowScorePopup(true);
+						}
+						updateCards();
+					}}
 				/>
 				<ThemedPressable
 					contentType="text"
 					content="Lower"
 					style={styles.button}
-					onPress={() => console.log('Lower')}
+					onPress={async () => {
+						await hol.checkWin(hol.Action.Lower);
+						updateCards();
+					}}
 				/>
 			</ThemedView>
 		</ThemedView>
@@ -89,6 +68,7 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		fontWeight: 'bold',
 		color: 'white',
+		textAlign: 'center',
 	},
 	buttonContainer: {
 		display: 'flex',
@@ -103,5 +83,19 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		height: 50,
 		width: '45%',
+	},
+	topContainer: {
+		marginTop: 10,
+		marginBottom: 30,
+		width: '100%',
+		display: 'flex',
+		flexDirection: 'row',
+		justifyContent: 'space-evenly',
+		alignItems: 'center',
+	},
+	textContainer: {
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
 });
