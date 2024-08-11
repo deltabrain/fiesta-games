@@ -1,30 +1,51 @@
 import { CardView } from '@/components/CardView';
 import { ThemedPressable } from '@/components/ThemedPressable';
-import { ThemedView } from '@/components/ThemedView';
-import { Modal, StyleSheet } from 'react-native';
-import { useState } from 'react';
-import * as hol from './higherOrLower';
 import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
+import { useState } from 'react';
+import { Modal, StyleSheet } from 'react-native';
+import * as hol from './higherOrLower';
 
 hol.initDeck();
 
 export default function HigherOrLower() {
+	// this rerenders the view if necessary
 	function updateCards() {
-		console.log('updating cards');
 		setCurrentCardName(hol.getCurrentCardName());
 		setLastCardName(hol.getLastCardName());
 		setScore(hol.getScore());
 		setRemainingCards(hol.getRemainingCards());
 	}
+
+	function wrongGuess() {
+		console.log('wrongGuess');
+		setLeftButtonText(hol.SuitAction.Red);
+		setRightButtonText(hol.SuitAction.Black);
+		setFirstRound(true);
+	}
+
+	function correctGuess() {
+		console.log('correctGuess');
+		setLeftButtonText(hol.RankAction.Higher);
+		setRightButtonText(hol.RankAction.Lower);
+		setFirstRound(false);
+	}
+
+	const [firstRound, setFirstRound] = useState(true);
 	const [currentCardName, setCurrentCardName] = useState(hol.getCurrentCardName());
 	const [lastCardName, setLastCardName] = useState(hol.getLastCardName());
 	const [score, setScore] = useState(hol.getScore());
 	const [remainingCards, setRemainingCards] = useState(hol.getRemainingCards());
 	const [showScorePopup, setShowScorePopup] = useState(false);
+	const [leftButtonText, setLeftButtonText]: [hol.RankAction | hol.SuitAction, any] = useState(hol.SuitAction.Red);
+	const [rightButtonText, setRightButtonText]: [hol.RankAction | hol.SuitAction, any] = useState(
+		hol.SuitAction.Black,
+	);
+
 	return (
 		<ThemedView style={styles.default}>
 			<ThemedView style={styles.topContainer}>
-				<CardView visible={true} small card={lastCardName} />
+				<CardView small card={lastCardName} />
 				<ThemedView style={styles.textContainer}>
 					<ThemedText style={styles.text}>Streak: {score}</ThemedText>
 					<ThemedText style={styles.text}>Remaining Cards: {remainingCards}</ThemedText>
@@ -32,24 +53,32 @@ export default function HigherOrLower() {
 			</ThemedView>
 			<CardView card={currentCardName} />
 			<ThemedView style={styles.buttonContainer}>
-				<Modal visible={setTimeout(() => setShowScorePopup(false), 1000) && showScorePopup} />
+				<Modal visible={setTimeout(() => setShowScorePopup(false), 0) && showScorePopup} />
 				<ThemedPressable
 					contentType="text"
-					content="Higher"
+					content={leftButtonText}
 					style={styles.button}
 					onPress={async () => {
-						if (!(await hol.checkWin(hol.Action.Higher))) {
-							setShowScorePopup(true);
+						var action = firstRound ? hol.SuitAction.Red : hol.RankAction.Higher;
+						if (!(await hol.checkWin(action))) {
+							wrongGuess();
+						} else {
+							correctGuess();
 						}
 						updateCards();
 					}}
 				/>
 				<ThemedPressable
 					contentType="text"
-					content="Lower"
+					content={rightButtonText}
 					style={styles.button}
 					onPress={async () => {
-						await hol.checkWin(hol.Action.Lower);
+						var action = firstRound ? hol.SuitAction.Black : hol.RankAction.Lower;
+						if (!(await hol.checkWin(action))) {
+							wrongGuess();
+						} else {
+							correctGuess();
+						}
 						updateCards();
 					}}
 				/>

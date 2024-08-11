@@ -1,6 +1,11 @@
-export enum Action {
+export enum RankAction {
 	Higher = 'Higher',
 	Lower = 'Lower',
+}
+
+export enum SuitAction {
+	Red = 'Red',
+	Black = 'Black',
 }
 
 enum Suit {
@@ -58,8 +63,8 @@ function rankToValue(rank: Rank) {
 	}[rank];
 }
 
+//TODO: rewrite this function
 function updateDeck(slice: boolean): void {
-	//KNAUPEREI: first if statement is bs
 	if (!slice) {
 		lastCard = currentDeck[0];
 		currentCard = currentDeck[0];
@@ -77,24 +82,36 @@ function updateDeck(slice: boolean): void {
 	nextCard = currentDeck[1];
 	remainingCards = currentDeck.length - 1;
 }
+export async function checkWin(action: RankAction | SuitAction): Promise<boolean> {
+	var win = false;
 
-//TODO!: add red or black part of the game
-export async function checkWin(action: Action): Promise<boolean> {
-	var win =
-		action === Action.Higher
-			? rankToValue(nextCard.rank) >= rankToValue(currentCard.rank)
-			: rankToValue(nextCard.rank) <= rankToValue(currentCard.rank);
-	if (!win) {
-		updateDeck(true);
+	// evaluate win in rank rounds
+	if (action === 'Higher' || action === 'Lower') {
+		win =
+			action === RankAction.Higher
+				? rankToValue(nextCard.rank) >= rankToValue(currentCard.rank)
+				: rankToValue(nextCard.rank) <= rankToValue(currentCard.rank);
 	}
-	score = win ? (score += 1) : (score = 0);
-	updateDeck(true);
-	console.log(currentDeck.length);
 
+	// evaluate win in suit rounds (first round)
+	if (action === 'Red' || action === 'Black') {
+		win =
+			action === SuitAction.Red
+				? nextCard.suit === 'Hearts' || nextCard.suit === 'Diamonds'
+				: nextCard.suit === 'Spades' || nextCard.suit === 'Clubs';
+	}
+
+	if (!win) {
+		score = 0;
+	} else {
+		score++;
+	}
+
+	updateDeck(true);
 	return win;
 }
 
-export function shuffleDeck(deck: Card[]) {
+export function shuffleDeck(deck: Card[]): void {
 	for (let i = deck.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1));
 		[deck[i], deck[j]] = [deck[j], deck[i]];
