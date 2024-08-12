@@ -8,8 +8,6 @@ import * as hol from './higherOrLower';
 
 hol.initDeck();
 
-//TODO: preload images
-
 export default function HigherOrLower() {
 	// this rerenders the view if necessary
 	function updateCards() {
@@ -20,14 +18,12 @@ export default function HigherOrLower() {
 	}
 
 	function wrongGuess() {
-		console.log('wrongGuess');
 		setLeftButtonText(hol.SuitAction.Red);
 		setRightButtonText(hol.SuitAction.Black);
 		setFirstRound(true);
 	}
 
 	function correctGuess() {
-		console.log('correctGuess');
 		setLeftButtonText(hol.RankAction.Higher);
 		setRightButtonText(hol.RankAction.Lower);
 		setFirstRound(false);
@@ -50,6 +46,7 @@ export default function HigherOrLower() {
 				<CardView small card={lastCardName} />
 				<ThemedView style={styles.textContainer}>
 					<ThemedText style={styles.text}>Streak: {score}</ThemedText>
+					{/* this is for debugging purposes only */}
 					<ThemedText style={styles.text}>Remaining Cards: {remainingCards}</ThemedText>
 				</ThemedView>
 			</ThemedView>

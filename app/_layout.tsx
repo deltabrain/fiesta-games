@@ -7,7 +7,7 @@ import { StyleSheet } from 'react-native';
 // TODO: add setting to toggle fullscreen mode, hide tab bar on fullscreen mode
 
 export default function TabLayout() {
-	const barBackgroundColor = useThemeColor({}, 'barBackground');
+	const barBackgroundColor = useThemeColor('barBackground');
 	return (
 		<ThemedView style={styles.view}>
 			<Tabs

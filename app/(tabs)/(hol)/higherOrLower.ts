@@ -37,11 +37,11 @@ interface Card {
 }
 
 const fullDeck: Card[] = Object.values(Suit).flatMap((suit) => Object.values(Rank).map((rank) => ({ suit, rank })));
-var currentDeck: Card[];
+var isFirstDeck: boolean = true;
+var deck: Card[];
 var lastCard: Card;
 var currentCard: Card;
 var nextCard: Card;
-
 var score: number = 0;
 var remainingCards: number = 0;
 
@@ -63,25 +63,22 @@ function rankToValue(rank: Rank) {
 	}[rank];
 }
 
-//TODO: rewrite this function
 function updateDeck(slice: boolean): void {
-	if (!slice) {
-		lastCard = currentDeck[0];
-		currentCard = currentDeck[0];
-		nextCard = currentDeck[1];
-		return;
-	}
-	if (currentDeck.length <= 2) {
+	if (deck.length <= 2) {
 		initDeck();
 		return;
 	}
 
-	lastCard = currentDeck[0];
-	currentDeck = currentDeck.slice(1);
-	currentCard = currentDeck[0];
-	nextCard = currentDeck[1];
-	remainingCards = currentDeck.length - 1;
+	if (slice) {
+		lastCard = deck[0];
+		deck = deck.slice(1);
+	}
+
+	currentCard = deck[0];
+	nextCard = deck[1];
+	remainingCards = deck.length - 1;
 }
+
 export async function checkWin(action: RankAction | SuitAction): Promise<boolean> {
 	var win = false;
 
@@ -111,26 +108,28 @@ export async function checkWin(action: RankAction | SuitAction): Promise<boolean
 	return win;
 }
 
-export function shuffleDeck(deck: Card[]): void {
+export function shuffleDeck(first: boolean): void {
 	for (let i = deck.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1));
 		[deck[i], deck[j]] = [deck[j], deck[i]];
 	}
+	if (first) {
+		lastCard = deck[0];
+		isFirstDeck = false;
+	}
 }
 
 export function initDeck(): void {
-	currentDeck = fullDeck;
-	shuffleDeck(currentDeck);
+	if (!isFirstDeck) {
+		lastCard = deck[0];
+	}
+	deck = fullDeck;
+	if (isFirstDeck) {
+		lastCard = deck[0];
+	}
+	shuffleDeck(isFirstDeck);
 	updateDeck(false);
-	remainingCards = currentDeck.length - 1;
-}
-
-export function getCurrentCard(): Card {
-	return currentCard;
-}
-
-export function getLastCard(): Card {
-	return lastCard;
+	remainingCards = deck.length - 1;
 }
 
 export function getCurrentCardName(): string {

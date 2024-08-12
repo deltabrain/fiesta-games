@@ -1,6 +1,8 @@
 import { Image } from 'react-native';
 import { StyleSheet } from 'react-native';
 
+// TODO?: preload images
+
 const cardImages: Record<string, any> = {
 	SpadesAce: require('@/assets/images/cards/SpadesAce.png'),
 	HeartsAce: require('@/assets/images/cards/HeartsAce.png'),
@@ -72,12 +74,12 @@ export function CardView({ card, small, visible = true }: { card: string; small?
 	return (
 		<Image
 			source={cardImages[card]}
-			style={[small ? { ...styles.small } : { ...styles.default }, visible ? {} : { opacity: 0 }]}
+			style={[small ? { ...styles.small } : { ...styles.default }, visible ? { opacity: 1 } : { opacity: 0 }]}
 		/>
 	);
 }
 
-// TODO: make the dimensions dynamic
+// TODO: make the dimensions dynamic to preserve aspect ratio
 const styles = StyleSheet.create({
 	default: {
 		width: 320,
