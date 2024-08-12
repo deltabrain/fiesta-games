@@ -8,6 +8,8 @@ import * as hol from './higherOrLower';
 
 hol.initDeck();
 
+//TODO: preload images
+
 export default function HigherOrLower() {
 	// this rerenders the view if necessary
 	function updateCards() {
@@ -53,7 +55,9 @@ export default function HigherOrLower() {
 			</ThemedView>
 			<CardView card={currentCardName} />
 			<ThemedView style={styles.buttonContainer}>
-				<Modal visible={setTimeout(() => setShowScorePopup(false), 0) && showScorePopup} />
+				<Modal visible={setTimeout(() => setShowScorePopup(false), 0) && showScorePopup}>
+					<ThemedText style={styles.text}>Score: {score}</ThemedText>
+				</Modal>
 				<ThemedPressable
 					contentType="text"
 					content={leftButtonText}

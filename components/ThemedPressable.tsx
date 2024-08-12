@@ -6,8 +6,6 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 
 export type ThemedPressableProps = PressableProps & {
 	style?: any;
-	lightColor?: string;
-	darkColor?: string;
 	type?: 'default' | 'round';
 	contentType?: 'text';
 	content?: string;
@@ -15,8 +13,6 @@ export type ThemedPressableProps = PressableProps & {
 
 export function ThemedPressable({
 	style,
-	lightColor,
-	darkColor,
 	type = 'default',
 	contentType = 'text',
 	content,
@@ -24,17 +20,17 @@ export function ThemedPressable({
 }: ThemedPressableProps) {
 	// unfortunately, we can't use useThemeColor outside of a function, so we can't create
 	// the styles on the top level of this component, if you find a workaround, go ahead lol
-	const backgroundColor = useThemeColor({ light: lightColor, dark: darkColor }, 'buttonBackground');
-	const borderColor = useThemeColor({ light: lightColor, dark: darkColor }, 'buttonBorder');
-	const textColor = useThemeColor({ light: lightColor, dark: darkColor }, 'buttonText');
+	const backgroundColor = useThemeColor('buttonBackground');
+	const borderColor = useThemeColor('buttonBorder');
+	const textColor = useThemeColor('buttonText');
 
 	var usedStyle = type === 'round' ? styles.round : styles.default;
+	// TODO?: implement other contentTypes
 	var child: Text | any;
 
 	if (contentType === 'text') {
 		child = <Text style={[styles.text, { color: textColor }]}>{content}</Text>;
 	}
-	// TODO?: implement other contentTypes
 	return (
 		<Pressable style={[usedStyle, { backgroundColor, borderColor }, style]} {...rest}>
 			{child}
