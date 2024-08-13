@@ -2,7 +2,7 @@
 	"expo": {
 		"name": "Fiesta-Trinkspiele",
 		"slug": "Fiesta-Trinkspiele",
-		"version": "0.0.1-alpha",
+		"version": "0.1-alpha",
 		"orientation": "portrait",
 		"icon": "./assets/images/icon.png",
 		"scheme": "myapp",
