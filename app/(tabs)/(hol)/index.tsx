@@ -54,7 +54,7 @@ export default function HigherOrLower() {
 					<ThemedText style={styles.text}>Score: {score}</ThemedText>
 				</Modal>
 				<ThemedPressable
-					contentType="text"
+					contentType='text'
 					content={leftButtonText}
 					style={styles.button}
 					onPress={async () => {
@@ -68,7 +68,7 @@ export default function HigherOrLower() {
 					}}
 				/>
 				<ThemedPressable
-					contentType="text"
+					contentType='text'
 					content={rightButtonText}
 					style={styles.button}
 					onPress={async () => {

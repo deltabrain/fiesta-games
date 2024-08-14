@@ -15,32 +15,32 @@ export default function TabLayout() {
 					tabBarStyle: { backgroundColor: barBackgroundColor },
 					headerShown: false,
 				}}
-				backBehavior="history"
+				backBehavior='history'
 			>
 				<Tabs.Screen
-					name="(tabs)/(home)"
+					name='(tabs)/(home)'
 					options={{
 						title: 'Home',
 						tabBarIcon(props) {
-							return <TabBarIcon {...props} name="home" />;
+							return <TabBarIcon {...props} name='home' />;
 						},
 					}}
 				/>
 				<Tabs.Screen
-					name="(tabs)/(teufeln)"
+					name='(tabs)/(teufeln)'
 					options={{
 						title: 'Teufeln',
 						tabBarIcon(props) {
-							return <TabBarIcon {...props} name="dice" />;
+							return <TabBarIcon {...props} name='dice' />;
 						},
 					}}
 				/>
 				<Tabs.Screen
-					name="(tabs)/(hol)"
+					name='(tabs)/(hol)'
 					options={{
 						title: 'Higher or Lower',
 						tabBarIcon(props) {
-							return <TabBarIcon {...props} name="diamond" />;
+							return <TabBarIcon {...props} name='diamond' />;
 						},
 					}}
 				/>
