@@ -1,9 +1,9 @@
-export enum RankAction {
+export enum RankGuess {
 	Higher = 'Higher',
 	Lower = 'Lower',
 }
 
-export enum SuitAction {
+export enum SuitGuess {
 	Red = 'Red',
 	Black = 'Black',
 }
@@ -45,7 +45,7 @@ var nextCard: Card;
 var score: number = 0;
 var remainingCards: number = 0;
 
-function rankToValue(rank: Rank) {
+function rankToValue(rank: Rank): number {
 	return {
 		Two: 0,
 		Three: 1,
@@ -79,21 +79,21 @@ function updateDeck(slice: boolean): void {
 	remainingCards = deck.length - 1;
 }
 
-export async function checkWin(action: RankAction | SuitAction): Promise<boolean> {
+export async function checkWin(guess: RankGuess | SuitGuess): Promise<boolean> {
 	var win = false;
 
 	// evaluate win in rank rounds
-	if (action === 'Higher' || action === 'Lower') {
+	if (guess === 'Higher' || guess === 'Lower') {
 		win =
-			action === RankAction.Higher
+			guess === RankGuess.Higher
 				? rankToValue(nextCard.rank) >= rankToValue(currentCard.rank)
 				: rankToValue(nextCard.rank) <= rankToValue(currentCard.rank);
 	}
 
 	// evaluate win in suit rounds (first round)
-	if (action === 'Red' || action === 'Black') {
+	if (guess === 'Red' || guess === 'Black') {
 		win =
-			action === SuitAction.Red
+			guess === SuitGuess.Red
 				? nextCard.suit === 'Hearts' || nextCard.suit === 'Diamonds'
 				: nextCard.suit === 'Spades' || nextCard.suit === 'Clubs';
 	}

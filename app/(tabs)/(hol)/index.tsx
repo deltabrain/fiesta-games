@@ -18,14 +18,14 @@ export default function HigherOrLower() {
 	}
 
 	function wrongGuess() {
-		setLeftButtonText(hol.SuitAction.Red);
-		setRightButtonText(hol.SuitAction.Black);
+		setLeftButtonText(hol.SuitGuess.Red);
+		setRightButtonText(hol.SuitGuess.Black);
 		setFirstRound(true);
 	}
 
 	function correctGuess() {
-		setLeftButtonText(hol.RankAction.Higher);
-		setRightButtonText(hol.RankAction.Lower);
+		setLeftButtonText(hol.RankGuess.Higher);
+		setRightButtonText(hol.RankGuess.Lower);
 		setFirstRound(false);
 	}
 
@@ -35,10 +35,8 @@ export default function HigherOrLower() {
 	const [score, setScore] = useState(hol.getScore());
 	const [remainingCards, setRemainingCards] = useState(hol.getRemainingCards());
 	const [showScorePopup, setShowScorePopup] = useState(false);
-	const [leftButtonText, setLeftButtonText]: [hol.RankAction | hol.SuitAction, any] = useState(hol.SuitAction.Red);
-	const [rightButtonText, setRightButtonText]: [hol.RankAction | hol.SuitAction, any] = useState(
-		hol.SuitAction.Black,
-	);
+	const [leftButtonText, setLeftButtonText]: [hol.RankGuess | hol.SuitGuess, any] = useState(hol.SuitGuess.Red);
+	const [rightButtonText, setRightButtonText]: [hol.RankGuess | hol.SuitGuess, any] = useState(hol.SuitGuess.Black);
 
 	return (
 		<ThemedView style={styles.default}>
@@ -60,7 +58,7 @@ export default function HigherOrLower() {
 					content={leftButtonText}
 					style={styles.button}
 					onPress={async () => {
-						var action = firstRound ? hol.SuitAction.Red : hol.RankAction.Higher;
+						var action = firstRound ? hol.SuitGuess.Red : hol.RankGuess.Higher;
 						if (!(await hol.checkWin(action))) {
 							wrongGuess();
 						} else {
@@ -74,7 +72,7 @@ export default function HigherOrLower() {
 					content={rightButtonText}
 					style={styles.button}
 					onPress={async () => {
-						var action = firstRound ? hol.SuitAction.Black : hol.RankAction.Lower;
+						var action = firstRound ? hol.SuitGuess.Black : hol.RankGuess.Lower;
 						if (!(await hol.checkWin(action))) {
 							wrongGuess();
 						} else {
