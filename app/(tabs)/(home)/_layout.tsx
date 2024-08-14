@@ -1,5 +1,5 @@
 import { Stack } from 'expo-router';
 
-export default function TeufelnLayout() {
+export default function HomeLayout() {
 	return <Stack screenOptions={{ headerShown: false, statusBarHidden: true }} />;
 }
