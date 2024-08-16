@@ -1,8 +1,7 @@
 import { type PressableProps, Pressable, Text } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { useThemeColor } from '@/hooks/useThemeColor';
-//TODO: look into alternatives to Ionicons
-import { Ionicons } from '@expo/vector-icons';
+import { ButtonIcon } from './ButtonIcon';
 import React, { ReactNode } from 'react';
 
 export type ThemedPressableProps = PressableProps & {
@@ -26,7 +25,6 @@ export function ThemedPressable({
 	const textColor = useThemeColor('buttonText');
 
 	var usedStyle = type === 'round' ? styles.round : styles.default;
-	// TODO?: implement other contentTypes
 	var child: ReactNode;
 
 	if (contentType === 'text') {
@@ -34,7 +32,7 @@ export function ThemedPressable({
 	}
 
 	if (contentType === 'icon') {
-		child = <Ionicons name={content} />;
+		child = <ButtonIcon name={content} />;
 	}
 	return (
 		<Pressable style={[usedStyle, { backgroundColor, borderColor }, style]} {...rest}>

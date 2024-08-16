@@ -1,14 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet } from 'react-native';
+import { type IconProps } from '@expo/vector-icons/build/createIconSet';
+import { type ComponentProps } from 'react';
 
-export type ButtonIconProps = {
-	style?: any;
-	//TODO: use IconProps maybe for better typing
-	name: any;
-};
-
-export function ButtonIcon({ style, name, ...rest }: ButtonIconProps) {
-	return <Ionicons style={styles.default} name={name} size={24} color='red' {...rest} />;
+export function ButtonIcon({ style, ...rest }: IconProps<ComponentProps<typeof Ionicons>['name']>) {
+	return <Ionicons size={28} style={[styles.default, style]} {...rest} />;
 }
 
 const styles = StyleSheet.create({
