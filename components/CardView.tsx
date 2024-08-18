@@ -70,11 +70,24 @@ const cardImages: Record<string, any> = {
 	ClubsKing: require('@/assets/images/cards/ClubsKing.png'),
 };
 
-export function CardView({ card, small, visible = true }: { card: string; small?: boolean; visible?: boolean }) {
+export function CardView({
+	card,
+	small,
+	visible = true,
+	style,
+}: {
+	card: string;
+	small?: boolean;
+	visible?: boolean;
+	style?: any;
+}) {
 	return (
 		<Image
 			source={cardImages[card]}
-			style={[small ? { ...styles.small } : { ...styles.default }, visible ? { opacity: 1 } : { opacity: 0 }]}
+			style={[
+				small ? { ...styles.small, ...style } : { ...styles.default, ...style },
+				visible ? { opacity: 1 } : { opacity: 0 },
+			]}
 		/>
 	);
 }
@@ -83,12 +96,11 @@ export function CardView({ card, small, visible = true }: { card: string; small?
 const styles = StyleSheet.create({
 	default: {
 		width: 320,
-		height: '60%',
 		borderRadius: 16,
 	},
 	small: {
 		width: 80,
-		height: 116,
+		height: 112,
 		borderRadius: 6,
 		alignSelf: 'flex-start',
 		flexDirection: 'column',

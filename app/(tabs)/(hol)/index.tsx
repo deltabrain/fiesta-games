@@ -48,7 +48,7 @@ export default function HigherOrLower() {
 					<ThemedText style={styles.text}>Remaining Cards: {remainingCards}</ThemedText>
 				</ThemedView>
 			</ThemedView>
-			<CardView card={currentCardName} />
+			<CardView style={styles.card} card={currentCardName} />
 			<ThemedView style={styles.buttonContainer}>
 				<Modal visible={setTimeout(() => setShowScorePopup(false), 0) && showScorePopup}>
 					<ThemedText style={styles.text}>Score: {score}</ThemedText>
@@ -88,9 +88,14 @@ export default function HigherOrLower() {
 
 const styles = StyleSheet.create({
 	default: {
+		display: 'flex',
 		flex: 1,
 		justifyContent: 'center',
 		alignItems: 'center',
+	},
+	card: {
+		display: 'flex',
+		flex: 3,
 	},
 	text: {
 		fontSize: 20,
@@ -103,6 +108,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'row',
 		justifyContent: 'space-around',
+		alignItems: 'center',
 		width: '100%',
 	},
 	button: {
@@ -113,8 +119,8 @@ const styles = StyleSheet.create({
 		width: '45%',
 	},
 	topContainer: {
-		marginTop: 10,
-		marginBottom: 30,
+		marginTop: '10%',
+		marginBottom: '10%',
 		width: '100%',
 		display: 'flex',
 		flexDirection: 'row',
