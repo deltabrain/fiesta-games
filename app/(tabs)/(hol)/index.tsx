@@ -1,7 +1,7 @@
 import { CardView } from '@/components/CardView';
-import { ThemedPressable } from '@/components/ThemedPressable';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { ThemedPressable } from '@/components/themed/ThemedPressable';
+import { ThemedText } from '@/components/themed/ThemedText';
+import { ThemedView } from '@/components/themed/ThemedView';
 import { useState } from 'react';
 import { Modal, StyleSheet } from 'react-native';
 import * as hol from './higherOrLower';

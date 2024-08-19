@@ -1,5 +1,5 @@
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { ThemedView } from '@/components/ThemedView';
+import { ThemedView } from '@/components/themed/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { Tabs } from 'expo-router';
 import { StyleSheet } from 'react-native';
