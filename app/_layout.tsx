@@ -5,11 +5,13 @@ import { Tabs } from 'expo-router';
 import { StyleSheet } from 'react-native';
 
 // TODO: add setting to toggle fullscreen mode, hide tab bar on fullscreen mode
+// TODO: wrap all of this in a Stack to set contentStyle: {backgroundColor}
 
 export default function TabLayout() {
 	const barBackgroundColor = useThemeColor('barBackground');
+	const backgroundColor = useThemeColor('background');
 	return (
-		<ThemedView style={styles.view}>
+		<ThemedView style={[styles.view, { backgroundColor: backgroundColor }]}>
 			<Tabs
 				screenOptions={{
 					tabBarStyle: { backgroundColor: barBackgroundColor },
