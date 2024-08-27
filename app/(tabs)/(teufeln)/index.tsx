@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { ThemedView } from '@/components/ThemedView';
+import { ThemedView } from '@/components/themed/ThemedView';
 
 export default function Teufeln() {
 	return (

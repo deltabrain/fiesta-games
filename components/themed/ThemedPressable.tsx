@@ -1,7 +1,7 @@
 import { type PressableProps, Pressable, Text } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { useThemeColor } from '@/hooks/useThemeColor';
-import { ButtonIcon } from './ButtonIcon';
+import { ButtonIcon } from '../ButtonIcon';
 import React, { ReactNode } from 'react';
 
 export type ThemedPressableProps = PressableProps & {

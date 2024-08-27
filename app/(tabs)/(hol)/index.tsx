@@ -1,14 +1,16 @@
 import { CardView } from '@/components/CardView';
-import { ThemedPressable } from '@/components/ThemedPressable';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
+import { ThemedPressable } from '@/components/themed/ThemedPressable';
+import { ThemedText } from '@/components/themed/ThemedText';
+import { ThemedView } from '@/components/themed/ThemedView';
 import { useState } from 'react';
 import { Modal, StyleSheet } from 'react-native';
 import * as hol from './higherOrLower';
+import { useThemeColor } from '@/hooks/useThemeColor';
 
 hol.initDeck();
 
 export default function HigherOrLower() {
+	const backgroundColor = useThemeColor('background');
 	// this rerenders the view if necessary
 	function updateCards() {
 		setCurrentCardName(hol.getCurrentCardName());
@@ -20,6 +22,7 @@ export default function HigherOrLower() {
 	function wrongGuess() {
 		setLeftButtonText(hol.SuitGuess.Red);
 		setRightButtonText(hol.SuitGuess.Black);
+		setShowScorePopup(true);
 		setFirstRound(true);
 	}
 
@@ -39,7 +42,7 @@ export default function HigherOrLower() {
 	const [rightButtonText, setRightButtonText]: [hol.RankGuess | hol.SuitGuess, any] = useState(hol.SuitGuess.Black);
 
 	return (
-		<ThemedView style={styles.default}>
+		<ThemedView style={[styles.default, { backgroundColor: backgroundColor }]}>
 			<ThemedView style={styles.topContainer}>
 				<CardView small card={lastCardName} />
 				<ThemedView style={styles.textContainer}>
@@ -50,8 +53,13 @@ export default function HigherOrLower() {
 			</ThemedView>
 			<CardView style={styles.card} card={currentCardName} />
 			<ThemedView style={styles.buttonContainer}>
-				<Modal visible={setTimeout(() => setShowScorePopup(false), 0) && showScorePopup}>
+				<Modal visible={showScorePopup} style={[{ backgroundColor: backgroundColor }]}>
 					<ThemedText style={styles.text}>Score: {score}</ThemedText>
+					<ThemedPressable
+						contentType='text'
+						content={'Close'}
+						onPress={() => setShowScorePopup(false)}
+					></ThemedPressable>
 				</Modal>
 				<ThemedPressable
 					contentType='text'
