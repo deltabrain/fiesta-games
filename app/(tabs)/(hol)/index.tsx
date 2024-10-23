@@ -9,8 +9,11 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 
 hol.initDeck();
 
+var scoreBuf = 1;
+
 export default function HigherOrLower() {
 	const backgroundColor = useThemeColor('background');
+
 	// this rerenders the view if necessary
 	function updateCards() {
 		setCurrentCardName(hol.getCurrentCardName());
@@ -20,9 +23,11 @@ export default function HigherOrLower() {
 	}
 
 	function wrongGuess() {
+		setTimeout(() => {
+			setShowScorePopup(true);
+		}, 500);
 		setLeftButtonText(hol.SuitGuess.Red);
 		setRightButtonText(hol.SuitGuess.Black);
-		setShowScorePopup(true);
 		setFirstRound(true);
 	}
 
@@ -30,6 +35,7 @@ export default function HigherOrLower() {
 		setLeftButtonText(hol.RankGuess.Higher);
 		setRightButtonText(hol.RankGuess.Lower);
 		setFirstRound(false);
+		scoreBuf = hol.getScore();
 	}
 
 	const [firstRound, setFirstRound] = useState(true);
@@ -43,6 +49,20 @@ export default function HigherOrLower() {
 
 	return (
 		<ThemedView style={[styles.default, { backgroundColor: backgroundColor }]}>
+			<Modal visible={showScorePopup} transparent={true} animationType='fade' statusBarTranslucent={true}>
+				<ThemedView style={[styles.modal, { backgroundColor: backgroundColor }]}>
+					<ThemedText style={styles.text}>Score: {scoreBuf}</ThemedText>
+					<ThemedPressable
+						contentType='text'
+						content={'Close'}
+						style={styles.button}
+						onPress={() => {
+							setShowScorePopup(false);
+							scoreBuf = 1;
+						}}
+					></ThemedPressable>
+				</ThemedView>
+			</Modal>
 			<ThemedView style={styles.topContainer}>
 				<CardView small card={lastCardName} />
 				<ThemedView style={styles.textContainer}>
@@ -52,15 +72,7 @@ export default function HigherOrLower() {
 				</ThemedView>
 			</ThemedView>
 			<CardView style={styles.card} card={currentCardName} />
-			<ThemedView style={styles.buttonContainer}>
-				<Modal visible={showScorePopup} style={[{ backgroundColor: backgroundColor }]}>
-					<ThemedText style={styles.text}>Score: {score}</ThemedText>
-					<ThemedPressable
-						contentType='text'
-						content={'Close'}
-						onPress={() => setShowScorePopup(false)}
-					></ThemedPressable>
-				</Modal>
+			<ThemedView style={[styles.buttonContainer, { backgroundColor: backgroundColor }]}>
 				<ThemedPressable
 					contentType='text'
 					content={leftButtonText}
@@ -139,5 +151,11 @@ const styles = StyleSheet.create({
 		flexDirection: 'column',
 		justifyContent: 'center',
 		alignItems: 'center',
+	},
+	modal: {
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center',
+		opacity: 0.9,
 	},
 });

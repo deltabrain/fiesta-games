@@ -42,7 +42,7 @@ var deck: Card[];
 var lastCard: Card;
 var currentCard: Card;
 var nextCard: Card;
-var score: number = 0;
+var score: number = 1;
 var remainingCards: number = 0;
 
 function rankToValue(rank: Rank): number {
@@ -99,7 +99,7 @@ export async function checkWin(guess: RankGuess | SuitGuess): Promise<boolean> {
 	}
 
 	if (!win) {
-		score = 0;
+		score = 1;
 	} else {
 		score++;
 	}
