@@ -38,6 +38,15 @@ export default function TabLayout() {
 					}}
 				/>
 				<Tabs.Screen
+					name='(tabs)/(bingo)'
+					options={{
+						title: 'Bingo',
+						tabBarIcon(props) {
+							return <TabBarIcon {...props} name='people' />;
+						},
+					}}
+				/>
+				<Tabs.Screen
 					name='(tabs)/(hol)'
 					options={{
 						title: 'Higher or Lower',
