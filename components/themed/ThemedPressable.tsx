@@ -32,7 +32,7 @@ export function ThemedPressable({
 	}
 
 	if (contentType === 'icon') {
-		child = <ButtonIcon name={content} />;
+		child = <ButtonIcon style={type == 'round' ? styles.roundIcon : {}} name={content} />;
 	}
 	return (
 		<Pressable style={[usedStyle, { backgroundColor, borderColor }, style]} {...rest}>
@@ -44,21 +44,27 @@ export function ThemedPressable({
 const styles = StyleSheet.create({
 	default: {
 		borderRadius: 8,
-		borderWidth: 2,
+		borderWidth: 1,
 		borderStyle: 'solid',
 		padding: 0,
+		textAlign: 'center',
 	},
 	round: {
 		width: 64,
 		height: 64,
 		borderRadius: 32,
-		borderWidth: 2,
-		borderStyle: 'solid',
 		padding: 0,
+		justifyContent: 'center',
+	},
+	roundIcon: {
+		textAlign: 'center',
+		borderWidth: 0,
+		marginBottom: 4,
 	},
 	text: {
 		fontSize: 18,
 		fontWeight: 'bold',
 		textAlign: 'center',
+		textAlignVertical: 'center',
 	},
 });

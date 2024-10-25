@@ -1,20 +1,36 @@
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
+import { ThemedPressable } from '@/components/themed/ThemedPressable';
 import { ThemedView } from '@/components/themed/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { Tabs } from 'expo-router';
+import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 
 // TODO: add setting to toggle fullscreen mode, hide tab bar on fullscreen mode
-// TODO: wrap all of this in a Stack to set contentStyle: {backgroundColor}
 
 export default function TabLayout() {
+	function toggleFullscreen(): void {
+		setFullscreen(!fullscreen);
+	}
+
+	const [fullscreen, setFullscreen] = useState(false);
+
 	const barBackgroundColor = useThemeColor('barBackground');
 	const backgroundColor = useThemeColor('background');
 	return (
 		<ThemedView style={[styles.view, { backgroundColor: backgroundColor }]}>
+			<ThemedView style={styles.topBar}>
+				<ThemedPressable
+					style={{ marginRight: 15 }}
+					contentType='icon'
+					content='resize'
+					type='round'
+					onPress={() => toggleFullscreen()}
+				/>
+			</ThemedView>
 			<Tabs
 				screenOptions={{
-					tabBarStyle: { backgroundColor: barBackgroundColor },
+					tabBarStyle: [{ backgroundColor: barBackgroundColor }, fullscreen ? styles.hidden : {}],
 					headerShown: false,
 				}}
 				backBehavior='history'
@@ -62,9 +78,18 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
 	tabBar: {},
+	topBar: {
+		flex: 0,
+		flexDirection: 'row',
+		justifyContent: 'flex-end',
+		marginTop: '8%',
+	},
 	view: {
 		flex: 1,
 		flexDirection: 'column',
 		justifyContent: 'space-between',
+	},
+	hidden: {
+		display: 'none',
 	},
 });
