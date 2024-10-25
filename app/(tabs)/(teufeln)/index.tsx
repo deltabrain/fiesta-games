@@ -5,7 +5,7 @@ import { ThemedView } from '@/components/themed/ThemedView';
 export default function Teufeln() {
 	return (
 		<ThemedView style={styles.default}>
-			<Ionicons name='heart' size={24} color='green' />
+			<Ionicons name='flame' size={24} color='green' />
 		</ThemedView>
 	);
 }

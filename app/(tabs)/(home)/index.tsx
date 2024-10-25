@@ -5,7 +5,7 @@ import { ThemedView } from '@/components/themed/ThemedView';
 export default function Home() {
 	return (
 		<ThemedView style={styles.default}>
-			<Ionicons name='heart' size={24} color='red' />
+			<Ionicons name='flame' size={24} color='red' />
 		</ThemedView>
 	);
 }

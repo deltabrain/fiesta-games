@@ -1,5 +1,4 @@
 import { Pressable, PressableProps } from 'react-native';
-import { Colors } from '@/constants/Colors';
 import { StyleSheet } from 'react-native';
 import { useState } from 'react';
 
@@ -7,7 +6,7 @@ export type BingoItemProps = PressableProps & {
 	editMode: boolean;
 };
 
-export default function BingoItem({ editMode, ...rest }: BingoItemProps) {
+export function BingoItem({ editMode, ...rest }: BingoItemProps) {
 	const [active, setActive] = useState(false);
 	return (
 		<Pressable

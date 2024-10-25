@@ -18,8 +18,6 @@ export default function HigherOrLower() {
 	function updateCards() {
 		setCurrentCardName(hol.getCurrentCardName());
 		setLastCardName(hol.getLastCardName());
-		setScore(hol.getScore());
-		setRemainingCards(hol.getRemainingCards());
 	}
 
 	function wrongGuess() {
@@ -41,8 +39,6 @@ export default function HigherOrLower() {
 	const [firstRound, setFirstRound] = useState(true);
 	const [currentCardName, setCurrentCardName] = useState(hol.getCurrentCardName());
 	const [lastCardName, setLastCardName] = useState(hol.getLastCardName());
-	const [score, setScore] = useState(hol.getScore());
-	const [remainingCards, setRemainingCards] = useState(hol.getRemainingCards());
 	const [showScorePopup, setShowScorePopup] = useState(false);
 	const [leftButtonText, setLeftButtonText]: [hol.RankGuess | hol.SuitGuess, any] = useState(hol.SuitGuess.Red);
 	const [rightButtonText, setRightButtonText]: [hol.RankGuess | hol.SuitGuess, any] = useState(hol.SuitGuess.Black);
@@ -51,7 +47,7 @@ export default function HigherOrLower() {
 		<ThemedView style={[styles.default, { backgroundColor: backgroundColor }]}>
 			<Modal visible={showScorePopup} transparent={true} animationType='fade' statusBarTranslucent={true}>
 				<ThemedView style={[styles.modal, { backgroundColor: backgroundColor }]}>
-					<ThemedText style={styles.text}>Score: {scoreBuf}</ThemedText>
+					<ThemedText style={styles.text}>You have to take {scoreBuf} sip(s).</ThemedText>
 					<ThemedPressable
 						contentType='text'
 						content={'Close'}
@@ -65,11 +61,6 @@ export default function HigherOrLower() {
 			</Modal>
 			<ThemedView style={styles.topContainer}>
 				<CardView small card={lastCardName} />
-				<ThemedView style={styles.textContainer}>
-					<ThemedText style={styles.text}>Streak: {score}</ThemedText>
-					{/* this is for debugging purposes only */}
-					<ThemedText style={styles.text}>Remaining Cards: {remainingCards}</ThemedText>
-				</ThemedView>
 			</ThemedView>
 			<CardView style={styles.card} card={currentCardName} />
 			<ThemedView style={[styles.buttonContainer, { backgroundColor: backgroundColor }]}>
