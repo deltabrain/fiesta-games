@@ -1,10 +1,11 @@
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { ThemedPressable } from '@/components/themed/ThemedPressable';
+import { ThemedText } from '@/components/themed/ThemedText';
 import { ThemedView } from '@/components/themed/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { Tabs } from 'expo-router';
 import { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { Linking, StyleSheet } from 'react-native';
 
 export default function TabLayout() {
 	function toggleFullscreen(): void {
@@ -19,6 +20,16 @@ export default function TabLayout() {
 		<ThemedView style={[styles.view, { backgroundColor: backgroundColor }]}>
 			{/* BUG: This takes up more place than it should, small CardView at the top gets squashed */}
 			<ThemedView style={styles.topBar}>
+				<ThemedView style={styles.view}>
+					<ThemedPressable
+						style={{ marginLeft: 15 }}
+						contentType='icon'
+						content='git-pull-request-sharp'
+						type='round'
+						onPress={() => Linking.openURL('https://github.com/Deltabrain/fiesta-games/issues')}
+					/>
+					<ThemedText style={styles.text}>Submit issue</ThemedText>
+				</ThemedView>
 				<ThemedPressable
 					style={{ marginRight: 15 }}
 					contentType='icon'
@@ -80,13 +91,19 @@ const styles = StyleSheet.create({
 	topBar: {
 		flex: 0,
 		flexDirection: 'row',
-		justifyContent: 'flex-end',
+		justifyContent: 'space-between',
 		marginTop: '8%',
 	},
 	view: {
 		flex: 1,
 		flexDirection: 'column',
 		justifyContent: 'space-between',
+	},
+	text: {
+		textAlignVertical: 'center',
+		textAlign: 'justify',
+		fontSize: 12,
+		marginLeft: 15,
 	},
 	hidden: {
 		display: 'none',
