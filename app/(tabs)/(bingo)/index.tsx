@@ -1,14 +1,18 @@
-import { StyleSheet, TextInput } from 'react-native';
+import { Modal, StyleSheet, Text, TextInput } from 'react-native';
 import { ThemedView } from '@/components/themed/ThemedView';
 import { ThemedText } from '@/components/themed/ThemedText';
 import { ThemedPressable } from '@/components/themed/ThemedPressable';
 import { useState } from 'react';
 import { Colors } from '@/constants/Colors';
 import { BingoItem } from '@/components/BingoItem';
+import { useThemeColor } from '@/hooks/useThemeColor';
 
 export default function Bingo() {
+	const backgroundColor = useThemeColor('background');
 	const [editMode, setEditMode] = useState(false);
+	const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
 
+	// TODO: pull initialState from localStorage
 	const [field0, setField0] = useState('');
 	const [field1, setField1] = useState('');
 	const [field2, setField2] = useState('');
@@ -33,6 +37,32 @@ export default function Bingo() {
 
 	return (
 		<ThemedView style={styles.default}>
+			<Modal visible={showConfirmationPopup} transparent={true} animationType='fade' statusBarTranslucent={true}>
+				<ThemedView style={[styles.modal, { backgroundColor: backgroundColor }]}>
+					<ThemedView style={styles.textContainer}>
+						<ThemedText style={styles.text}>Are you sure you want to delete all entries?</ThemedText>
+					</ThemedView>
+					<ThemedView style={styles.buttonContainer}>
+						<ThemedPressable
+							contentType='text'
+							content={'No'}
+							style={styles.button}
+							onPress={() => {
+								setShowConfirmationPopup(false);
+							}}
+						/>
+						<ThemedPressable
+							contentType='text'
+							content={'Yes'}
+							style={styles.button}
+							onPress={() => {
+								setShowConfirmationPopup(false);
+								resetFields();
+							}}
+						/>
+					</ThemedView>
+				</ThemedView>
+			</Modal>
 			<ThemedView style={styles.bingoContainer}>
 				<ThemedView style={styles.row}>
 					<BingoItem editMode={editMode}>
@@ -136,9 +166,10 @@ export default function Bingo() {
 					disabled={!editMode}
 					contentType='icon'
 					content='trash-sharp'
-					onPress={() => resetFields()}
+					onPress={() => setShowConfirmationPopup(true)}
 					style={editMode ? { backgroundColor: '#dd5000' } : { backgroundColor: '#505050' }}
 				/>
+				<Text style={[styles.editModeText, editMode ? {} : { color: 'transparent' }]}>Edit Mode</Text>
 				<ThemedPressable
 					contentType='icon'
 					content='options-sharp'
@@ -152,9 +183,10 @@ export default function Bingo() {
 
 const styles = StyleSheet.create({
 	default: {
+		display: 'flex',
 		flex: 1,
-		alignItems: 'center',
 		justifyContent: 'center',
+		alignItems: 'center',
 	},
 	bingoContainer: {
 		flex: 3,
@@ -184,6 +216,50 @@ const styles = StyleSheet.create({
 		marginBottom: '5%',
 		flexDirection: 'row',
 		justifyContent: 'space-evenly',
+	},
+	editModeText: {
+		textAlign: 'center',
+		textAlignVertical: 'center',
+		color: '#afafaf',
+	},
+	modal: {
+		flex: 1,
+		flexDirection: 'column',
+		justifyContent: 'center',
+		alignItems: 'center',
+		opacity: 0.9,
+	},
+	buttonContainer: {
+		display: 'flex',
+		flex: 0,
+		flexDirection: 'row',
+		justifyContent: 'center',
+		alignItems: 'center',
+		width: '100%',
+	},
+	textContainer: {
+		display: 'flex',
+		flex: 0,
+		justifyContent: 'center',
+		textAlignVertical: 'center',
+		width: '60%',
+	},
+	button: {
+		padding: 10,
+		margin: 10,
+		marginTop: 20,
+		height: 50,
+		width: '45%',
+	},
+	text: {
+		display: 'flex',
+		flex: 0,
+		flexWrap: 'wrap',
+		fontSize: 20,
+		fontWeight: 'bold',
+		color: 'white',
+		textAlign: 'center',
+		textAlignVertical: 'center',
 	},
 	hidden: {
 		display: 'none',
