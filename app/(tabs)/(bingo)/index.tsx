@@ -1,27 +1,29 @@
-import { Modal, StyleSheet, Text, TextInput } from 'react-native';
-import { ThemedView } from '@/components/themed/ThemedView';
-import { ThemedText } from '@/components/themed/ThemedText';
-import { ThemedPressable } from '@/components/themed/ThemedPressable';
-import { useState } from 'react';
-import { Colors } from '@/constants/Colors';
 import { BingoItem } from '@/components/BingoItem';
+import { ThemedPressable } from '@/components/themed/ThemedPressable';
+import { ThemedText } from '@/components/themed/ThemedText';
+import { ThemedView } from '@/components/themed/ThemedView';
+import { Colors } from '@/constants/Colors';
 import { useThemeColor } from '@/hooks/useThemeColor';
+import { useState } from 'react';
+import { Modal, StyleSheet, Text, TextInput } from 'react-native';
+import { useMMKVString } from 'react-native-mmkv';
 
 export default function Bingo() {
 	const backgroundColor = useThemeColor('background');
+
 	const [editMode, setEditMode] = useState(false);
 	const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
 
-	// TODO: pull initialState from localStorage
-	const [field0, setField0] = useState('');
-	const [field1, setField1] = useState('');
-	const [field2, setField2] = useState('');
-	const [field3, setField3] = useState('');
-	const [field4, setField4] = useState('');
-	const [field5, setField5] = useState('');
-	const [field6, setField6] = useState('');
-	const [field7, setField7] = useState('');
-	const [field8, setField8] = useState('');
+	// TODO: pull initialState from storage
+	const [field0, setField0] = useMMKVString('field0');
+	const [field1, setField1] = useMMKVString('field1');
+	const [field2, setField2] = useMMKVString('field2');
+	const [field3, setField3] = useMMKVString('field3');
+	const [field4, setField4] = useMMKVString('field4');
+	const [field5, setField5] = useMMKVString('field5');
+	const [field6, setField6] = useMMKVString('field6');
+	const [field7, setField7] = useMMKVString('field7');
+	const [field8, setField8] = useMMKVString('field8');
 
 	function resetFields(): void {
 		setField0('');
