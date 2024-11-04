@@ -3,7 +3,7 @@
 		"name": "Fiesta-Trinkspiele",
 		"slug": "Fiesta-Trinkspiele",
 		"owner": "deltabrain",
-		"version": "0.1-alpha",
+		"version": "alpha-0.2",
 		"orientation": "portrait",
 		"icon": "./assets/images/icon.png",
 		"scheme": "myapp",
