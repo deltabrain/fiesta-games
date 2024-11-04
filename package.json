@@ -1,7 +1,7 @@
 {
 	"name": "fiesta-trinkspiele",
 	"main": "expo-router/entry",
-	"version": "0.1-alpha",
+	"version": "alpha-0.2",
 	"scripts": {
 		"dev": "expo start --go",
 		"android": "expo run:android",
