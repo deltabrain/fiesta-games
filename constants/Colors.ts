@@ -7,6 +7,7 @@ const tintColorLight = '#0a7ea4';
 const tintColorDark = '#fff';
 
 export const Colors = {
+	// TODO: change light Colors to actually support light mode
 	light: {
 		text: '#11181c',
 		background: '#ffffff',

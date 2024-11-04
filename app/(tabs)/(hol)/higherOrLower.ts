@@ -79,7 +79,7 @@ function updateDeck(slice: boolean): void {
 	remainingCards = deck.length - 1;
 }
 
-export async function checkWin(guess: RankGuess | SuitGuess): Promise<boolean> {
+export function checkWin(guess: RankGuess | SuitGuess): boolean {
 	var win = false;
 
 	// evaluate win in rank rounds

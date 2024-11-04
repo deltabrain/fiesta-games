@@ -6,8 +6,6 @@ import { Tabs } from 'expo-router';
 import { useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-// TODO: add setting to toggle fullscreen mode, hide tab bar on fullscreen mode
-
 export default function TabLayout() {
 	function toggleFullscreen(): void {
 		setFullscreen(!fullscreen);
@@ -19,6 +17,7 @@ export default function TabLayout() {
 	const backgroundColor = useThemeColor('background');
 	return (
 		<ThemedView style={[styles.view, { backgroundColor: backgroundColor }]}>
+			{/* BUG: This takes up more place than it should, small CardView at the top gets squashed */}
 			<ThemedView style={styles.topBar}>
 				<ThemedPressable
 					style={{ marginRight: 15 }}

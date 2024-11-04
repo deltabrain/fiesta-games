@@ -56,7 +56,7 @@ export default function HigherOrLower() {
 							setShowScorePopup(false);
 							scoreBuf = 1;
 						}}
-					></ThemedPressable>
+					/>
 				</ThemedView>
 			</Modal>
 			<ThemedView style={styles.topContainer}>
@@ -70,7 +70,7 @@ export default function HigherOrLower() {
 					style={styles.button}
 					onPress={async () => {
 						var action = firstRound ? hol.SuitGuess.Red : hol.RankGuess.Higher;
-						if (!(await hol.checkWin(action))) {
+						if (!hol.checkWin(action)) {
 							wrongGuess();
 						} else {
 							correctGuess();
@@ -84,7 +84,7 @@ export default function HigherOrLower() {
 					style={styles.button}
 					onPress={async () => {
 						var action = firstRound ? hol.SuitGuess.Black : hol.RankGuess.Lower;
-						if (!(await hol.checkWin(action))) {
+						if (!hol.checkWin(action)) {
 							wrongGuess();
 						} else {
 							correctGuess();
