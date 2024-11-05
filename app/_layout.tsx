@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
 		flex: 0,
 		flexDirection: 'row',
 		justifyContent: 'space-between',
-		marginTop: '8%',
+		marginTop: '12%',
 	},
 	view: {
 		flex: 1,

@@ -14,7 +14,7 @@ export default function Bingo() {
 	const [editMode, setEditMode] = useState(false);
 	const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
 
-	// TODO: pull initialState from storage
+	// useState() for expo to work, for production builds useMMKVString()
 	const [field0, setField0] = useMMKVString('field0');
 	const [field1, setField1] = useMMKVString('field1');
 	const [field2, setField2] = useMMKVString('field2');
@@ -42,7 +42,9 @@ export default function Bingo() {
 			<Modal visible={showConfirmationPopup} transparent={true} animationType='fade' statusBarTranslucent={true}>
 				<ThemedView style={[styles.modal, { backgroundColor: backgroundColor }]}>
 					<ThemedView style={styles.textContainer}>
-						<ThemedText style={styles.text}>Are you sure you want to delete all entries?</ThemedText>
+						<ThemedText style={[styles.text, { color: useThemeColor('text') }]}>
+							Are you sure you want to delete all entries?
+						</ThemedText>
 					</ThemedView>
 					<ThemedView style={styles.buttonContainer}>
 						<ThemedPressable
@@ -71,30 +73,30 @@ export default function Bingo() {
 						<ThemedText style={[styles.bingoText, editMode ? styles.hidden : {}]}>{field0}</ThemedText>
 						<TextInput
 							placeholder='Enter...'
-							placeholderTextColor={'#bbbbbb'}
+							placeholderTextColor={useThemeColor('placeholderText')}
 							defaultValue={field0}
 							onChangeText={(newText) => setField0(newText)}
-							style={[styles.bingoInput, editMode ? {} : styles.hidden]}
+							style={[styles.bingoInput, editMode ? {} : styles.hidden, { color: useThemeColor('fadedText') }]}
 						/>
 					</BingoItem>
 					<BingoItem editMode={editMode}>
 						<ThemedText style={[styles.bingoText, editMode ? styles.hidden : {}]}>{field1}</ThemedText>
 						<TextInput
 							placeholder='Enter...'
-							placeholderTextColor={'#bbbbbb'}
+							placeholderTextColor={useThemeColor('placeholderText')}
 							value={field1}
 							onChangeText={(newText) => setField1(newText)}
-							style={[styles.bingoInput, editMode ? {} : styles.hidden]}
+							style={[styles.bingoInput, editMode ? {} : styles.hidden, { color: useThemeColor('fadedText') }]}
 						/>
 					</BingoItem>
 					<BingoItem editMode={editMode}>
 						<ThemedText style={[styles.bingoText, editMode ? styles.hidden : {}]}>{field2}</ThemedText>
 						<TextInput
 							placeholder='Enter...'
-							placeholderTextColor={'#bbbbbb'}
+							placeholderTextColor={useThemeColor('placeholderText')}
 							defaultValue={field2}
 							onChangeText={(newText) => setField2(newText)}
-							style={[styles.bingoInput, editMode ? {} : styles.hidden]}
+							style={[styles.bingoInput, editMode ? {} : styles.hidden, { color: useThemeColor('fadedText') }]}
 						/>
 					</BingoItem>
 				</ThemedView>
@@ -103,30 +105,30 @@ export default function Bingo() {
 						<ThemedText style={[styles.bingoText, editMode ? styles.hidden : {}]}>{field3}</ThemedText>
 						<TextInput
 							placeholder='Enter...'
-							placeholderTextColor={'#bbbbbb'}
+							placeholderTextColor={useThemeColor('placeholderText')}
 							defaultValue={field3}
 							onChangeText={(newText) => setField3(newText)}
-							style={[styles.bingoInput, editMode ? {} : styles.hidden]}
+							style={[styles.bingoInput, editMode ? {} : styles.hidden, { color: useThemeColor('fadedText') }]}
 						/>
 					</BingoItem>
 					<BingoItem editMode={editMode}>
 						<ThemedText style={[styles.bingoText, editMode ? styles.hidden : {}]}>{field4}</ThemedText>
 						<TextInput
 							placeholder='Enter...'
-							placeholderTextColor={'#bbbbbb'}
+							placeholderTextColor={useThemeColor('placeholderText')}
 							defaultValue={field4}
 							onChangeText={(newText) => setField4(newText)}
-							style={[styles.bingoInput, editMode ? {} : styles.hidden]}
+							style={[styles.bingoInput, editMode ? {} : styles.hidden, { color: useThemeColor('fadedText') }]}
 						/>
 					</BingoItem>
 					<BingoItem editMode={editMode}>
 						<ThemedText style={[styles.bingoText, editMode ? styles.hidden : {}]}>{field5}</ThemedText>
 						<TextInput
 							placeholder='Enter...'
-							placeholderTextColor={'#bbbbbb'}
+							placeholderTextColor={useThemeColor('placeholderText')}
 							defaultValue={field5}
 							onChangeText={(newText) => setField5(newText)}
-							style={[styles.bingoInput, editMode ? {} : styles.hidden]}
+							style={[styles.bingoInput, editMode ? {} : styles.hidden, { color: useThemeColor('fadedText') }]}
 						/>
 					</BingoItem>
 				</ThemedView>
@@ -135,30 +137,30 @@ export default function Bingo() {
 						<ThemedText style={[styles.bingoText, editMode ? styles.hidden : {}]}>{field6}</ThemedText>
 						<TextInput
 							placeholder='Enter...'
-							placeholderTextColor={'#bbbbbb'}
+							placeholderTextColor={useThemeColor('placeholderText')}
 							defaultValue={field6}
 							onChangeText={(newText) => setField6(newText)}
-							style={[styles.bingoInput, editMode ? {} : styles.hidden]}
+							style={[styles.bingoInput, editMode ? {} : styles.hidden, { color: useThemeColor('fadedText') }]}
 						/>
 					</BingoItem>
 					<BingoItem editMode={editMode}>
 						<ThemedText style={[styles.bingoText, editMode ? styles.hidden : {}]}>{field7}</ThemedText>
 						<TextInput
 							placeholder='Enter...'
-							placeholderTextColor={'#bbbbbb'}
+							placeholderTextColor={useThemeColor('placeholderText')}
 							defaultValue={field7}
 							onChangeText={(newText) => setField7(newText)}
-							style={[styles.bingoInput, editMode ? {} : styles.hidden]}
+							style={[styles.bingoInput, editMode ? {} : styles.hidden, { color: useThemeColor('fadedText') }]}
 						/>
 					</BingoItem>
 					<BingoItem editMode={editMode}>
 						<ThemedText style={[styles.bingoText, editMode ? styles.hidden : {}]}>{field8}</ThemedText>
 						<TextInput
 							placeholder='Enter...'
-							placeholderTextColor={'#bbbbbb'}
+							placeholderTextColor={useThemeColor('placeholderText')}
 							defaultValue={field8}
 							onChangeText={(newText) => setField8(newText)}
-							style={[styles.bingoInput, editMode ? {} : styles.hidden]}
+							style={[styles.bingoInput, editMode ? {} : styles.hidden, { color: useThemeColor('fadedText') }]}
 						/>
 					</BingoItem>
 				</ThemedView>
@@ -208,10 +210,7 @@ const styles = StyleSheet.create({
 		textAlignVertical: 'center',
 		textAlign: 'center',
 		flexWrap: 'wrap',
-		maxWidth: '80%',
-		width: '80%',
 		alignSelf: 'center',
-		color: '#ffffff',
 	},
 	bottomBar: {
 		width: '100%',
@@ -259,7 +258,6 @@ const styles = StyleSheet.create({
 		flexWrap: 'wrap',
 		fontSize: 20,
 		fontWeight: 'bold',
-		color: 'white',
 		textAlign: 'center',
 		textAlignVertical: 'center',
 	},

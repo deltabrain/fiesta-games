@@ -9,7 +9,9 @@ const tintColorDark = '#fff';
 export const Colors = {
 	// TODO: change light Colors to actually support light mode
 	light: {
-		text: '#11181c',
+		text: '#07090a',
+		fadedText: '#182024',
+		placeholderText: '#a0a0a0',
 		background: '#ffffff',
 		tint: tintColorLight,
 		icon: '#687076',
@@ -23,6 +25,8 @@ export const Colors = {
 	},
 	dark: {
 		text: '#ecedee',
+		fadedText: '#aaacad',
+		placeholderText: '#bbbbbb',
 		background: '#151718',
 		tint: tintColorDark,
 		icon: '#9ba1a6',
