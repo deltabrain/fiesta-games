@@ -32,10 +32,18 @@ export function ThemedPressable({
 	}
 
 	if (contentType === 'icon') {
-		child = <ButtonIcon style={type === 'round' ? styles.roundIcon : {}} name={content} />;
+		child = (
+			<ButtonIcon
+				style={type === 'round' ? styles.roundIcon : {}}
+				name={content}
+			/>
+		);
 	}
 	return (
-		<Pressable style={[usedStyle, { backgroundColor, borderColor }, style]} {...rest}>
+		<Pressable
+			style={[usedStyle, { backgroundColor, borderColor }, style]}
+			{...rest}
+		>
 			{child}
 		</Pressable>
 	);

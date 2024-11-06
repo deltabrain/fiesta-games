@@ -37,17 +37,34 @@ export default function HigherOrLower() {
 	}
 
 	const [firstRound, setFirstRound] = useState(true);
-	const [currentCardName, setCurrentCardName] = useState(hol.getCurrentCardName());
+	const [currentCardName, setCurrentCardName] = useState(
+		hol.getCurrentCardName(),
+	);
 	const [lastCardName, setLastCardName] = useState(hol.getLastCardName());
 	const [showScorePopup, setShowScorePopup] = useState(false);
-	const [leftButtonText, setLeftButtonText]: [hol.RankGuess | hol.SuitGuess, any] = useState(hol.SuitGuess.Red);
-	const [rightButtonText, setRightButtonText]: [hol.RankGuess | hol.SuitGuess, any] = useState(hol.SuitGuess.Black);
+	const [leftButtonText, setLeftButtonText]: [
+		hol.RankGuess | hol.SuitGuess,
+		any,
+	] = useState(hol.SuitGuess.Red);
+	const [rightButtonText, setRightButtonText]: [
+		hol.RankGuess | hol.SuitGuess,
+		any,
+	] = useState(hol.SuitGuess.Black);
 
 	return (
 		<ThemedView style={[styles.default, { backgroundColor: backgroundColor }]}>
-			<Modal visible={showScorePopup} transparent={true} animationType='fade' statusBarTranslucent={true}>
-				<ThemedView style={[styles.modal, { backgroundColor: backgroundColor }]}>
-					<ThemedText style={styles.text}>You have to take {scoreBuf} sip(s).</ThemedText>
+			<Modal
+				visible={showScorePopup}
+				transparent={true}
+				animationType='fade'
+				statusBarTranslucent={true}
+			>
+				<ThemedView
+					style={[styles.modal, { backgroundColor: backgroundColor }]}
+				>
+					<ThemedText style={styles.text}>
+						You have to take {scoreBuf} sip(s).
+					</ThemedText>
 					<ThemedPressable
 						contentType='text'
 						content={'Close'}
@@ -63,7 +80,9 @@ export default function HigherOrLower() {
 				<CardView small card={lastCardName} />
 			</ThemedView>
 			<CardView style={styles.card} card={currentCardName} />
-			<ThemedView style={[styles.buttonContainer, { backgroundColor: backgroundColor }]}>
+			<ThemedView
+				style={[styles.buttonContainer, { backgroundColor: backgroundColor }]}
+			>
 				<ThemedPressable
 					contentType='text'
 					content={leftButtonText}

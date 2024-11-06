@@ -26,7 +26,11 @@ export default function TabLayout() {
 						contentType='icon'
 						content='git-pull-request-sharp'
 						type='round'
-						onPress={() => Linking.openURL('https://github.com/Deltabrain/fiesta-games/issues')}
+						onPress={() =>
+							Linking.openURL(
+								'https://github.com/Deltabrain/fiesta-games/issues',
+							)
+						}
 					/>
 					<ThemedText style={styles.text}>Submit issue</ThemedText>
 				</ThemedView>
@@ -40,7 +44,10 @@ export default function TabLayout() {
 			</ThemedView>
 			<Tabs
 				screenOptions={{
-					tabBarStyle: [{ backgroundColor: barBackgroundColor }, fullscreen ? styles.hidden : {}],
+					tabBarStyle: [
+						{ backgroundColor: barBackgroundColor },
+						fullscreen ? styles.hidden : {},
+					],
 					headerShown: false,
 				}}
 				backBehavior='history'

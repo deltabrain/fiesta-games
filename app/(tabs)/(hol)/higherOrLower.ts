@@ -36,7 +36,9 @@ interface Card {
 	rank: Rank;
 }
 
-const fullDeck: Card[] = Object.values(Suit).flatMap((suit) => Object.values(Rank).map((rank) => ({ suit, rank })));
+const fullDeck: Card[] = Object.values(Suit).flatMap((suit) =>
+	Object.values(Rank).map((rank) => ({ suit, rank })),
+);
 var isFirstDeck: boolean = true;
 var deck: Card[];
 var lastCard: Card;
