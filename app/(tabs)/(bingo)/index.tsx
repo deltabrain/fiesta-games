@@ -76,7 +76,7 @@ export default function Bingo() {
 			</Modal>
 			<ThemedView style={styles.bingoContainer}>
 				<ThemedView style={styles.row}>
-					<BingoItem editMode={editMode}>
+					<BingoItem editMode={editMode} corner='TopLeft'>
 						<ThemedText
 							style={[styles.bingoText, editMode ? styles.hidden : {}]}
 						>
@@ -112,7 +112,7 @@ export default function Bingo() {
 							]}
 						/>
 					</BingoItem>
-					<BingoItem editMode={editMode}>
+					<BingoItem editMode={editMode} corner='TopRight'>
 						<ThemedText
 							style={[styles.bingoText, editMode ? styles.hidden : {}]}
 						>
@@ -188,7 +188,7 @@ export default function Bingo() {
 					</BingoItem>
 				</ThemedView>
 				<ThemedView style={styles.row}>
-					<BingoItem editMode={editMode}>
+					<BingoItem editMode={editMode} corner='BottomLeft'>
 						<ThemedText
 							style={[styles.bingoText, editMode ? styles.hidden : {}]}
 						>
@@ -224,7 +224,7 @@ export default function Bingo() {
 							]}
 						/>
 					</BingoItem>
-					<BingoItem editMode={editMode}>
+					<BingoItem editMode={editMode} corner='BottomRight'>
 						<ThemedText
 							style={[styles.bingoText, editMode ? styles.hidden : {}]}
 						>
