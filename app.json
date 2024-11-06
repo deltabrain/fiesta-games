@@ -1,9 +1,9 @@
 {
 	"expo": {
-		"name": "Fiesta-Trinkspiele",
-		"slug": "Fiesta-Trinkspiele",
-		"owner": "deltabrain",
-		"version": "alpha-0.2",
+		"name": "Fiesta",
+		"slug": "Fiesta",
+		"owner": "Deltabrain",
+		"version": "0.2.0",
 		"orientation": "portrait",
 		"icon": "./assets/images/icon.png",
 		"scheme": "myapp",
@@ -11,7 +11,7 @@
 		"splash": {
 			"image": "./assets/images/splash.png",
 			"resizeMode": "contain",
-			"backgroundColor": "#ffffff"
+			"backgroundColor": "#151718"
 		},
 		"ios": {
 			"supportsTablet": true
@@ -19,9 +19,15 @@
 		"android": {
 			"adaptiveIcon": {
 				"foregroundImage": "./assets/images/adaptive-icon.png",
-				"backgroundColor": "#ffffff"
+				"backgroundColor": "#151718"
 			},
 			"package": "io.deltabrain.fiesta"
+		},
+		"androidStatusBar": {
+			"hidden": true
+		},
+		"androidNavigationBar": {
+			"visible": "immersive"
 		},
 		"web": {
 			"bundler": "metro",
