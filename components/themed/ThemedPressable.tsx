@@ -20,8 +20,8 @@ export function ThemedPressable({
 }: ThemedPressableProps) {
 	// unfortunately, we can't use useThemeColor outside of a function, so we can't create
 	// the styles on the top level of this component, if you find a workaround, go ahead lol
-	const backgroundColor = useThemeColor('buttonBackground');
-	const borderColor = useThemeColor('buttonBorder');
+	const primaryColor = useThemeColor('secondary');
+	const accentColor = useThemeColor('secondary_light');
 	const textColor = useThemeColor('buttonText');
 
 	var usedStyle = type === 'round' ? styles.round : styles.default;
@@ -41,7 +41,14 @@ export function ThemedPressable({
 	}
 	return (
 		<Pressable
-			style={[usedStyle, { backgroundColor, borderColor }, style]}
+			style={[
+				usedStyle,
+				{
+					backgroundColor: primaryColor,
+					borderColor: accentColor,
+				},
+				style,
+			]}
 			{...rest}
 		>
 			{child}
@@ -51,8 +58,8 @@ export function ThemedPressable({
 
 const styles = StyleSheet.create({
 	default: {
+		borderWidth: 2,
 		borderRadius: 8,
-		borderWidth: 1,
 		borderStyle: 'solid',
 		padding: 0,
 		textAlign: 'center',
@@ -60,14 +67,15 @@ const styles = StyleSheet.create({
 	round: {
 		width: 64,
 		height: 64,
+		borderWidth: 2,
 		borderRadius: 32,
+		borderStyle: 'solid',
 		padding: 0,
 		justifyContent: 'center',
 	},
 	roundIcon: {
 		textAlign: 'center',
 		borderWidth: 0,
-		marginBottom: 4,
 	},
 	text: {
 		fontSize: 18,

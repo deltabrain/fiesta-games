@@ -12,7 +12,7 @@ export function ButtonIcon({
 
 const styles = StyleSheet.create({
 	default: {
-		borderRadius: 8,
+		borderRadius: 6,
 		borderWidth: 1,
 		borderStyle: 'solid',
 		padding: 10,
