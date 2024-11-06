@@ -12,7 +12,7 @@ module.exports = {
 				tabWidth: 2,
 				endOfLine: 'auto',
 				trailingComma: 'all',
-				printWidth: 120,
+				printWidth: 80,
 			},
 		],
 	},

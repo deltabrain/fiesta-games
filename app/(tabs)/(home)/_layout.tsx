@@ -1,5 +1,13 @@
 import { Stack } from 'expo-router';
 
 export default function HomeLayout() {
-	return <Stack screenOptions={{ headerShown: false, statusBarTranslucent: true, statusBarColor: 'transparent' }} />;
+	return (
+		<Stack
+			screenOptions={{
+				headerShown: false,
+				statusBarTranslucent: true,
+				statusBarColor: 'transparent',
+			}}
+		/>
+	);
 }
