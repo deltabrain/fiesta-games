@@ -2,11 +2,23 @@ const tintColorLight = '#0a7ea4';
 const tintColorDark = '#fff';
 
 export const Colors = {
+	// TODO: rewrite themes to use color names like 'primary', this is a mess
 	light: {
-		text: '#07090a',
+		primary: '#22f793',
+		primary_dark: '#07c56c',
+		primary_light: '#6bfab7',
+		secondary: '#5f14ff',
+		secondary_dark: '#4100cc',
+		secondary_light: '#9666ff',
+		accent: '#ff70de',
+		accent_dark: '#cc009c',
+		accent_light: '#ffccf3',
+		background: '#e6e9ea',
+		text: '#111213',
+		black: '#00000',
+		// this should be deleted later
 		fadedText: '#182024',
 		placeholderText: '#a0a0a0',
-		background: '#ffffff',
 		tint: tintColorLight,
 		icon: '#687076',
 		tabIconDefault: '#687076',
@@ -18,10 +30,21 @@ export const Colors = {
 		barBackground: '#efefef',
 	},
 	dark: {
+		primary: '#08dd7a',
+		primary_dark: '#059451',
+		primary_light: '#53f9ab',
+		secondary: '#4a00eb',
+		secondary_dark: '#300099',
+		secondary_light: '#7433ff',
+		accent: '#8f006d',
+		accent_dark: '#4d003b',
+		accent_light: '#e600b0',
+		background: '#151718',
 		text: '#ecedee',
+		black: '#00000',
+		// this should be deleted later
 		fadedText: '#aaacad',
 		placeholderText: '#bbbbbb',
-		background: '#151718',
 		tint: tintColorDark,
 		icon: '#9ba1a6',
 		tabIconDefault: '#9ba1a6',
