@@ -4,6 +4,7 @@ import { ThemedText } from '@/components/themed/ThemedText';
 import { ThemedView } from '@/components/themed/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { Tabs } from 'expo-router';
+import * as NavigationBar from 'expo-navigation-bar';
 import { useState } from 'react';
 import { Linking, StyleSheet } from 'react-native';
 
@@ -14,8 +15,10 @@ export default function TabLayout() {
 
 	const [fullscreen, setFullscreen] = useState(false);
 
-	const barBackgroundColor = useThemeColor('barBackground');
+	const barBackgroundColor = useThemeColor('background_dark');
 	const backgroundColor = useThemeColor('background');
+	NavigationBar.setBackgroundColorAsync(useThemeColor('background_dark'));
+
 	return (
 		<ThemedView style={[styles.view, { backgroundColor: backgroundColor }]}>
 			{/* BUG: This takes up more place than it should, small CardView at the top gets squashed */}

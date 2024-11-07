@@ -2,7 +2,6 @@ import { BingoItem } from '@/components/BingoItem';
 import { ThemedPressable } from '@/components/themed/ThemedPressable';
 import { ThemedText } from '@/components/themed/ThemedText';
 import { ThemedView } from '@/components/themed/ThemedView';
-import { Colors } from '@/constants/Colors';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { useState } from 'react';
 import { Modal, StyleSheet, Text, TextInput } from 'react-native';
@@ -10,6 +9,12 @@ import { useMMKVString } from 'react-native-mmkv';
 
 export default function Bingo() {
 	const backgroundColor = useThemeColor('background');
+	const buttonActiveColor = useThemeColor('primary_dark');
+	const textColor = useThemeColor('text');
+	const textButtonColor = useThemeColor('text_button');
+	const fadedTextColor = useThemeColor('text_faded');
+	const warningColor = useThemeColor('warning');
+	const neutralColor = useThemeColor('neutral');
 
 	const [editMode, setEditMode] = useState(false);
 	const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
@@ -49,7 +54,7 @@ export default function Bingo() {
 					style={[styles.modal, { backgroundColor: backgroundColor }]}
 				>
 					<ThemedView style={styles.textContainer}>
-						<ThemedText style={[styles.text, { color: useThemeColor('text') }]}>
+						<ThemedText style={[styles.text, { color: textColor }]}>
 							Are you sure you want to delete all entries?
 						</ThemedText>
 					</ThemedView>
@@ -78,7 +83,11 @@ export default function Bingo() {
 				<ThemedView style={styles.row}>
 					<BingoItem editMode={editMode} corner='TopLeft'>
 						<ThemedText
-							style={[styles.bingoText, editMode ? styles.hidden : {}]}
+							style={[
+								styles.bingoText,
+								{ color: textButtonColor },
+								editMode ? styles.hidden : {},
+							]}
 						>
 							{field0}
 						</ThemedText>
@@ -90,13 +99,17 @@ export default function Bingo() {
 							style={[
 								styles.bingoInput,
 								editMode ? {} : styles.hidden,
-								{ color: useThemeColor('fadedText') },
+								{ color: fadedTextColor },
 							]}
 						/>
 					</BingoItem>
 					<BingoItem editMode={editMode}>
 						<ThemedText
-							style={[styles.bingoText, editMode ? styles.hidden : {}]}
+							style={[
+								styles.bingoText,
+								{ color: textButtonColor },
+								editMode ? styles.hidden : {},
+							]}
 						>
 							{field1}
 						</ThemedText>
@@ -108,13 +121,17 @@ export default function Bingo() {
 							style={[
 								styles.bingoInput,
 								editMode ? {} : styles.hidden,
-								{ color: useThemeColor('fadedText') },
+								{ color: fadedTextColor },
 							]}
 						/>
 					</BingoItem>
 					<BingoItem editMode={editMode} corner='TopRight'>
 						<ThemedText
-							style={[styles.bingoText, editMode ? styles.hidden : {}]}
+							style={[
+								styles.bingoText,
+								{ color: textButtonColor },
+								editMode ? styles.hidden : {},
+							]}
 						>
 							{field2}
 						</ThemedText>
@@ -126,7 +143,7 @@ export default function Bingo() {
 							style={[
 								styles.bingoInput,
 								editMode ? {} : styles.hidden,
-								{ color: useThemeColor('fadedText') },
+								{ color: fadedTextColor },
 							]}
 						/>
 					</BingoItem>
@@ -134,7 +151,11 @@ export default function Bingo() {
 				<ThemedView style={styles.row}>
 					<BingoItem editMode={editMode}>
 						<ThemedText
-							style={[styles.bingoText, editMode ? styles.hidden : {}]}
+							style={[
+								styles.bingoText,
+								{ color: textButtonColor },
+								editMode ? styles.hidden : {},
+							]}
 						>
 							{field3}
 						</ThemedText>
@@ -146,13 +167,17 @@ export default function Bingo() {
 							style={[
 								styles.bingoInput,
 								editMode ? {} : styles.hidden,
-								{ color: useThemeColor('fadedText') },
+								{ color: fadedTextColor },
 							]}
 						/>
 					</BingoItem>
 					<BingoItem editMode={editMode}>
 						<ThemedText
-							style={[styles.bingoText, editMode ? styles.hidden : {}]}
+							style={[
+								styles.bingoText,
+								{ color: textButtonColor },
+								editMode ? styles.hidden : {},
+							]}
 						>
 							{field4}
 						</ThemedText>
@@ -164,13 +189,17 @@ export default function Bingo() {
 							style={[
 								styles.bingoInput,
 								editMode ? {} : styles.hidden,
-								{ color: useThemeColor('fadedText') },
+								{ color: fadedTextColor },
 							]}
 						/>
 					</BingoItem>
 					<BingoItem editMode={editMode}>
 						<ThemedText
-							style={[styles.bingoText, editMode ? styles.hidden : {}]}
+							style={[
+								styles.bingoText,
+								{ color: textButtonColor },
+								editMode ? styles.hidden : {},
+							]}
 						>
 							{field5}
 						</ThemedText>
@@ -182,7 +211,7 @@ export default function Bingo() {
 							style={[
 								styles.bingoInput,
 								editMode ? {} : styles.hidden,
-								{ color: useThemeColor('fadedText') },
+								{ color: fadedTextColor },
 							]}
 						/>
 					</BingoItem>
@@ -190,7 +219,11 @@ export default function Bingo() {
 				<ThemedView style={styles.row}>
 					<BingoItem editMode={editMode} corner='BottomLeft'>
 						<ThemedText
-							style={[styles.bingoText, editMode ? styles.hidden : {}]}
+							style={[
+								styles.bingoText,
+								{ color: textButtonColor },
+								editMode ? styles.hidden : {},
+							]}
 						>
 							{field6}
 						</ThemedText>
@@ -202,13 +235,17 @@ export default function Bingo() {
 							style={[
 								styles.bingoInput,
 								editMode ? {} : styles.hidden,
-								{ color: useThemeColor('fadedText') },
+								{ color: fadedTextColor },
 							]}
 						/>
 					</BingoItem>
 					<BingoItem editMode={editMode}>
 						<ThemedText
-							style={[styles.bingoText, editMode ? styles.hidden : {}]}
+							style={[
+								styles.bingoText,
+								{ color: textButtonColor },
+								editMode ? styles.hidden : {},
+							]}
 						>
 							{field7}
 						</ThemedText>
@@ -220,13 +257,17 @@ export default function Bingo() {
 							style={[
 								styles.bingoInput,
 								editMode ? {} : styles.hidden,
-								{ color: useThemeColor('fadedText') },
+								{ color: fadedTextColor },
 							]}
 						/>
 					</BingoItem>
 					<BingoItem editMode={editMode} corner='BottomRight'>
 						<ThemedText
-							style={[styles.bingoText, editMode ? styles.hidden : {}]}
+							style={[
+								styles.bingoText,
+								{ color: textButtonColor },
+								editMode ? styles.hidden : {},
+							]}
 						>
 							{field8}
 						</ThemedText>
@@ -238,7 +279,7 @@ export default function Bingo() {
 							style={[
 								styles.bingoInput,
 								editMode ? {} : styles.hidden,
-								{ color: useThemeColor('fadedText') },
+								{ color: fadedTextColor },
 							]}
 						/>
 					</BingoItem>
@@ -252,13 +293,14 @@ export default function Bingo() {
 					onPress={() => setShowConfirmationPopup(true)}
 					style={
 						editMode
-							? { backgroundColor: '#dd5000' }
-							: { backgroundColor: '#505050' }
+							? { backgroundColor: warningColor }
+							: { backgroundColor: neutralColor }
 					}
 				/>
 				<Text
 					style={[
 						styles.editModeText,
+						{ color: fadedTextColor },
 						editMode ? {} : { color: 'transparent' },
 					]}
 				>
@@ -268,11 +310,7 @@ export default function Bingo() {
 					contentType='icon'
 					content='options-sharp'
 					onPress={() => setEditMode(!editMode)}
-					style={
-						editMode
-							? { backgroundColor: Colors.dark.buttonActiveBackground }
-							: {}
-					}
+					style={editMode ? { backgroundColor: buttonActiveColor } : {}}
 				/>
 			</ThemedView>
 		</ThemedView>

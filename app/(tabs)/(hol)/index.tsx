@@ -17,7 +17,7 @@ export default function HigherOrLower() {
 	// this rerenders the view if necessary
 	function updateCards() {
 		setCurrentCardName(hol.getCurrentCardName());
-		setLastCardName(hol.getLastCardName());
+		// setLastCardName(hol.getLastCardName());
 	}
 
 	function wrongGuess() {
@@ -40,7 +40,7 @@ export default function HigherOrLower() {
 	const [currentCardName, setCurrentCardName] = useState(
 		hol.getCurrentCardName(),
 	);
-	const [lastCardName, setLastCardName] = useState(hol.getLastCardName());
+	// const [lastCardName, setLastCardName] = useState(hol.getLastCardName());
 	const [showScorePopup, setShowScorePopup] = useState(false);
 	const [leftButtonText, setLeftButtonText]: [
 		hol.RankGuess | hol.SuitGuess,
@@ -76,9 +76,9 @@ export default function HigherOrLower() {
 					/>
 				</ThemedView>
 			</Modal>
-			<ThemedView style={styles.topContainer}>
-				<CardView small card={lastCardName} />
-			</ThemedView>
+			{/* <ThemedView style={styles.topContainer}> */}
+			{/* 	<CardView small card={lastCardName} /> */}
+			{/* </ThemedView> */}
 			<CardView style={styles.card} card={currentCardName} />
 			<ThemedView
 				style={[styles.buttonContainer, { backgroundColor: backgroundColor }]}
@@ -126,11 +126,11 @@ const styles = StyleSheet.create({
 	card: {
 		display: 'flex',
 		flex: 3,
+		marginTop: 15,
 	},
 	text: {
 		fontSize: 20,
 		fontWeight: 'bold',
-		color: 'white',
 		textAlign: 'center',
 	},
 	buttonContainer: {

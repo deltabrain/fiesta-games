@@ -1,6 +1,6 @@
 import { Pressable, PressableProps } from 'react-native';
 import { StyleSheet } from 'react-native';
-import { lazy, useState } from 'react';
+import { useState } from 'react';
 import { useThemeColor } from '@/hooks/useThemeColor';
 
 export type BingoItemProps = PressableProps & {
@@ -12,6 +12,7 @@ export function BingoItem({ editMode, corner, ...rest }: BingoItemProps) {
 	const [active, setActive] = useState(false);
 	const primaryColor = useThemeColor('secondary_dark');
 	const accentColor = useThemeColor('primary_dark');
+	const neutralColor = useThemeColor('neutral');
 
 	var cornerStyle;
 
@@ -36,7 +37,9 @@ export function BingoItem({ editMode, corner, ...rest }: BingoItemProps) {
 			style={[
 				{ borderColor: accentColor },
 				styles.bingoItem,
-				active ? { backgroundColor: primaryColor } : {},
+				active
+					? { backgroundColor: primaryColor }
+					: { backgroundColor: neutralColor },
 				corner ? cornerStyle : {},
 			]}
 			onPress={() => setActive(!active)}

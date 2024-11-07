@@ -2,7 +2,6 @@ const tintColorLight = '#0a7ea4';
 const tintColorDark = '#fff';
 
 export const Colors = {
-	// TODO: rewrite themes to use color names like 'primary', this is a mess
 	light: {
 		primary: '#22f793',
 		primary_dark: '#07c56c',
@@ -13,11 +12,14 @@ export const Colors = {
 		accent: '#ff70de',
 		accent_dark: '#cc009c',
 		accent_light: '#ffccf3',
+		warning: '#dd5000',
+		neutral: '#808080',
 		background: '#e6e9ea',
+		background_dark: '#d5d5d5',
 		text: '#111213',
-		black: '#00000',
+		text_button: '#dfdfdf',
+		text_faded: '#ecedee',
 		// this should be deleted later
-		fadedText: '#182024',
 		placeholderText: '#a0a0a0',
 		tint: tintColorLight,
 		icon: '#687076',
@@ -26,7 +28,6 @@ export const Colors = {
 		buttonBackground: '#0a7ea4',
 		buttonActiveBackground: '#0a7ea4',
 		buttonBorder: '#0b9eb4',
-		buttonText: '#dfdfdf',
 		barBackground: '#efefef',
 	},
 	dark: {
@@ -39,11 +40,14 @@ export const Colors = {
 		accent: '#8f006d',
 		accent_dark: '#4d003b',
 		accent_light: '#e600b0',
+		warning: '#dd5000',
+		neutral: '#353535',
 		background: '#151718',
+		background_dark: '#1a1a1a',
 		text: '#ecedee',
-		black: '#00000',
+		text_button: '#dfdfdf',
+		text_faded: '#aaacad',
 		// this should be deleted later
-		fadedText: '#aaacad',
 		placeholderText: '#bbbbbb',
 		tint: tintColorDark,
 		icon: '#9ba1a6',
@@ -52,7 +56,6 @@ export const Colors = {
 		buttonBackground: '#0a7ea4',
 		buttonActiveBackground: '#00e080',
 		buttonBorder: '#0b9eb4',
-		buttonText: '#dfdfdf',
-		barBackground: '#1c1f21',
+		barBackground: '#1a1a1a',
 	},
 };

@@ -22,7 +22,7 @@ export function ThemedPressable({
 	// the styles on the top level of this component, if you find a workaround, go ahead lol
 	const primaryColor = useThemeColor('secondary');
 	const accentColor = useThemeColor('secondary_light');
-	const textColor = useThemeColor('buttonText');
+	const textColor = useThemeColor('text_button');
 
 	var usedStyle = type === 'round' ? styles.round : styles.default;
 	var child: ReactNode;
@@ -34,6 +34,7 @@ export function ThemedPressable({
 	if (contentType === 'icon') {
 		child = (
 			<ButtonIcon
+				color={textColor}
 				style={type === 'round' ? styles.roundIcon : {}}
 				name={content}
 			/>
