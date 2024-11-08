@@ -1,4 +1,5 @@
 import { BingoItem } from '@/components/BingoItem';
+import TopBar from '@/components/layout/TopBar';
 import { ThemedPressable } from '@/components/themed/ThemedPressable';
 import { ThemedText } from '@/components/themed/ThemedText';
 import { ThemedView } from '@/components/themed/ThemedView';
@@ -44,6 +45,7 @@ export default function Bingo() {
 
 	return (
 		<ThemedView style={styles.default}>
+			<TopBar />
 			<Modal
 				visible={showConfirmationPopup}
 				transparent={true}

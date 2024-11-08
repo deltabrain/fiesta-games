@@ -1,56 +1,21 @@
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { ThemedPressable } from '@/components/themed/ThemedPressable';
-import { ThemedText } from '@/components/themed/ThemedText';
 import { ThemedView } from '@/components/themed/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
-import { Tabs } from 'expo-router';
 import * as NavigationBar from 'expo-navigation-bar';
-import { useState } from 'react';
-import { Linking, StyleSheet } from 'react-native';
+import { Tabs } from 'expo-router';
+import { StyleSheet } from 'react-native';
 
 export default function TabLayout() {
-	function toggleFullscreen(): void {
-		setFullscreen(!fullscreen);
-	}
-
-	const [fullscreen, setFullscreen] = useState(false);
-
 	const barBackgroundColor = useThemeColor('background_dark');
 	const backgroundColor = useThemeColor('background');
 	NavigationBar.setBackgroundColorAsync(useThemeColor('background_dark'));
 
 	return (
-		<ThemedView style={[styles.view, { backgroundColor: backgroundColor }]}>
+		<ThemedView style={[styles.default, { backgroundColor: backgroundColor }]}>
 			{/* BUG: This takes up more place than it should, small CardView at the top gets squashed */}
-			<ThemedView style={styles.topBar}>
-				<ThemedView style={styles.view}>
-					<ThemedPressable
-						style={{ marginLeft: 15 }}
-						contentType='icon'
-						content='git-pull-request-sharp'
-						type='round'
-						onPress={() =>
-							Linking.openURL(
-								'https://github.com/Deltabrain/fiesta-games/issues',
-							)
-						}
-					/>
-					<ThemedText style={styles.text}>Submit issue</ThemedText>
-				</ThemedView>
-				<ThemedPressable
-					style={{ marginRight: 15 }}
-					contentType='icon'
-					content='resize'
-					type='round'
-					onPress={() => toggleFullscreen()}
-				/>
-			</ThemedView>
 			<Tabs
 				screenOptions={{
-					tabBarStyle: [
-						{ backgroundColor: barBackgroundColor },
-						fullscreen ? styles.hidden : {},
-					],
+					tabBarStyle: { backgroundColor: barBackgroundColor },
 					headerShown: false,
 				}}
 				backBehavior='history'
@@ -97,23 +62,10 @@ export default function TabLayout() {
 }
 
 const styles = StyleSheet.create({
-	tabBar: {},
-	topBar: {
-		flex: 0,
-		flexDirection: 'row',
-		justifyContent: 'space-between',
-		marginTop: '12%',
-	},
-	view: {
+	default: {
 		flex: 1,
 		flexDirection: 'column',
 		justifyContent: 'space-between',
-	},
-	text: {
-		textAlignVertical: 'center',
-		textAlign: 'justify',
-		fontSize: 12,
-		marginLeft: 15,
 	},
 	hidden: {
 		display: 'none',

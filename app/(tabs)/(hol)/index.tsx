@@ -1,11 +1,12 @@
 import { CardView } from '@/components/CardView';
+import TopBar from '@/components/layout/TopBar';
 import { ThemedPressable } from '@/components/themed/ThemedPressable';
 import { ThemedText } from '@/components/themed/ThemedText';
 import { ThemedView } from '@/components/themed/ThemedView';
+import { useThemeColor } from '@/hooks/useThemeColor';
 import { useState } from 'react';
 import { Modal, StyleSheet } from 'react-native';
 import * as hol from './higherOrLower';
-import { useThemeColor } from '@/hooks/useThemeColor';
 
 hol.initDeck();
 
@@ -53,6 +54,7 @@ export default function HigherOrLower() {
 
 	return (
 		<ThemedView style={[styles.default, { backgroundColor: backgroundColor }]}>
+			<TopBar />
 			<Modal
 				visible={showScorePopup}
 				transparent={true}
