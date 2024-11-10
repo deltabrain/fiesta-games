@@ -1,18 +1,15 @@
 {
 	"extends": "expo/tsconfig.base",
-	"module": "es2022",
+	"module": "esnext",
 	"target": "es2017",
 	"compilerOptions": {
 		"strict": true,
 		"paths": {
-			"@/*": ["./*"]
+			"@/*": ["./*"],
+			"@/components/*": ["./components/*"],
+			"@/hooks/*": ["./hooks/*"],
+			"@/db/*": ["./db/*"]
 		}
 	},
-	"include": [
-		"**/*.ts",
-		"**/*.tsx",
-		".expo/types/**/*.ts",
-		"expo-env.d.ts",
-		"./db/*.ts"
-	]
+	"include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
 }
