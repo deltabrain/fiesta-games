@@ -9,7 +9,6 @@ import { Modal, StyleSheet, Text, TextInput } from 'react-native';
 import { useMMKVString } from 'react-native-mmkv';
 
 export default function Bingo() {
-	const backgroundColor = useThemeColor('background');
 	const buttonActiveColor = useThemeColor('primary_dark');
 	const textColor = useThemeColor('text');
 	const textButtonColor = useThemeColor('text_button');
@@ -20,6 +19,7 @@ export default function Bingo() {
 	const [editMode, setEditMode] = useState(false);
 	const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
 
+	// TODO: use firestore for this, in the meantime
 	// useState() for expo to work, for production builds useMMKVString()
 	const [field0, setField0] = useMMKVString('field0');
 	const [field1, setField1] = useMMKVString('field1');
@@ -52,9 +52,7 @@ export default function Bingo() {
 				animationType='fade'
 				statusBarTranslucent={true}
 			>
-				<ThemedView
-					style={[styles.modal, { backgroundColor: backgroundColor }]}
-				>
+				<ThemedView style={styles.modal}>
 					<ThemedView style={styles.textContainer}>
 						<ThemedText style={[styles.text, { color: textColor }]}>
 							Are you sure you want to delete all entries?
@@ -365,6 +363,7 @@ const styles = StyleSheet.create({
 		opacity: 0.9,
 	},
 	buttonContainer: {
+		backgroundColor: 'transparent',
 		display: 'flex',
 		flex: 0,
 		flexDirection: 'row',
@@ -373,6 +372,7 @@ const styles = StyleSheet.create({
 		width: '100%',
 	},
 	textContainer: {
+		backgroundColor: 'transparent',
 		display: 'flex',
 		flex: 0,
 		justifyContent: 'center',
