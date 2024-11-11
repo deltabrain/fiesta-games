@@ -92,7 +92,6 @@ export function CardView({
 	);
 }
 
-// TODO: make the dimensions dynamic to preserve aspect ratio
 const styles = StyleSheet.create({
 	default: {
 		width: 320,

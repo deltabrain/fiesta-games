@@ -7,7 +7,7 @@ import auth from '@react-native-firebase/auth';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Tabs } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Modal, StyleSheet } from 'react-native';
+import { Modal, StatusBar, StyleSheet } from 'react-native';
 
 export default function TabLayout() {
 	const [initializing, setInitializing] = useState(true);
@@ -36,7 +36,7 @@ export default function TabLayout() {
 
 	return (
 		<ThemedView style={[styles.default, { backgroundColor: backgroundColor }]}>
-			{/* TODO: add signup to modal + styling */}
+			<StatusBar hidden={true} barStyle={'default'} />
 			<Modal transparent={true} visible={!user}>
 				{newAccount ? (
 					<SignUp newAccount={changeNewAccount} />
@@ -56,7 +56,7 @@ export default function TabLayout() {
 					options={{
 						title: 'Home',
 						tabBarIcon(props) {
-							return <TabBarIcon {...props} name='home' />;
+							return <TabBarIcon {...props} name='home-outline' />;
 						},
 					}}
 				/>
@@ -65,7 +65,7 @@ export default function TabLayout() {
 					options={{
 						title: 'Teufeln',
 						tabBarIcon(props) {
-							return <TabBarIcon {...props} name='dice' />;
+							return <TabBarIcon {...props} name='dice-outline' />;
 						},
 					}}
 				/>
@@ -74,7 +74,7 @@ export default function TabLayout() {
 					options={{
 						title: 'Bingo',
 						tabBarIcon(props) {
-							return <TabBarIcon {...props} name='people' />;
+							return <TabBarIcon {...props} name='people-outline' />;
 						},
 					}}
 				/>
@@ -83,7 +83,16 @@ export default function TabLayout() {
 					options={{
 						title: 'Higher or Lower',
 						tabBarIcon(props) {
-							return <TabBarIcon {...props} name='diamond' />;
+							return <TabBarIcon {...props} name='diamond-outline' />;
+						},
+					}}
+				/>
+				<Tabs.Screen
+					name='(tabs)/(profile)'
+					options={{
+						title: 'Profile',
+						tabBarIcon(props) {
+							return <TabBarIcon {...props} name='person-outline' />;
 						},
 					}}
 				/>

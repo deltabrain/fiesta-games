@@ -5,8 +5,6 @@ export default function TeufelnLayout() {
 		<Stack
 			screenOptions={{
 				headerShown: false,
-				statusBarTranslucent: true,
-				statusBarColor: 'transparent',
 			}}
 		/>
 	);

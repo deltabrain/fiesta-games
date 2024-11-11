@@ -7,7 +7,9 @@ export default function Teufeln() {
 	return (
 		<ThemedView style={styles.default}>
 			<TopBar />
-			<Ionicons name='flame' size={24} color='green' />
+			<ThemedView style={styles.bottomBar}>
+				<Ionicons name='flame' size={24} color='green' />
+			</ThemedView>
 		</ThemedView>
 	);
 }
@@ -16,6 +18,12 @@ const styles = StyleSheet.create({
 	default: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'center',
+		justifyContent: 'space-between',
+	},
+	bottomBar: {
+		width: '100%',
+		marginBottom: '5%',
+		flexDirection: 'row',
+		justifyContent: 'space-evenly',
 	},
 });

@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
 	view: {
 		flex: 1,
 		flexDirection: 'column',
-		justifyContent: 'space-between',
 	},
 	text: {
 		textAlignVertical: 'center',

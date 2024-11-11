@@ -4,6 +4,8 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 import { ButtonIcon } from '../ButtonIcon';
 import React, { ReactNode } from 'react';
 
+// TODO: split icon button and text button into 2 components to take advantage of
+// typechecking Ionicon names, see ../navigation/TabBarIcon.tsx
 export type ThemedPressableProps = PressableProps & {
 	style?: any;
 	type?: 'default' | 'round';

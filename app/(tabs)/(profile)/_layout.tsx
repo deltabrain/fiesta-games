@@ -1,6 +1,6 @@
 import { Stack } from 'expo-router';
 
-export default function BingoLayout() {
+export default function ProfileLayout() {
 	return (
 		<Stack
 			screenOptions={{

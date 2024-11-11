@@ -5,8 +5,6 @@ export default function HomeLayout() {
 		<Stack
 			screenOptions={{
 				headerShown: false,
-				statusBarTranslucent: true,
-				statusBarColor: 'transparent',
 			}}
 		/>
 	);
