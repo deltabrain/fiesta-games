@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "801629674942",
+    "project_id": "fiesta-games",
+    "storage_bucket": "fiesta-games.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:801629674942:android:1c4d0ab8c457a77cd36def",
+        "android_client_info": {
+          "package_name": "io.deltabrain.fiesta"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD_1TgoEljzQChhbvLn96TSNYBL4rmOwns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
