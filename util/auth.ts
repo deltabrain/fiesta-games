@@ -3,7 +3,7 @@ import auth from '@react-native-firebase/auth';
 export function signIn(mail: string, pw: string): boolean {
 	var success = false;
 
-	if (mail == '' || null || pw == '' || null) {
+	if (mail === '' || null || pw === '' || null) {
 		console.log('mail or password empty');
 		return success;
 	}
