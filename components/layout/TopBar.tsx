@@ -4,7 +4,7 @@ import { ThemedIconPressable } from '../themed/ThemedIconPressable';
 import { ThemedText } from '../themed/ThemedText';
 import { ThemedView } from '../themed/ThemedView';
 
-export default function TopBar() {
+export function TopBar() {
 	return (
 		<ThemedView style={styles.topBar}>
 			<ThemedView style={styles.view}>

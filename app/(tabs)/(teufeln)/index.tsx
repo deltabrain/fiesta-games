@@ -1,4 +1,4 @@
-import TopBar from '@/components/layout/TopBar';
+import { TopBar } from '@/components/layout/TopBar';
 import { ThemedView } from '@/components/themed/ThemedView';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { StyleSheet } from 'react-native';

@@ -1,4 +1,4 @@
-import TopBar from '@/components/layout/TopBar';
+import { TopBar } from '@/components/layout/TopBar';
 import { ThemedIconPressable } from '@/components/themed/ThemedIconPressable';
 import { ThemedView } from '@/components/themed/ThemedView';
 import { signOut } from '@/util/auth';

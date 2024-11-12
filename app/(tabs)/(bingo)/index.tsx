@@ -1,14 +1,13 @@
 import { BingoItem } from '@/components/BingoItem';
-import TopBar from '@/components/layout/TopBar';
-import { ThemedTextPressable } from '@/components/themed/ThemedTextPressable';
+import { TopBar } from '@/components/layout/TopBar';
+import { ThemedIconPressable } from '@/components/themed/ThemedIconPressable';
 import { ThemedText } from '@/components/themed/ThemedText';
+import { ThemedTextPressable } from '@/components/themed/ThemedTextPressable';
 import { ThemedView } from '@/components/themed/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
-import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { Modal, StyleSheet, Text, TextInput } from 'react-native';
 import { useMMKVString } from 'react-native-mmkv';
-import { ThemedIconPressable } from '@/components/themed/ThemedIconPressable';
 
 export default function Bingo() {
 	const buttonActiveColor = useThemeColor('primary_dark');

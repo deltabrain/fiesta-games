@@ -1,5 +1,5 @@
 import { CardView } from '@/components/CardView';
-import TopBar from '@/components/layout/TopBar';
+import { TopBar } from '@/components/layout/TopBar';
 import { ThemedText } from '@/components/themed/ThemedText';
 import { ThemedTextPressable } from '@/components/themed/ThemedTextPressable';
 import { ThemedView } from '@/components/themed/ThemedView';
