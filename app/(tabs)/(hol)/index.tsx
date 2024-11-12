@@ -1,7 +1,7 @@
 import { CardView } from '@/components/CardView';
 import TopBar from '@/components/layout/TopBar';
-import { ThemedPressable } from '@/components/themed/ThemedPressable';
 import { ThemedText } from '@/components/themed/ThemedText';
+import { ThemedTextPressable } from '@/components/themed/ThemedTextPressable';
 import { ThemedView } from '@/components/themed/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { useState } from 'react';
@@ -67,9 +67,8 @@ export default function HigherOrLower() {
 					<ThemedText style={styles.text}>
 						You have to take {scoreBuf} sip(s).
 					</ThemedText>
-					<ThemedPressable
-						contentType='text'
-						content={'Close'}
+					<ThemedTextPressable
+						text='Close'
 						style={styles.button}
 						onPress={() => {
 							setShowScorePopup(false);
@@ -85,9 +84,8 @@ export default function HigherOrLower() {
 			<ThemedView
 				style={[styles.buttonContainer, { backgroundColor: backgroundColor }]}
 			>
-				<ThemedPressable
-					contentType='text'
-					content={leftButtonText}
+				<ThemedTextPressable
+					text={leftButtonText}
 					style={styles.button}
 					onPress={async () => {
 						var action = firstRound ? hol.SuitGuess.Red : hol.RankGuess.Higher;
@@ -99,9 +97,8 @@ export default function HigherOrLower() {
 						updateCards();
 					}}
 				/>
-				<ThemedPressable
-					contentType='text'
-					content={rightButtonText}
+				<ThemedTextPressable
+					text={rightButtonText}
 					style={styles.button}
 					onPress={async () => {
 						var action = firstRound ? hol.SuitGuess.Black : hol.RankGuess.Lower;

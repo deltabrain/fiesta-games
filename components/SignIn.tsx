@@ -1,10 +1,10 @@
-import { ThemedPressable } from '@/components/themed/ThemedPressable';
 import { ThemedText } from '@/components/themed/ThemedText';
 import { ThemedView } from '@/components/themed/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { signIn } from '@/util/auth';
 import { useState } from 'react';
 import { StyleSheet, TextInput, ViewProps } from 'react-native';
+import { ThemedIconPressable } from './themed/ThemedIconPressable';
 
 export type SignInProps = ViewProps & {
 	newAccount: Function;
@@ -40,11 +40,11 @@ export function SignIn({ newAccount }: SignInProps) {
 				placeholder='Password'
 				placeholderTextColor={fadedTextColor}
 				textContentType='password'
+				secureTextEntry
 			></TextInput>
-			<ThemedPressable
+			<ThemedIconPressable
 				onPress={() => signIn(email, password)}
-				contentType='icon'
-				content={'arrow-forward-outline'}
+				icon='arrow-forward-outline'
 				type='round'
 			/>
 			<ThemedText

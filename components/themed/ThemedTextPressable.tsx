@@ -1,47 +1,26 @@
 import { type PressableProps, Pressable, Text } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { useThemeColor } from '@/hooks/useThemeColor';
-import { ButtonIcon } from '../ButtonIcon';
-import React, { ReactNode } from 'react';
+import React from 'react';
 
-// TODO: split icon button and text button into 2 components to take advantage of
-// typechecking Ionicon names, see ../navigation/TabBarIcon.tsx
-export type ThemedPressableProps = PressableProps & {
+export type ThemedTextPressableProps = PressableProps & {
 	style?: any;
 	type?: 'default' | 'round';
-	contentType?: 'text' | 'icon';
-	content?: string | any;
+	text: string;
 };
 
-export function ThemedPressable({
+export function ThemedTextPressable({
 	style,
 	type = 'default',
-	contentType = 'text',
-	content,
+	text,
 	...rest
-}: ThemedPressableProps) {
-	// unfortunately, we can't use useThemeColor outside of a function, so we can't create
-	// the styles on the top level of this component, if you find a workaround, go ahead lol
+}: ThemedTextPressableProps) {
 	const primaryColor = useThemeColor('secondary');
 	const accentColor = useThemeColor('secondary_light');
 	const textColor = useThemeColor('text_button');
 
 	var usedStyle = type === 'round' ? styles.round : styles.default;
-	var child: ReactNode;
 
-	if (contentType === 'text') {
-		child = <Text style={[styles.text, { color: textColor }]}>{content}</Text>;
-	}
-
-	if (contentType === 'icon') {
-		child = (
-			<ButtonIcon
-				color={textColor}
-				style={type === 'round' ? styles.roundIcon : {}}
-				name={content}
-			/>
-		);
-	}
 	return (
 		<Pressable
 			style={[
@@ -54,7 +33,7 @@ export function ThemedPressable({
 			]}
 			{...rest}
 		>
-			{child}
+			<Text style={[styles.text, { color: textColor }]}>{text}</Text>
 		</Pressable>
 	);
 }
@@ -75,10 +54,6 @@ const styles = StyleSheet.create({
 		borderStyle: 'solid',
 		padding: 0,
 		justifyContent: 'center',
-	},
-	roundIcon: {
-		textAlign: 'center',
-		borderWidth: 0,
 	},
 	text: {
 		fontSize: 18,

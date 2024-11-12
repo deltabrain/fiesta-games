@@ -1,5 +1,6 @@
+import React from 'react';
 import { Linking, StyleSheet } from 'react-native';
-import { ThemedPressable } from '../themed/ThemedPressable';
+import { ThemedIconPressable } from '../themed/ThemedIconPressable';
 import { ThemedText } from '../themed/ThemedText';
 import { ThemedView } from '../themed/ThemedView';
 
@@ -7,10 +8,9 @@ export default function TopBar() {
 	return (
 		<ThemedView style={styles.topBar}>
 			<ThemedView style={styles.view}>
-				<ThemedPressable
+				<ThemedIconPressable
 					style={{ marginLeft: 15 }}
-					contentType='icon'
-					content='git-pull-request-sharp'
+					icon='git-pull-request-sharp'
 					type='round'
 					onPress={() =>
 						Linking.openURL('https://github.com/Deltabrain/fiesta-games/issues')

@@ -1,12 +1,14 @@
 import { BingoItem } from '@/components/BingoItem';
 import TopBar from '@/components/layout/TopBar';
-import { ThemedPressable } from '@/components/themed/ThemedPressable';
+import { ThemedTextPressable } from '@/components/themed/ThemedTextPressable';
 import { ThemedText } from '@/components/themed/ThemedText';
 import { ThemedView } from '@/components/themed/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
+import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 import { Modal, StyleSheet, Text, TextInput } from 'react-native';
 import { useMMKVString } from 'react-native-mmkv';
+import { ThemedIconPressable } from '@/components/themed/ThemedIconPressable';
 
 export default function Bingo() {
 	const buttonActiveColor = useThemeColor('primary_dark');
@@ -59,17 +61,15 @@ export default function Bingo() {
 						</ThemedText>
 					</ThemedView>
 					<ThemedView style={styles.buttonContainer}>
-						<ThemedPressable
-							contentType='text'
-							content={'No'}
+						<ThemedTextPressable
+							text='No'
 							style={styles.button}
 							onPress={() => {
 								setShowConfirmationPopup(false);
 							}}
 						/>
-						<ThemedPressable
-							contentType='text'
-							content={'Yes'}
+						<ThemedTextPressable
+							text='Yes'
 							style={styles.button}
 							onPress={() => {
 								setShowConfirmationPopup(false);
@@ -286,10 +286,9 @@ export default function Bingo() {
 				</ThemedView>
 			</ThemedView>
 			<ThemedView style={styles.bottomBar}>
-				<ThemedPressable
+				<ThemedIconPressable
 					disabled={!editMode}
-					contentType='icon'
-					content='trash-sharp'
+					icon='trash-sharp'
 					onPress={() => setShowConfirmationPopup(true)}
 					style={
 						editMode
@@ -306,10 +305,12 @@ export default function Bingo() {
 				>
 					Edit Mode
 				</Text>
-				<ThemedPressable
-					contentType='icon'
-					content='options-sharp'
-					onPress={() => setEditMode(!editMode)}
+				<ThemedIconPressable
+					icon={editMode ? 'checkmark-done' : 'options-sharp'}
+					onPress={() => {
+						setEditMode(!editMode);
+						// TODO: submit data to firestore
+					}}
 					style={editMode ? { backgroundColor: buttonActiveColor } : {}}
 				/>
 			</ThemedView>

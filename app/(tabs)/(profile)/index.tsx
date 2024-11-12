@@ -1,5 +1,5 @@
 import TopBar from '@/components/layout/TopBar';
-import { ThemedPressable } from '@/components/themed/ThemedPressable';
+import { ThemedIconPressable } from '@/components/themed/ThemedIconPressable';
 import { ThemedView } from '@/components/themed/ThemedView';
 import { signOut } from '@/util/auth';
 import { StyleSheet } from 'react-native';
@@ -9,11 +9,7 @@ export default function Home() {
 		<ThemedView style={styles.default}>
 			<TopBar />
 			<ThemedView style={styles.bottomBar}>
-				<ThemedPressable
-					contentType='icon'
-					content={'log-out-outline'}
-					onPress={() => signOut()}
-				/>
+				<ThemedIconPressable icon='log-out-outline' onPress={() => signOut()} />
 			</ThemedView>
 		</ThemedView>
 	);
