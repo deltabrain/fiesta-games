@@ -1,9 +1,8 @@
-import { type PressableProps, Pressable, Text } from 'react-native';
-import { StyleSheet } from 'react-native';
 import { useThemeColor } from '@/hooks/useThemeColor';
-import { ButtonIcon } from '../ButtonIcon';
-import React, { ComponentProps } from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import React, { ComponentProps } from 'react';
+import { Pressable, StyleSheet, type PressableProps } from 'react-native';
+import { ButtonIcon } from '../ButtonIcon';
 
 export type ThemedIconPressableProps = PressableProps & {
 	icon: ComponentProps<typeof Ionicons>['name'];

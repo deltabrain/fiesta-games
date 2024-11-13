@@ -8,6 +8,8 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 import { useState } from 'react';
 import { Modal, StyleSheet, Text, TextInput } from 'react-native';
 import { useMMKVString } from 'react-native-mmkv';
+import auth from '@react-native-firebase/auth';
+import { getFields } from '@/util/db';
 
 export default function Bingo() {
 	const buttonActiveColor = useThemeColor('primary_dark');
@@ -19,6 +21,8 @@ export default function Bingo() {
 
 	const [editMode, setEditMode] = useState(false);
 	const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
+
+	console.log(getFields(auth().currentUser?.uid));
 
 	// TODO: use firestore for this, in the meantime
 	// useState() for expo to work, for production builds useMMKVString()
