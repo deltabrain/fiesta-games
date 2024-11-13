@@ -2,6 +2,7 @@
 	"name": "Fiesta",
 	"main": "expo-router/entry",
 	"version": "0.2.1",
+	"type": "module",
 	"scripts": {
 		"dev": "expo start",
 		"android": "expo run:android",
@@ -59,5 +60,8 @@
 		"react-test-renderer": "18.2.0",
 		"typescript": "~5.3.3"
 	},
-	"private": true
+	"private": true,
+	"trustedDependencies": [
+		"protobufjs"
+	]
 }
