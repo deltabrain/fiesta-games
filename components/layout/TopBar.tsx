@@ -10,7 +10,7 @@ export function TopBar() {
 			<ThemedView style={styles.view}>
 				<ThemedIconPressable
 					style={{ marginLeft: 15 }}
-					icon='git-pull-request-sharp'
+					icon='git-pull-request-outline'
 					type='round'
 					onPress={() =>
 						Linking.openURL('https://github.com/Deltabrain/fiesta-games/issues')
