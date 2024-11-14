@@ -24,12 +24,6 @@
 				"backgroundColor": "#151718"
 			}
 		},
-		"androidStatusBar": {
-			"hidden": true
-		},
-		"androidNavigationBar": {
-			"backgroundColor": "#151718"
-		},
 		"web": {
 			"bundler": "metro",
 			"output": "static",

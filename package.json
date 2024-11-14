@@ -2,7 +2,6 @@
 	"name": "Fiesta",
 	"main": "expo-router/entry",
 	"version": "0.2.1",
-	"type": "module",
 	"scripts": {
 		"dev": "expo start",
 		"android": "expo run:android",

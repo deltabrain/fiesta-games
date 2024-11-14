@@ -3,10 +3,13 @@ import { Linking, StyleSheet } from 'react-native';
 import { ThemedIconPressable } from '../themed/ThemedIconPressable';
 import { ThemedText } from '../themed/ThemedText';
 import { ThemedView } from '../themed/ThemedView';
+import { useThemeColor } from '@/hooks/useThemeColor';
 
 export function TopBar() {
+	const backgroundColor = useThemeColor('background');
+
 	return (
-		<ThemedView style={styles.topBar}>
+		<ThemedView style={[styles.topBar, { backgroundColor: backgroundColor }]}>
 			<ThemedView style={styles.view}>
 				<ThemedIconPressable
 					style={{ marginLeft: 15 }}

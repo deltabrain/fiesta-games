@@ -7,7 +7,7 @@ import auth from '@react-native-firebase/auth';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Tabs } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Modal, StatusBar, StyleSheet } from 'react-native';
+import { Modal, StatusBar, StyleSheet, useColorScheme } from 'react-native';
 
 export default function TabLayout() {
 	const [initializing, setInitializing] = useState(true);
@@ -15,7 +15,10 @@ export default function TabLayout() {
 	const [newAccount, setNewAccount] = useState(false);
 	const barBackgroundColor = useThemeColor('background_dark');
 	const backgroundColor = useThemeColor('background');
+	const statusBarStyle =
+		useColorScheme() == 'light' ? 'dark-content' : 'light-content';
 	NavigationBar.setBackgroundColorAsync(useThemeColor('background_dark'));
+	StatusBar.setBackgroundColor(useThemeColor('background'));
 
 	useEffect(() => {
 		const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
@@ -36,7 +39,7 @@ export default function TabLayout() {
 
 	return (
 		<ThemedView style={[styles.default, { backgroundColor: backgroundColor }]}>
-			<StatusBar hidden={true} barStyle={'default'} />
+			<StatusBar translucent={true} barStyle={statusBarStyle} />
 			<Modal transparent={true} visible={!user}>
 				{newAccount ? (
 					<SignUp newAccount={changeNewAccount} />
