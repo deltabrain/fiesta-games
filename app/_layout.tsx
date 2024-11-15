@@ -16,7 +16,7 @@ export default function TabLayout() {
 	const barBackgroundColor = useThemeColor('background_dark');
 	const backgroundColor = useThemeColor('background');
 	const statusBarStyle =
-		useColorScheme() == 'light' ? 'dark-content' : 'light-content';
+		useColorScheme() === 'light' ? 'dark-content' : 'light-content';
 	NavigationBar.setBackgroundColorAsync(useThemeColor('background_dark'));
 	StatusBar.setBackgroundColor(useThemeColor('background'));
 
