@@ -8,7 +8,6 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 import { getFields, setFields } from '@/util/db';
 import { useEffect, useState } from 'react';
 import { Modal, StyleSheet, Text, TextInput } from 'react-native';
-import { useMMKVString } from 'react-native-mmkv';
 import auth from '@react-native-firebase/auth';
 
 export default function Bingo() {
@@ -21,26 +20,40 @@ export default function Bingo() {
 
 	const [editMode, setEditMode] = useState(false);
 	const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
+	const [loading, setLoading] = useState(true);
 
+	const board: any[] = [];
 	useEffect(() => {
-		const soos = getFields(auth().currentUser?.uid).then((res) => {
+		setLoading(true);
+		getFields(auth().currentUser?.uid).then((res) => {
 			for (let i = 0; i < 9; i++) {
-				console.log(res![i]);
+				board.push(res![i]);
 			}
+
+			setField0(board[0]);
+			setField1(board[1]);
+			setField2(board[2]);
+			setField3(board[3]);
+			setField4(board[4]);
+			setField5(board[5]);
+			setField6(board[6]);
+			setField7(board[7]);
+			setField8(board[8]);
 		});
+		setLoading(false);
 	}, []);
 
 	// TODO: use firestore for this, in the meantime
 	// useState() for expo to work, for production builds useMMKVString()
-	const [field0, setField0] = useMMKVString('field0');
-	const [field1, setField1] = useMMKVString('field1');
-	const [field2, setField2] = useMMKVString('field2');
-	const [field3, setField3] = useMMKVString('field3');
-	const [field4, setField4] = useMMKVString('field4');
-	const [field5, setField5] = useMMKVString('field5');
-	const [field6, setField6] = useMMKVString('field6');
-	const [field7, setField7] = useMMKVString('field7');
-	const [field8, setField8] = useMMKVString('field8');
+	const [field0, setField0] = useState('');
+	const [field1, setField1] = useState('');
+	const [field2, setField2] = useState('');
+	const [field3, setField3] = useState('');
+	const [field4, setField4] = useState('');
+	const [field5, setField5] = useState('');
+	const [field6, setField6] = useState('');
+	const [field7, setField7] = useState('');
+	const [field8, setField8] = useState('');
 
 	function resetFields(): void {
 		setField0('');
@@ -66,13 +79,22 @@ export default function Bingo() {
 		field8,
 	];
 
-	const updateFields = useEffect(() => {
-		setFields(auth().currentUser?.uid, fields);
-	}, []);
+	function updateFields() {
+		useEffect(() => {
+			setFields(auth().currentUser?.uid, fields);
+		}, []);
+	}
 
 	return (
 		<ThemedView style={styles.default}>
 			<TopBar />
+			<Modal visible={loading} transparent={true} animationType='fade'>
+				<ThemedView style={styles.modal}>
+					<ThemedText style={[styles.text, { color: textColor }]}>
+						Loading...
+					</ThemedText>
+				</ThemedView>
+			</Modal>
 			<Modal
 				visible={showConfirmationPopup}
 				transparent={true}
@@ -334,7 +356,9 @@ export default function Bingo() {
 					icon={editMode ? 'checkmark-done' : 'cog-outline'}
 					onPress={() => {
 						setEditMode(!editMode);
-						updateFields;
+
+						setFields(auth().currentUser?.uid, fields);
+
 						// TODO: submit data to firestore
 					}}
 					style={editMode ? { backgroundColor: buttonActiveColor } : {}}
