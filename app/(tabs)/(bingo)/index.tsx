@@ -5,9 +5,11 @@ import { ThemedText } from '@/components/themed/ThemedText';
 import { ThemedTextPressable } from '@/components/themed/ThemedTextPressable';
 import { ThemedView } from '@/components/themed/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
-import { useState } from 'react';
+import { getFields, setFields } from '@/util/db';
+import { useEffect, useState } from 'react';
 import { Modal, StyleSheet, Text, TextInput } from 'react-native';
 import { useMMKVString } from 'react-native-mmkv';
+import auth from '@react-native-firebase/auth';
 
 export default function Bingo() {
 	const buttonActiveColor = useThemeColor('primary_dark');
@@ -19,6 +21,14 @@ export default function Bingo() {
 
 	const [editMode, setEditMode] = useState(false);
 	const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
+
+	useEffect(() => {
+		const soos = getFields(auth().currentUser?.uid).then((res) => {
+			for (let i = 0; i < 9; i++) {
+				console.log(res![i]);
+			}
+		});
+	}, []);
 
 	// TODO: use firestore for this, in the meantime
 	// useState() for expo to work, for production builds useMMKVString()
@@ -43,6 +53,22 @@ export default function Bingo() {
 		setField7('');
 		setField8('');
 	}
+
+	const fields = [
+		field0,
+		field1,
+		field2,
+		field3,
+		field4,
+		field5,
+		field6,
+		field7,
+		field8,
+	];
+
+	const updateFields = useEffect(() => {
+		setFields(auth().currentUser?.uid, fields);
+	}, []);
 
 	return (
 		<ThemedView style={styles.default}>
@@ -308,6 +334,7 @@ export default function Bingo() {
 					icon={editMode ? 'checkmark-done' : 'cog-outline'}
 					onPress={() => {
 						setEditMode(!editMode);
+						updateFields;
 						// TODO: submit data to firestore
 					}}
 					style={editMode ? { backgroundColor: buttonActiveColor } : {}}
