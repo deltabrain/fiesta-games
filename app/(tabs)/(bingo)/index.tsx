@@ -37,7 +37,7 @@ export default function Bingo() {
 			setField7(board[7]);
 			setField8(board[8]);
 		});
-	}, []);
+	});
 
 	const [field0, setField0] = useState('');
 	const [field1, setField1] = useState('');
@@ -72,12 +72,6 @@ export default function Bingo() {
 		field7,
 		field8,
 	];
-
-	function updateFields() {
-		useEffect(() => {
-			setFields(auth().currentUser?.uid, fields);
-		}, []);
-	}
 
 	return (
 		<ThemedView style={styles.default}>
