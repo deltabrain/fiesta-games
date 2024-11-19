@@ -20,16 +20,13 @@ export default function Bingo() {
 
 	const [editMode, setEditMode] = useState(false);
 	const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
-	const [loading, setLoading] = useState(true);
 
 	const board: any[] = [];
 	useEffect(() => {
-		setLoading(true);
 		getFields(auth().currentUser?.uid).then((res) => {
 			for (let i = 0; i < 9; i++) {
 				board.push(res![i]);
 			}
-
 			setField0(board[0]);
 			setField1(board[1]);
 			setField2(board[2]);
@@ -40,11 +37,8 @@ export default function Bingo() {
 			setField7(board[7]);
 			setField8(board[8]);
 		});
-		setLoading(false);
-	}, []);
+	});
 
-	// TODO: use firestore for this, in the meantime
-	// useState() for expo to work, for production builds useMMKVString()
 	const [field0, setField0] = useState('');
 	const [field1, setField1] = useState('');
 	const [field2, setField2] = useState('');
@@ -79,22 +73,9 @@ export default function Bingo() {
 		field8,
 	];
 
-	function updateFields() {
-		useEffect(() => {
-			setFields(auth().currentUser?.uid, fields);
-		}, []);
-	}
-
 	return (
 		<ThemedView style={styles.default}>
 			<TopBar />
-			<Modal visible={loading} transparent={true} animationType='fade'>
-				<ThemedView style={styles.modal}>
-					<ThemedText style={[styles.text, { color: textColor }]}>
-						Loading...
-					</ThemedText>
-				</ThemedView>
-			</Modal>
 			<Modal
 				visible={showConfirmationPopup}
 				transparent={true}
@@ -355,11 +336,10 @@ export default function Bingo() {
 				<ThemedIconPressable
 					icon={editMode ? 'checkmark-done' : 'cog-outline'}
 					onPress={() => {
+						if (editMode) {
+							setFields(auth().currentUser?.uid, fields);
+						}
 						setEditMode(!editMode);
-
-						setFields(auth().currentUser?.uid, fields);
-
-						// TODO: submit data to firestore
 					}}
 					style={editMode ? { backgroundColor: buttonActiveColor } : {}}
 				/>

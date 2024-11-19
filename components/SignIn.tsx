@@ -3,8 +3,9 @@ import { ThemedView } from '@/components/themed/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { signIn } from '@/util/auth';
 import { useState } from 'react';
-import { StyleSheet, TextInput, ViewProps } from 'react-native';
+import { StyleSheet, TextInput, ToastAndroid, ViewProps } from 'react-native';
 import { ThemedIconPressable } from './themed/ThemedIconPressable';
+import { SigninResult } from '@/util/types';
 
 export type SignInProps = ViewProps & {
 	newAccount: Function;
@@ -17,6 +18,10 @@ export function SignIn({ newAccount }: SignInProps) {
 	const fadedTextColor = useThemeColor('text_faded');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+
+	const showToast = (msg: string) => {
+		ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM);
+	};
 
 	return (
 		<ThemedView style={[styles.default, { backgroundColor: backgroundColor }]}>
@@ -43,7 +48,9 @@ export function SignIn({ newAccount }: SignInProps) {
 				secureTextEntry
 			></TextInput>
 			<ThemedIconPressable
-				onPress={() => signIn(email, password)}
+				onPress={() => {
+					signIn(email, password);
+				}}
 				icon='arrow-forward-outline'
 				type='round'
 			/>
