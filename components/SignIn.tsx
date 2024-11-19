@@ -49,16 +49,7 @@ export function SignIn({ newAccount }: SignInProps) {
 			></TextInput>
 			<ThemedIconPressable
 				onPress={() => {
-					switch (signIn(email, password)) {
-						case SigninResult.Success:
-							return;
-						case SigninResult.InvalidEmail:
-							showToast('Invalid Email');
-						case SigninResult.InputMissing:
-							showToast('Enter Email and Password');
-						case SigninResult.Error:
-							showToast('An Error occured');
-					}
+					signIn(email, password);
 				}}
 				icon='arrow-forward-outline'
 				type='round'

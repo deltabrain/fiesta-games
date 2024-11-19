@@ -1,37 +1,35 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
-import { SigninResult, SignupResult } from './types';
+import { ToastAndroid } from 'react-native';
 
 const db = firestore();
 
-export function signIn(mail: string, pw: string): SigninResult {
+const showToast = (msg: string) => {
+	ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM);
+};
+
+export function signIn(mail: string, pw: string) {
 	if (mail === '' || null || pw === '' || null) {
-		console.log('mail or password empty');
-		return SigninResult.InputMissing;
+		showToast('Enter email address and password!');
+		return;
 	}
 
 	auth()
 		.signInWithEmailAndPassword(mail, pw)
 		.then(() => {
-			console.log('signed in');
+			showToast('Successfully logged in!');
 		})
 		.catch((error) => {
 			if (error.code === 'auth/invalid-email') {
-				console.log('That email address is invalid!');
-				return SigninResult.InvalidEmail;
+				showToast('That email address is invalid!');
 			}
-
-			console.error(error);
-			return SigninResult.Error;
 		});
-
-	return SigninResult.Success;
 }
 
-export function signUp(mail: string, pw: string): SignupResult {
+export function signUp(mail: string, pw: string) {
 	if (mail === '' || null || pw === '' || null) {
-		console.log('mail or password empty');
-		return SignupResult.InputMissing;
+		showToast('Enter email address and password');
+		return;
 	}
 	auth()
 		.createUserWithEmailAndPassword(mail, pw)
@@ -51,31 +49,27 @@ export function signUp(mail: string, pw: string): SignupResult {
 				7: '',
 				8: '',
 			});
-			return SignupResult.Success;
 		})
 		.catch((error) => {
 			if (error.code === 'auth/email-already-in-use') {
-				console.log('That email address is already in use!');
-				return SignupResult.UserExists;
-			}
-
-			if (error.code === 'auth/invalid-email') {
-				console.log('That email address is invalid!');
-				return SignupResult.BadEmail;
+				showToast('That email address is already in use!');
 			}
 
 			if (error.code === 'auth/weak-password') {
-				console.log('Weak password!');
-				return SignupResult.WeakPassword;
+				showToast('Weak password!');
 			}
-			console.error(error);
+
+			if (error.code === 'auth/invalid-email') {
+				showToast('That email address is invalid!');
+			}
 		});
-	return SignupResult.Error;
 }
 
 export function signOut() {
 	auth()
 		.signOut()
-		.then(() => console.log('Signed out'))
+		.then(() => {
+			showToast('Successfully logged out!');
+		})
 		.catch((error) => console.error(error));
 }

@@ -50,20 +50,7 @@ export function SignUp({ newAccount }: SignUpProps) {
 			></TextInput>
 			<ThemedIconPressable
 				onPress={() => {
-					switch (signUp(email, password)) {
-						case SignupResult.Success:
-							return;
-						case SignupResult.WeakPassword:
-							showToast('Weak Password');
-						case SignupResult.BadEmail:
-							showToast('Enter a valid Email address');
-						case SignupResult.UserExists:
-							showToast('User already exists');
-						case SignupResult.InputMissing:
-							showToast('Enter Email and Password');
-						case SignupResult.Error:
-							showToast('An error occured');
-					}
+					signUp(email, password);
 				}}
 				icon='arrow-forward-outline'
 				type='round'
