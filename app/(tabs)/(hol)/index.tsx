@@ -6,7 +6,7 @@ import { ThemedView } from '@/components/themed/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { useState } from 'react';
 import { Modal, StyleSheet } from 'react-native';
-import * as hol from './higherOrLower';
+import * as hol from '@/src/higherOrLower';
 
 hol.initDeck();
 
