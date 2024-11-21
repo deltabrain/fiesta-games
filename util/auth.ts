@@ -20,8 +20,13 @@ export function signIn(mail: string, pw: string) {
 			showToast('Successfully logged in!');
 		})
 		.catch((error) => {
+			console.error(error.code);
 			if (error.code === 'auth/invalid-email') {
 				showToast('That email address is invalid!');
+			}
+
+			if (error.code === 'auth/invalid-credential') {
+				showToast('Wrong email address or password!');
 			}
 		});
 }
