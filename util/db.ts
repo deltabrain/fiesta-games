@@ -1,5 +1,7 @@
 import firestore from '@react-native-firebase/firestore';
 
+// TODO: swap to supabase for file storage
+
 const db = firestore();
 const boardsCollection = db.collection('UserBoards');
 
