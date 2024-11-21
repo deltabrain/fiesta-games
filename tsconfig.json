@@ -6,9 +6,11 @@
 		"strict": true,
 		"paths": {
 			"@/*": ["./*"],
+			"@/src/*": ["./app/src/*"],
 			"@/components/*": ["./components/*"],
 			"@/hooks/*": ["./hooks/*"],
-			"@/db/*": ["./db/*"]
+			"@/db/*": ["./db/*"],
+			"@/types": ["./util/types.ts"]
 		}
 	},
 	"include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
