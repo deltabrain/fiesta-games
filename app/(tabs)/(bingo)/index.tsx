@@ -6,7 +6,7 @@ import { ThemedTextPressable } from '@/components/themed/ThemedTextPressable';
 import { ThemedView } from '@/components/themed/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
 import { getFields, setFields } from '@/src/lib/db';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Modal, StyleSheet, Text, TextInput } from 'react-native';
 
 export default function Bingo() {
@@ -21,21 +21,19 @@ export default function Bingo() {
 	const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
 
 	const board: any[] = [];
-	useEffect(() => {
-		getFields().then((res) => {
-			for (let i = 0; i < 9; i++) {
-				board.push(res[i]);
-			}
-			setField0(board[0]);
-			setField1(board[1]);
-			setField2(board[2]);
-			setField3(board[3]);
-			setField4(board[4]);
-			setField5(board[5]);
-			setField6(board[6]);
-			setField7(board[7]);
-			setField8(board[8]);
-		});
+	getFields().then((res) => {
+		for (let i = 0; i < 9; i++) {
+			board.push(res![i]);
+		}
+		setField0(board[0]);
+		setField1(board[1]);
+		setField2(board[2]);
+		setField3(board[3]);
+		setField4(board[4]);
+		setField5(board[5]);
+		setField6(board[6]);
+		setField7(board[7]);
+		setField8(board[8]);
 	});
 
 	const [field0, setField0] = useState('');
@@ -108,7 +106,7 @@ export default function Bingo() {
 			</Modal>
 			<ThemedView style={styles.bingoContainer}>
 				<ThemedView style={styles.row}>
-					<BingoItem editMode={editMode} corner='TopLeft'>
+					<BingoItem fieldNumber={0} editMode={editMode} corner='TopLeft'>
 						<ThemedText
 							style={[
 								styles.bingoText,
@@ -130,7 +128,7 @@ export default function Bingo() {
 							]}
 						/>
 					</BingoItem>
-					<BingoItem editMode={editMode}>
+					<BingoItem fieldNumber={1} editMode={editMode}>
 						<ThemedText
 							style={[
 								styles.bingoText,
@@ -152,7 +150,7 @@ export default function Bingo() {
 							]}
 						/>
 					</BingoItem>
-					<BingoItem editMode={editMode} corner='TopRight'>
+					<BingoItem fieldNumber={2} editMode={editMode} corner='TopRight'>
 						<ThemedText
 							style={[
 								styles.bingoText,
@@ -176,7 +174,7 @@ export default function Bingo() {
 					</BingoItem>
 				</ThemedView>
 				<ThemedView style={styles.row}>
-					<BingoItem editMode={editMode}>
+					<BingoItem fieldNumber={3} editMode={editMode}>
 						<ThemedText
 							style={[
 								styles.bingoText,
@@ -198,7 +196,7 @@ export default function Bingo() {
 							]}
 						/>
 					</BingoItem>
-					<BingoItem editMode={editMode}>
+					<BingoItem fieldNumber={4} editMode={editMode}>
 						<ThemedText
 							style={[
 								styles.bingoText,
@@ -220,7 +218,7 @@ export default function Bingo() {
 							]}
 						/>
 					</BingoItem>
-					<BingoItem editMode={editMode}>
+					<BingoItem fieldNumber={5} editMode={editMode}>
 						<ThemedText
 							style={[
 								styles.bingoText,
@@ -244,7 +242,7 @@ export default function Bingo() {
 					</BingoItem>
 				</ThemedView>
 				<ThemedView style={styles.row}>
-					<BingoItem editMode={editMode} corner='BottomLeft'>
+					<BingoItem fieldNumber={6} editMode={editMode} corner='BottomLeft'>
 						<ThemedText
 							style={[
 								styles.bingoText,
@@ -266,7 +264,7 @@ export default function Bingo() {
 							]}
 						/>
 					</BingoItem>
-					<BingoItem editMode={editMode}>
+					<BingoItem fieldNumber={7} editMode={editMode}>
 						<ThemedText
 							style={[
 								styles.bingoText,
@@ -288,7 +286,7 @@ export default function Bingo() {
 							]}
 						/>
 					</BingoItem>
-					<BingoItem editMode={editMode} corner='BottomRight'>
+					<BingoItem fieldNumber={8} editMode={editMode} corner='BottomRight'>
 						<ThemedText
 							style={[
 								styles.bingoText,

@@ -3,40 +3,41 @@ import { getUserId } from '@/lib/auth';
 
 export async function getFields() {
 	const id = await getUserId();
-	const arr: any[] = [];
 
-	// for (var i = 0; i <= 8; i++) {
-	// 	await supabase
-	// 		.from('boards')
-	// 		.select(`field${i}`)
-	// 		.eq('user_id', id)
-	// FIX: find out how to iterate through the values all fields of the object
-	// 		.then((res) => (arr[i] = res.data![0][`field${i}`]));
-	// 	console.log(arr);
-	// }
+	console.log('getFields called');
 
-	const { data, error } = await supabase.from('boards').select('*');
+	const { data, error } = await supabase
+		.from('boards')
+		.select('fields')
+		.eq('user_id', id);
 	if (error) throw error;
-	console.log('data.values: ', data.values());
 
-	// var data;
-	//
-	// const res = await supabase
-	// 	.from('boards')
-	// 	.select(
-	// 		`field0, field1, field2, field3, field4, field5, field6, field7, field8`,
-	// 	)
-	// 	.eq('user_id', id)
-	// 	.then((res) => (data = res.data![0]));
-	//
-	// console.log(data);
+	const res = data[0].fields;
 
-	return arr;
+	return res;
 }
 
+export async function getField(fieldNumber: number) {
+	const id = await getUserId();
+
+	console.log('getField called');
+
+	const { data, error } = await supabase
+		.from('boards')
+		.select('fields')
+		.eq('user_id', id);
+	if (error) throw error;
+
+	const res = data[0].fields![fieldNumber];
+
+	return res;
+}
 // TODO: migrate this function to supabase from ./db.old.ts
 export async function setFields(fields: string[]) {
 	const id = await getUserId();
+	console.log('setFields called');
+
+	await supabase.from('boards').update({ fields: fields }).eq('user_id', id);
 }
 
 export async function getUsername() {
