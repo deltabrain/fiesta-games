@@ -5,10 +5,9 @@ import { ThemedText } from '@/components/themed/ThemedText';
 import { ThemedTextPressable } from '@/components/themed/ThemedTextPressable';
 import { ThemedView } from '@/components/themed/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
-import { getFields, setFields } from '@/util/db';
+import { getFields, setFields } from '@/src/lib/db';
 import { useEffect, useState } from 'react';
 import { Modal, StyleSheet, Text, TextInput } from 'react-native';
-import auth from '@react-native-firebase/auth';
 
 export default function Bingo() {
 	const buttonActiveColor = useThemeColor('primary_dark');
@@ -23,9 +22,9 @@ export default function Bingo() {
 
 	const board: any[] = [];
 	useEffect(() => {
-		getFields(auth().currentUser?.uid).then((res) => {
+		getFields().then((res) => {
 			for (let i = 0; i < 9; i++) {
-				board.push(res![i]);
+				board.push(res[i]);
 			}
 			setField0(board[0]);
 			setField1(board[1]);
@@ -337,7 +336,7 @@ export default function Bingo() {
 					icon={editMode ? 'checkmark-done' : 'cog-outline'}
 					onPress={() => {
 						if (editMode) {
-							setFields(auth().currentUser?.uid, fields);
+							setFields(fields);
 						}
 						setEditMode(!editMode);
 					}}

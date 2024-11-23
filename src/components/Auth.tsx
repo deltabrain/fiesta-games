@@ -1,31 +1,37 @@
-import { ThemedText } from '@/components/themed/ThemedText';
-import { ThemedView } from '@/components/themed/ThemedView';
-import { useThemeColor } from '@/hooks/useThemeColor';
-import { signUp } from '@/util/auth';
 import { useState } from 'react';
-import { StyleSheet, TextInput, ToastAndroid, ViewProps } from 'react-native';
+import { StyleSheet, TextInput } from 'react-native';
+import { useThemeColor } from '../hooks/useThemeColor';
+import { signIn, signUp } from '../lib/auth';
 import { ThemedIconPressable } from './themed/ThemedIconPressable';
-import { SignupResult } from '@/util/types';
+import { ThemedText } from './themed/ThemedText';
+import { ThemedView } from './themed/ThemedView';
 
-export type SignUpProps = ViewProps & {
-	newAccount: Function;
-};
-
-export function SignUp({ newAccount }: SignUpProps) {
+export function Auth() {
 	const accentColor = useThemeColor('accent_dark');
-	const backgroundColor = useThemeColor('background');
+	const backgroundColor = useThemeColor('barBackground');
 	const textColor = useThemeColor('text');
 	const fadedTextColor = useThemeColor('text_faded');
+	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-
-	const showToast = (msg: string) => {
-		ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM);
-	};
+	const [newAccount, setNewAccount] = useState(false);
 
 	return (
 		<ThemedView style={[styles.default, { backgroundColor: backgroundColor }]}>
-			<ThemedText style={styles.title}>Sign Up</ThemedText>
+			<ThemedText style={styles.title}>
+				{newAccount ? 'Sign up' : 'Sign in'}
+			</ThemedText>
+			<TextInput
+				style={[
+					styles.text,
+					{ color: textColor, backgroundColor: accentColor },
+					newAccount ? {} : styles.hidden,
+				]}
+				onChangeText={(text) => setUsername(text)}
+				placeholder='Username'
+				placeholderTextColor={fadedTextColor}
+				textContentType='username'
+			/>
 			<TextInput
 				style={[
 					styles.text,
@@ -35,7 +41,7 @@ export function SignUp({ newAccount }: SignUpProps) {
 				placeholder='Email'
 				placeholderTextColor={fadedTextColor}
 				textContentType='emailAddress'
-			></TextInput>
+			/>
 			<TextInput
 				style={[
 					styles.text,
@@ -45,24 +51,33 @@ export function SignUp({ newAccount }: SignUpProps) {
 				placeholder='Password'
 				placeholderTextColor={fadedTextColor}
 				textContentType='password'
-				passwordRules={'minLength:6'}
 				secureTextEntry
-			></TextInput>
-			<ThemedIconPressable
-				onPress={() => {
-					signUp(email, password);
-				}}
-				icon='arrow-forward-outline'
-				type='round'
 			/>
+			{newAccount ? (
+				<ThemedIconPressable
+					onPress={() => {
+						signUp(email, password, username);
+					}}
+					icon='arrow-forward-outline'
+					type='round'
+				/>
+			) : (
+				<ThemedIconPressable
+					onPress={() => {
+						signIn(email, password);
+					}}
+					icon='arrow-forward-outline'
+					type='round'
+				/>
+			)}
 			<ThemedText
-				onPress={() => newAccount()}
+				onPress={() => setNewAccount(!newAccount)}
 				style={[
 					styles.text,
 					{ textDecorationLine: 'underline', marginTop: 50 },
 				]}
 			>
-				Already have an account?
+				{newAccount ? `Already have an account?` : `Don't have an account?`}
 			</ThemedText>
 		</ThemedView>
 	);
@@ -98,5 +113,8 @@ const styles = StyleSheet.create({
 		textAlignVertical: 'center',
 		marginBottom: 65,
 		padding: 15,
+	},
+	hidden: {
+		display: 'none',
 	},
 });

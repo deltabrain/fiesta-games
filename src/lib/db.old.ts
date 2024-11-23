@@ -23,7 +23,6 @@ export async function setFields(
 	id: string | undefined,
 	board: (string | undefined)[],
 ) {
-	console.log(id);
 	if (!id) {
 		console.error('id missing');
 		return;

@@ -1,18 +1,25 @@
-import { SignIn } from '@/components/SignIn';
-import { SignUp } from '@/components/SignUp';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { ThemedView } from '@/components/themed/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
-import auth from '@react-native-firebase/auth';
+import { Auth } from '@/src/components/Auth';
+import { getFields } from '@/src/lib/db';
+import { supabase } from '@/src/lib/supabase';
+import { Session } from '@supabase/supabase-js';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Tabs } from 'expo-router';
 import React, { useEffect, useState } from 'react';
-import { Modal, StatusBar, StyleSheet, useColorScheme } from 'react-native';
+import { StatusBar, StyleSheet, AppState, useColorScheme } from 'react-native';
+
+AppState.addEventListener('change', (state) => {
+	if (state === 'active') {
+		supabase.auth.startAutoRefresh();
+	} else {
+		supabase.auth.stopAutoRefresh();
+	}
+});
 
 export default function TabLayout() {
-	const [initializing, setInitializing] = useState(true);
-	const [user, setUser] = useState();
-	const [newAccount, setNewAccount] = useState(false);
+	const [session, setSession] = useState<Session | null>(null);
 	const barBackgroundColor = useThemeColor('background_dark');
 	const backgroundColor = useThemeColor('background');
 	const statusBarStyle =
@@ -21,85 +28,77 @@ export default function TabLayout() {
 	StatusBar.setBackgroundColor(useThemeColor('background'));
 
 	useEffect(() => {
-		const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-		return subscriber; // unsubscribe on unmount
-		// eslint-disable-next-line react-hooks/exhaustive-deps
+		supabase.auth.getSession().then(({ data: { session } }) => {
+			setSession(session);
+		});
+
+		supabase.auth.onAuthStateChange((_event, session) => {
+			setSession(session);
+		});
 	}, []);
 
-	function onAuthStateChanged(user: any) {
-		setUser(user);
-		if (initializing) setInitializing(false);
-	}
-
-	function changeNewAccount() {
-		setNewAccount(!newAccount);
-	}
-
-	if (initializing) return null;
+	getFields();
 
 	return (
 		<ThemedView style={[styles.default, { backgroundColor: backgroundColor }]}>
 			<StatusBar translucent={true} barStyle={statusBarStyle} />
-			<Modal transparent={true} visible={!user}>
-				{newAccount ? (
-					<SignUp newAccount={changeNewAccount} />
-				) : (
-					<SignIn newAccount={changeNewAccount} />
-				)}
-			</Modal>
-			<Tabs
-				screenOptions={{
-					tabBarStyle: { backgroundColor: barBackgroundColor },
-					headerShown: false,
-				}}
-				backBehavior='history'
-			>
-				<Tabs.Screen
-					name='(tabs)/(home)'
-					options={{
-						title: 'Home',
-						tabBarIcon(props) {
-							return <TabBarIcon {...props} name='home-outline' />;
-						},
+			{session && session.user ? (
+				<Tabs
+					screenOptions={{
+						tabBarStyle: { backgroundColor: barBackgroundColor },
+						headerShown: false,
 					}}
-				/>
-				<Tabs.Screen
-					name='(tabs)/(teufeln)'
-					options={{
-						title: 'Teufeln',
-						tabBarIcon(props) {
-							return <TabBarIcon {...props} name='dice-outline' />;
-						},
-					}}
-				/>
-				<Tabs.Screen
-					name='(tabs)/(bingo)'
-					options={{
-						title: 'Bingo',
-						tabBarIcon(props) {
-							return <TabBarIcon {...props} name='people-outline' />;
-						},
-					}}
-				/>
-				<Tabs.Screen
-					name='(tabs)/(hol)'
-					options={{
-						title: 'Higher or Lower',
-						tabBarIcon(props) {
-							return <TabBarIcon {...props} name='diamond-outline' />;
-						},
-					}}
-				/>
-				<Tabs.Screen
-					name='(tabs)/(profile)'
-					options={{
-						title: 'Profile',
-						tabBarIcon(props) {
-							return <TabBarIcon {...props} name='person-outline' />;
-						},
-					}}
-				/>
-			</Tabs>
+					backBehavior='history'
+				>
+					<Tabs.Screen
+						name='(tabs)/(home)'
+						options={{
+							title: 'Home',
+							tabBarIcon(props) {
+								return <TabBarIcon {...props} name='home-outline' />;
+							},
+						}}
+					/>
+					<Tabs.Screen
+						name='(tabs)/(teufeln)'
+						options={{
+							title: 'Teufeln',
+							tabBarIcon(props) {
+								return <TabBarIcon {...props} name='dice-outline' />;
+							},
+						}}
+					/>
+					<Tabs.Screen
+						name='(tabs)/(bingo)'
+						options={{
+							title: 'Bingo',
+							tabBarIcon(props) {
+								return <TabBarIcon {...props} name='people-outline' />;
+							},
+						}}
+					/>
+					<Tabs.Screen
+						name='(tabs)/(hol)'
+						options={{
+							title: 'Higher or Lower',
+							tabBarIcon(props) {
+								return <TabBarIcon {...props} name='diamond-outline' />;
+							},
+						}}
+					/>
+					<Tabs.Screen
+						name='(tabs)/(profile)'
+						options={{
+							title: 'Profile',
+							tabBarIcon(props) {
+								return <TabBarIcon {...props} name='person-outline' />;
+							},
+						}}
+					/>
+				</Tabs>
+			) : (
+				<Auth />
+			)}
 		</ThemedView>
 	);
 }

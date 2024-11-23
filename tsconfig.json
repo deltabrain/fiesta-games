@@ -7,10 +7,10 @@
 		"paths": {
 			"@/*": ["./*"],
 			"@/src/*": ["./src/*"],
-			"@/components/*": ["./components/*"],
-			"@/hooks/*": ["./hooks/*"],
-			"@/db/*": ["./db/*"],
-			"@/types": ["./util/types.ts"]
+			"@/components/*": ["./src/components/*"],
+			"@/hooks/*": ["./src/hooks/*"],
+			"@/lib/*": ["./src/lib/*"],
+			"@/types": ["./src/lib/types.ts"]
 		}
 	},
 	"include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]
