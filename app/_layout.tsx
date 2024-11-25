@@ -4,6 +4,7 @@ import { useThemeColor } from '@/hooks/useThemeColor';
 import { Auth } from '@/src/components/Auth';
 import { getFields } from '@/src/lib/db';
 import { supabase } from '@/src/lib/supabase';
+import { NavigationContainer } from '@react-navigation/native';
 import { Session } from '@supabase/supabase-js';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Tabs } from 'expo-router';
@@ -36,8 +37,6 @@ export default function TabLayout() {
 			setSession(session);
 		});
 	}, []);
-
-	getFields();
 
 	return (
 		<ThemedView style={[styles.default, { backgroundColor: backgroundColor }]}>

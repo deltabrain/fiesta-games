@@ -1,27 +1,28 @@
 import { Pressable, PressableProps, TextInput } from 'react-native';
 import { StyleSheet } from 'react-native';
-import { act, useState } from 'react';
+import { useState } from 'react';
 import { useThemeColor } from '@/hooks/useThemeColor';
-import { supabase } from '../lib/supabase';
-import { getUserId } from '../lib/auth';
 import { ThemedText } from './themed/ThemedText';
-import { getFields } from '../lib/db.old';
-import { getField } from '../lib/db';
+import { toggleActive } from '../lib/db';
 
 export type BingoItemProps = PressableProps & {
 	fieldNumber: number;
 	editMode: boolean;
+	initialValue: string;
+	initialActive: boolean;
 	corner?: 'TopLeft' | 'TopRight' | 'BottomLeft' | 'BottomRight';
 };
 
 export function BingoItem({
 	fieldNumber,
+	initialValue,
+	initialActive,
 	editMode,
 	corner,
 	...rest
 }: BingoItemProps) {
-	const [active, setActive] = useState(false);
-	const [value, setValue] = useState('');
+	const [active, setActive] = useState(initialActive);
+	const [value, setValue] = useState(initialValue);
 	const primaryColor = useThemeColor('secondary_dark');
 	const accentColor = useThemeColor('primary_dark');
 	const neutralColor = useThemeColor('neutral');
@@ -29,26 +30,28 @@ export function BingoItem({
 	const fadedTextColor = useThemeColor('text_faded');
 	var cornerStyle;
 
-	var res: string;
-	getField(fieldNumber).then((data) => {
-		res = data;
-		setValue(res);
-	});
+	// if (init) {
+	// 	console.log(initialValue);
+	//
+	// 	setValue(initialValue);
+	// 	renderCount++;
+	// 	console.log(renderCount);
+	//
+	// 	// 	getField(fieldNumber).then((data) => {
+	// 	// 		res = data;
+	// 	// 		setValue(res);
+	// 	// 	});
+	// }
 
-	async function toggleActive() {
-		console.log('function called');
+	// BUG: initial values not loading
+	console.log('val: ', initialValue);
+	console.log('act: ', initialActive);
+
+	async function toggle() {
 		setActive(!active);
-		const id = await getUserId();
-		const { data, error } = await supabase
-			.from('boards')
-			.select('fields_active')
-			.eq('user_id', id);
-		if (error) throw error;
-		const fieldsActive = data[0].fields_active;
-		console.log('fieldsActive before: ', fieldsActive);
-		fieldsActive[fieldNumber] = active;
-		console.log('fieldsActive after: ', fieldsActive);
-		await supabase.from('boards').update({ fields_active: fieldsActive });
+		console.log(active);
+
+		await toggleActive(fieldNumber, active);
 	}
 
 	switch (corner) {
@@ -78,7 +81,7 @@ export function BingoItem({
 				corner ? cornerStyle : {},
 			]}
 			onPress={() => {
-				toggleActive();
+				toggle();
 			}}
 			{...rest}
 		>
@@ -94,7 +97,7 @@ export function BingoItem({
 			<TextInput
 				placeholder='Enter...'
 				placeholderTextColor={useThemeColor('placeholderText')}
-				defaultValue={value}
+				value={value}
 				onChangeText={(newText) => setValue(newText)}
 				style={[
 					styles.bingoInput,
