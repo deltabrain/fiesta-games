@@ -5,11 +5,11 @@
 		"owner": "deltabrain",
 		"version": "0.2.2",
 		"orientation": "portrait",
-		"icon": "./src/assets/images/icon.png",
+		"icon": "./src/assets/images/logo.png",
 		"scheme": "myapp",
 		"userInterfaceStyle": "automatic",
 		"splash": {
-			"image": "./src/assets/images/splash.png",
+			"image": "./src/assets/images/logo.png",
 			"resizeMode": "contain",
 			"backgroundColor": "#151718"
 		},
@@ -19,7 +19,7 @@
 		"android": {
 			"package": "io.deltabrain.fiesta",
 			"adaptiveIcon": {
-				"foregroundImage": "./src/assets/images/adaptive-icon.png",
+				"foregroundImage": "./src/assets/images/logo.png",
 				"backgroundColor": "#151718"
 			}
 		},
