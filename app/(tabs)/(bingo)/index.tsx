@@ -1,10 +1,10 @@
 import { BingoItem } from '@/components/BingoItem';
 import { TopBar } from '@/components/layout/TopBar';
-import { ThemedIconPressable } from '@/components/themed/ThemedIconPressable';
-import { ThemedText } from '@/components/themed/ThemedText';
-import { ThemedTextPressable } from '@/components/themed/ThemedTextPressable';
-import { ThemedView } from '@/components/themed/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
+import { ThemedIconPressable } from '@/themed/ThemedIconPressable';
+import { ThemedText } from '@/themed/ThemedText';
+import { ThemedTextPressable } from '@/themed/ThemedTextPressable';
+import { ThemedView } from '@/themed/ThemedView';
 import { useState } from 'react';
 import { Modal, StyleSheet, Text } from 'react-native';
 
