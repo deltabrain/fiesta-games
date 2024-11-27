@@ -5,6 +5,7 @@ const showToast = (msg: string) => {
 	ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM);
 };
 
+// TODO: Error handling
 export async function signIn(mail: string, pw: string) {
 	if (mail === '' || null || pw === '' || null) {
 		showToast('Enter email address and password!');
@@ -19,6 +20,7 @@ export async function signIn(mail: string, pw: string) {
 	if (error) console.error(error);
 }
 
+// TODO: Error handling
 export async function signUp(mail: string, pw: string, username: string) {
 	if (mail === '' || null || pw === '' || null) {
 		showToast('Enter email address and password!');

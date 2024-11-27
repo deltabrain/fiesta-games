@@ -2,27 +2,23 @@ import { Pressable, PressableProps, TextInput } from 'react-native';
 import { StyleSheet } from 'react-native';
 import { useState } from 'react';
 import { useThemeColor } from '@/hooks/useThemeColor';
-import { ThemedText } from './themed/ThemedText';
-import { toggleActive } from '../lib/db';
+import { ThemedText } from '@/themed/ThemedText';
+import { getField, getFieldActive, toggleActive } from '@/lib/db';
 
 export type BingoItemProps = PressableProps & {
 	fieldNumber: number;
 	editMode: boolean;
-	initialValue: string;
-	initialActive: boolean;
 	corner?: 'TopLeft' | 'TopRight' | 'BottomLeft' | 'BottomRight';
 };
 
 export function BingoItem({
 	fieldNumber,
-	initialValue,
-	initialActive,
 	editMode,
 	corner,
 	...rest
 }: BingoItemProps) {
-	const [active, setActive] = useState(initialActive);
-	const [value, setValue] = useState(initialValue);
+	const [active, setActive] = useState(false);
+	const [value, setValue] = useState('');
 	const primaryColor = useThemeColor('secondary_dark');
 	const accentColor = useThemeColor('primary_dark');
 	const neutralColor = useThemeColor('neutral');
@@ -30,22 +26,13 @@ export function BingoItem({
 	const fadedTextColor = useThemeColor('text_faded');
 	var cornerStyle;
 
-	// if (init) {
-	// 	console.log(initialValue);
-	//
-	// 	setValue(initialValue);
-	// 	renderCount++;
-	// 	console.log(renderCount);
-	//
-	// 	// 	getField(fieldNumber).then((data) => {
-	// 	// 		res = data;
-	// 	// 		setValue(res);
-	// 	// 	});
-	// }
+	getField(fieldNumber).then((data) => {
+		setValue(data);
+	});
 
-	// BUG: initial values not loading
-	console.log('val: ', initialValue);
-	console.log('act: ', initialActive);
+	getFieldActive(fieldNumber).then((data) => {
+		setActive(data);
+	});
 
 	async function toggle() {
 		setActive(!active);
@@ -69,6 +56,7 @@ export function BingoItem({
 			break;
 	}
 
+	// TODO: split editMode and bingoMode into two seperate components
 	return (
 		<Pressable
 			disabled={editMode}

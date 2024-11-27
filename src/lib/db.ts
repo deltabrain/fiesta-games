@@ -69,6 +69,7 @@ export async function toggleActive(
 
 	var fieldsActive = data[0].fields_active;
 	fieldsActive[fieldNumber] = value;
+	console.log(fieldsActive);
 
 	await supabase
 		.from('boards')

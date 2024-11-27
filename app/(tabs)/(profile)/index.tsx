@@ -1,9 +1,9 @@
 import { TopBar } from '@/components/layout/TopBar';
-import { ThemedIconPressable } from '@/components/themed/ThemedIconPressable';
-import { ThemedView } from '@/components/themed/ThemedView';
-import { ThemedText } from '@/src/components/themed/ThemedText';
-import { signOut } from '@/src/lib/auth';
-import { getUsername } from '@/src/lib/db';
+import { signOut } from '@/lib/auth';
+import { getUsername } from '@/lib/db';
+import { ThemedIconPressable } from '@/themed/ThemedIconPressable';
+import { ThemedText } from '@/themed/ThemedText';
+import { ThemedView } from '@/themed/ThemedView';
 import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 

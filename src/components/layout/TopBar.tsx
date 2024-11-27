@@ -1,8 +1,8 @@
 import React from 'react';
 import { Linking, StyleSheet } from 'react-native';
-import { ThemedIconPressable } from '../themed/ThemedIconPressable';
-import { ThemedText } from '../themed/ThemedText';
-import { ThemedView } from '../themed/ThemedView';
+import { ThemedIconPressable } from '@/themed/ThemedIconPressable';
+import { ThemedText } from '@/themed/ThemedText';
+import { ThemedView } from '@/themed/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
 
 export function TopBar() {
@@ -19,7 +19,7 @@ export function TopBar() {
 						Linking.openURL('https://github.com/Deltabrain/fiesta-games/issues')
 					}
 				/>
-				<ThemedText style={styles.text}>Submit issue</ThemedText>
+				<ThemedText style={styles.text}>Submit feedback</ThemedText>
 			</ThemedView>
 		</ThemedView>
 	);

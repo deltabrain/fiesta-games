@@ -1,10 +1,10 @@
+import { useThemeColor } from '@/hooks/useThemeColor';
+import { signIn, signUp } from '@/lib/auth';
+import { ThemedIconPressable } from '@/themed/ThemedIconPressable';
+import { ThemedText } from '@/themed/ThemedText';
+import { ThemedView } from '@/themed/ThemedView';
 import { useState } from 'react';
 import { StyleSheet, TextInput } from 'react-native';
-import { useThemeColor } from '../hooks/useThemeColor';
-import { signIn, signUp } from '../lib/auth';
-import { ThemedIconPressable } from './themed/ThemedIconPressable';
-import { ThemedText } from './themed/ThemedText';
-import { ThemedView } from './themed/ThemedView';
 
 export function Auth() {
 	const accentColor = useThemeColor('accent_dark');

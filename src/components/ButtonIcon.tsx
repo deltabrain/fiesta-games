@@ -1,7 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
-import { StyleSheet } from 'react-native';
 import { type IconProps } from '@expo/vector-icons/build/createIconSet';
 import { type ComponentProps } from 'react';
+import { StyleSheet } from 'react-native';
 
 export function ButtonIcon({
 	style,

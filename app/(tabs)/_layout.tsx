@@ -1,8 +1,8 @@
-import { Auth } from '@/src/components/Auth';
-import { TabBarIcon } from '@/src/components/navigation/TabBarIcon';
-import { ThemedView } from '@/src/components/themed/ThemedView';
-import { useThemeColor } from '@/src/hooks/useThemeColor';
-import { supabase } from '@/src/lib/supabase';
+import { Auth } from '@/components/Auth';
+import { TabBarIcon } from '@/components/navigation/TabBarIcon';
+import { useThemeColor } from '@/hooks/useThemeColor';
+import { supabase } from '@/lib/supabase';
+import { ThemedView } from '@/themed/ThemedView';
 import { Session } from '@supabase/supabase-js';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Tabs } from 'expo-router';
@@ -29,59 +29,66 @@ export default function TabLayout() {
 	}, []);
 
 	return (
-		<Tabs
-			screenOptions={{
-				tabBarStyle: { backgroundColor: barBackgroundColor },
-				headerShown: false,
-			}}
-			backBehavior='history'
-		>
-			<Tabs.Screen
-				name='(home)'
-				options={{
-					title: 'Home',
-					tabBarIcon(props) {
-						return <TabBarIcon {...props} name='home-outline' />;
-					},
-				}}
-			/>
-			<Tabs.Screen
-				name='(teufeln)'
-				options={{
-					title: 'Teufeln',
-					tabBarIcon(props) {
-						return <TabBarIcon {...props} name='dice-outline' />;
-					},
-				}}
-			/>
-			<Tabs.Screen
-				name='(bingo)'
-				options={{
-					title: 'Bingo',
-					tabBarIcon(props) {
-						return <TabBarIcon {...props} name='people-outline' />;
-					},
-				}}
-			/>
-			<Tabs.Screen
-				name='(hol)'
-				options={{
-					title: 'Higher or Lower',
-					tabBarIcon(props) {
-						return <TabBarIcon {...props} name='diamond-outline' />;
-					},
-				}}
-			/>
-			<Tabs.Screen
-				name='(profile)'
-				options={{
-					title: 'Profile',
-					tabBarIcon(props) {
-						return <TabBarIcon {...props} name='person-outline' />;
-					},
-				}}
-			/>
-		</Tabs>
+		<ThemedView style={[styles.default, { backgroundColor: backgroundColor }]}>
+			<StatusBar translucent={true} barStyle={statusBarStyle} />
+			{session && session.user ? (
+				<Tabs
+					screenOptions={{
+						tabBarStyle: { backgroundColor: barBackgroundColor },
+						headerShown: false,
+					}}
+					backBehavior='history'
+				>
+					<Tabs.Screen
+						name='(home)'
+						options={{
+							title: 'Home',
+							tabBarIcon(props) {
+								return <TabBarIcon {...props} name='home-outline' />;
+							},
+						}}
+					/>
+					<Tabs.Screen
+						name='(teufeln)'
+						options={{
+							title: 'Teufeln',
+							tabBarIcon(props) {
+								return <TabBarIcon {...props} name='dice-outline' />;
+							},
+						}}
+					/>
+					<Tabs.Screen
+						name='(bingo)'
+						options={{
+							title: 'Bingo',
+							tabBarIcon(props) {
+								return <TabBarIcon {...props} name='people-outline' />;
+							},
+						}}
+					/>
+					<Tabs.Screen
+						name='(hol)'
+						options={{
+							title: 'Higher or Lower',
+							tabBarIcon(props) {
+								return <TabBarIcon {...props} name='diamond-outline' />;
+							},
+						}}
+					/>
+					<Tabs.Screen
+						name='(profile)'
+						options={{
+							title: 'Profile',
+							tabBarIcon(props) {
+								return <TabBarIcon {...props} name='person-outline' />;
+							},
+						}}
+					/>
+				</Tabs>
+			) : (
+				<Auth />
+			)}
+		</ThemedView>
 	);
 }
 

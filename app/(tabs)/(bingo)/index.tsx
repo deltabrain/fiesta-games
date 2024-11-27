@@ -5,8 +5,6 @@ import { ThemedText } from '@/components/themed/ThemedText';
 import { ThemedTextPressable } from '@/components/themed/ThemedTextPressable';
 import { ThemedView } from '@/components/themed/ThemedView';
 import { useThemeColor } from '@/hooks/useThemeColor';
-import { Loading } from '@/src/components/Loading';
-import { getFields, getFieldsActive } from '@/src/lib/db';
 import { useState } from 'react';
 import { Modal, StyleSheet, Text } from 'react-native';
 
@@ -17,33 +15,31 @@ export default function Bingo() {
 	const warningColor = useThemeColor('warning');
 	const neutralColor = useThemeColor('neutral');
 
-	const [initializing, setInitializing] = useState(true);
 	const [editMode, setEditMode] = useState(false);
 	const [showConfirmationPopup, setShowConfirmationPopup] = useState(false);
 
-	// BUG: initial values for BingoItems not showing
-	var board: string[] = [];
-	var activeFields: boolean[] = [];
-
-	async function initialize() {
-		await getFields().then((res) => {
-			for (let i = 0; i < 9; i++) {
-				board.push(res![i]);
-				console.log(board);
-			}
-		});
-		await getFieldsActive().then((res) => {
-			for (let i = 0; i < 9; i++) {
-				activeFields.push(res[i]);
-			}
-		});
-
-		setInitializing(false);
-	}
-
-	if (initializing) {
-		initialize();
-	}
+	// var board: string[] = [];
+	// var activeFields: boolean[] = [];
+	//
+	// async function initialize() {
+	// 	await getFields().then((res) => {
+	// 		for (let i = 0; i < 9; i++) {
+	// 			board.push(res![i]);
+	// 			console.log(board);
+	// 		}
+	// 	});
+	// 	await getFieldsActive().then((res) => {
+	// 		for (let i = 0; i < 9; i++) {
+	// 			activeFields.push(res[i]);
+	// 		}
+	// 	});
+	//
+	// 	setInitializing(false);
+	// }
+	//
+	// if (initializing) {
+	// 	initialize();
+	// }
 
 	// 	setField0(board[0]);
 	// 	setField1(board[1]);
@@ -124,265 +120,213 @@ export default function Bingo() {
 					</ThemedView>
 				</ThemedView>
 			</Modal>
-			{initializing ? (
-				<Loading />
-			) : (
-				<ThemedView style={styles.bingoContainer}>
-					<ThemedView style={styles.row}>
-						<BingoItem
-							fieldNumber={0}
-							initialValue={board[0]}
-							initialActive={activeFields[0]}
-							editMode={editMode}
-							corner='TopLeft'
-						>
-							{/* <ThemedText */}
-							{/* 	style={[ */}
-							{/* 		styles.bingoText, */}
-							{/* 		{ color: textButtonColor }, */}
-							{/* 		editMode ? styles.hidden : {}, */}
-							{/* 	]} */}
-							{/* > */}
-							{/* 	{field0} */}
-							{/* </ThemedText> */}
-							{/* <TextInput */}
-							{/* 	placeholder='Enter...' */}
-							{/* 	placeholderTextColor={useThemeColor('placeholderText')} */}
-							{/* 	defaultValue={field0} */}
-							{/* 	onChangeText={(newText) => setField0(newText)} */}
-							{/* 	style={[ */}
-							{/* 		styles.bingoInput, */}
-							{/* 		editMode ? {} : styles.hidden, */}
-							{/* 		{ color: fadedTextColor }, */}
-							{/* 	]} */}
-							{/* /> */}
-						</BingoItem>
-						<BingoItem
-							fieldNumber={1}
-							initialValue={board[1]}
-							initialActive={activeFields[1]}
-							editMode={editMode}
-						>
-							{/* <ThemedText */}
-							{/* 	style={[ */}
-							{/* 		styles.bingoText, */}
-							{/* 		{ color: textButtonColor }, */}
-							{/* 		editMode ? styles.hidden : {}, */}
-							{/* 	]} */}
-							{/* > */}
-							{/* 	{field1} */}
-							{/* </ThemedText> */}
-							{/* <TextInput */}
-							{/* 	placeholder='Enter...' */}
-							{/* 	placeholderTextColor={useThemeColor('placeholderText')} */}
-							{/* 	value={field1} */}
-							{/* 	onChangeText={(newText) => setField1(newText)} */}
-							{/* 	style={[ */}
-							{/* 		styles.bingoInput, */}
-							{/* 		editMode ? {} : styles.hidden, */}
-							{/* 		{ color: fadedTextColor }, */}
-							{/* 	]} */}
-							{/* /> */}
-						</BingoItem>
-						<BingoItem
-							fieldNumber={2}
-							initialValue={board[2]}
-							initialActive={activeFields[2]}
-							editMode={editMode}
-							corner='TopRight'
-						>
-							{/* <ThemedText */}
-							{/* 	style={[ */}
-							{/* 		styles.bingoText, */}
-							{/* 		{ color: textButtonColor }, */}
-							{/* 		editMode ? styles.hidden : {}, */}
-							{/* 	]} */}
-							{/* > */}
-							{/* 	{field2} */}
-							{/* </ThemedText> */}
-							{/* <TextInput */}
-							{/* 	placeholder='Enter...' */}
-							{/* 	placeholderTextColor={useThemeColor('placeholderText')} */}
-							{/* 	defaultValue={field2} */}
-							{/* 	onChangeText={(newText) => setField2(newText)} */}
-							{/* 	style={[ */}
-							{/* 		styles.bingoInput, */}
-							{/* 		editMode ? {} : styles.hidden, */}
-							{/* 		{ color: fadedTextColor }, */}
-							{/* 	]} */}
-							{/* /> */}
-						</BingoItem>
-					</ThemedView>
-					<ThemedView style={styles.row}>
-						<BingoItem
-							fieldNumber={3}
-							initialValue={board[3]}
-							initialActive={activeFields[3]}
-							editMode={editMode}
-						>
-							{/* <ThemedText */}
-							{/* 	style={[ */}
-							{/* 		styles.bingoText, */}
-							{/* 		{ color: textButtonColor }, */}
-							{/* 		editMode ? styles.hidden : {}, */}
-							{/* 	]} */}
-							{/* > */}
-							{/* 	{field3} */}
-							{/* </ThemedText> */}
-							{/* <TextInput */}
-							{/* 	placeholder='Enter...' */}
-							{/* 	placeholderTextColor={useThemeColor('placeholderText')} */}
-							{/* 	defaultValue={field3} */}
-							{/* 	onChangeText={(newText) => setField3(newText)} */}
-							{/* 	style={[ */}
-							{/* 		styles.bingoInput, */}
-							{/* 		editMode ? {} : styles.hidden, */}
-							{/* 		{ color: fadedTextColor }, */}
-							{/* 	]} */}
-							{/* /> */}
-						</BingoItem>
-						<BingoItem
-							fieldNumber={4}
-							initialValue={board[4]}
-							initialActive={activeFields[4]}
-							editMode={editMode}
-						>
-							{/* <ThemedText */}
-							{/* 	style={[ */}
-							{/* 		styles.bingoText, */}
-							{/* 		{ color: textButtonColor }, */}
-							{/* 		editMode ? styles.hidden : {}, */}
-							{/* 	]} */}
-							{/* > */}
-							{/* 	{field4} */}
-							{/* </ThemedText> */}
-							{/* <TextInput */}
-							{/* 	placeholder='Enter...' */}
-							{/* 	placeholderTextColor={useThemeColor('placeholderText')} */}
-							{/* 	defaultValue={field4} */}
-							{/* 	onChangeText={(newText) => setField4(newText)} */}
-							{/* 	style={[ */}
-							{/* 		styles.bingoInput, */}
-							{/* 		editMode ? {} : styles.hidden, */}
-							{/* 		{ color: fadedTextColor }, */}
-							{/* 	]} */}
-							{/* /> */}
-						</BingoItem>
-						<BingoItem
-							fieldNumber={5}
-							initialValue={board[5]}
-							initialActive={activeFields[5]}
-							editMode={editMode}
-						>
-							{/* <ThemedText */}
-							{/* 	style={[ */}
-							{/* 		styles.bingoText, */}
-							{/* 		{ color: textButtonColor }, */}
-							{/* 		editMode ? styles.hidden : {}, */}
-							{/* 	]} */}
-							{/* > */}
-							{/* 	{field5} */}
-							{/* </ThemedText> */}
-							{/* <TextInput */}
-							{/* 	placeholder='Enter...' */}
-							{/* 	placeholderTextColor={useThemeColor('placeholderText')} */}
-							{/* 	defaultValue={field5} */}
-							{/* 	onChangeText={(newText) => setField5(newText)} */}
-							{/* 	style={[ */}
-							{/* 		styles.bingoInput, */}
-							{/* 		editMode ? {} : styles.hidden, */}
-							{/* 		{ color: fadedTextColor }, */}
-							{/* 	]} */}
-							{/* /> */}
-						</BingoItem>
-					</ThemedView>
-					<ThemedView style={styles.row}>
-						<BingoItem
-							fieldNumber={6}
-							initialValue={board[6]}
-							initialActive={activeFields[6]}
-							editMode={editMode}
-							corner='BottomLeft'
-						>
-							{/* <ThemedText */}
-							{/* 	style={[ */}
-							{/* 		styles.bingoText, */}
-							{/* 		{ color: textButtonColor }, */}
-							{/* 		editMode ? styles.hidden : {}, */}
-							{/* 	]} */}
-							{/* > */}
-							{/* 	{field6} */}
-							{/* </ThemedText> */}
-							{/* <TextInput */}
-							{/* 	placeholder='Enter...' */}
-							{/* 	placeholderTextColor={useThemeColor('placeholderText')} */}
-							{/* 	defaultValue={field6} */}
-							{/* 	onChangeText={(newText) => setField6(newText)} */}
-							{/* 	style={[ */}
-							{/* 		styles.bingoInput, */}
-							{/* 		editMode ? {} : styles.hidden, */}
-							{/* 		{ color: fadedTextColor }, */}
-							{/* 	]} */}
-							{/* /> */}
-						</BingoItem>
-						<BingoItem
-							fieldNumber={7}
-							initialValue={board[7]}
-							initialActive={activeFields[7]}
-							editMode={editMode}
-						>
-							{/* <ThemedText */}
-							{/* 	style={[ */}
-							{/* 		styles.bingoText, */}
-							{/* 		{ color: textButtonColor }, */}
-							{/* 		editMode ? styles.hidden : {}, */}
-							{/* 	]} */}
-							{/* > */}
-							{/* 	{field7} */}
-							{/* </ThemedText> */}
-							{/* <TextInput */}
-							{/* 	placeholder='Enter...' */}
-							{/* 	placeholderTextColor={useThemeColor('placeholderText')} */}
-							{/* 	defaultValue={field7} */}
-							{/* 	onChangeText={(newText) => setField7(newText)} */}
-							{/* 	style={[ */}
-							{/* 		styles.bingoInput, */}
-							{/* 		editMode ? {} : styles.hidden, */}
-							{/* 		{ color: fadedTextColor }, */}
-							{/* 	]} */}
-							{/* /> */}
-						</BingoItem>
-						<BingoItem
-							fieldNumber={8}
-							initialValue={board[8]}
-							initialActive={activeFields[0]}
-							editMode={editMode}
-							corner='BottomRight'
-						>
-							{/* <ThemedText */}
-							{/* 	style={[ */}
-							{/* 		styles.bingoText, */}
-							{/* 		{ color: textButtonColor }, */}
-							{/* 		editMode ? styles.hidden : {}, */}
-							{/* 	]} */}
-							{/* > */}
-							{/* 	{field8} */}
-							{/* </ThemedText> */}
-							{/* <TextInput */}
-							{/* 	placeholder='Enter...' */}
-							{/* 	placeholderTextColor={useThemeColor('placeholderText')} */}
-							{/* 	defaultValue={field8} */}
-							{/* 	onChangeText={(newText) => setField8(newText)} */}
-							{/* 	style={[ */}
-							{/* 		styles.bingoInput, */}
-							{/* 		editMode ? {} : styles.hidden, */}
-							{/* 		{ color: fadedTextColor }, */}
-							{/* 	]} */}
-							{/* /> */}
-						</BingoItem>
-					</ThemedView>
+			<ThemedView style={styles.bingoContainer}>
+				<ThemedView style={styles.row}>
+					<BingoItem fieldNumber={0} editMode={editMode} corner='TopLeft'>
+						{/* <ThemedText */}
+						{/* 	style={[ */}
+						{/* 		styles.bingoText, */}
+						{/* 		{ color: textButtonColor }, */}
+						{/* 		editMode ? styles.hidden : {}, */}
+						{/* 	]} */}
+						{/* > */}
+						{/* 	{field0} */}
+						{/* </ThemedText> */}
+						{/* <TextInput */}
+						{/* 	placeholder='Enter...' */}
+						{/* 	placeholderTextColor={useThemeColor('placeholderText')} */}
+						{/* 	defaultValue={field0} */}
+						{/* 	onChangeText={(newText) => setField0(newText)} */}
+						{/* 	style={[ */}
+						{/* 		styles.bingoInput, */}
+						{/* 		editMode ? {} : styles.hidden, */}
+						{/* 		{ color: fadedTextColor }, */}
+						{/* 	]} */}
+						{/* /> */}
+					</BingoItem>
+					<BingoItem fieldNumber={1} editMode={editMode}>
+						{/* <ThemedText */}
+						{/* 	style={[ */}
+						{/* 		styles.bingoText, */}
+						{/* 		{ color: textButtonColor }, */}
+						{/* 		editMode ? styles.hidden : {}, */}
+						{/* 	]} */}
+						{/* > */}
+						{/* 	{field1} */}
+						{/* </ThemedText> */}
+						{/* <TextInput */}
+						{/* 	placeholder='Enter...' */}
+						{/* 	placeholderTextColor={useThemeColor('placeholderText')} */}
+						{/* 	value={field1} */}
+						{/* 	onChangeText={(newText) => setField1(newText)} */}
+						{/* 	style={[ */}
+						{/* 		styles.bingoInput, */}
+						{/* 		editMode ? {} : styles.hidden, */}
+						{/* 		{ color: fadedTextColor }, */}
+						{/* 	]} */}
+						{/* /> */}
+					</BingoItem>
+					<BingoItem fieldNumber={2} editMode={editMode} corner='TopRight'>
+						{/* <ThemedText */}
+						{/* 	style={[ */}
+						{/* 		styles.bingoText, */}
+						{/* 		{ color: textButtonColor }, */}
+						{/* 		editMode ? styles.hidden : {}, */}
+						{/* 	]} */}
+						{/* > */}
+						{/* 	{field2} */}
+						{/* </ThemedText> */}
+						{/* <TextInput */}
+						{/* 	placeholder='Enter...' */}
+						{/* 	placeholderTextColor={useThemeColor('placeholderText')} */}
+						{/* 	defaultValue={field2} */}
+						{/* 	onChangeText={(newText) => setField2(newText)} */}
+						{/* 	style={[ */}
+						{/* 		styles.bingoInput, */}
+						{/* 		editMode ? {} : styles.hidden, */}
+						{/* 		{ color: fadedTextColor }, */}
+						{/* 	]} */}
+						{/* /> */}
+					</BingoItem>
 				</ThemedView>
-			)}
+				<ThemedView style={styles.row}>
+					<BingoItem fieldNumber={3} editMode={editMode}>
+						{/* <ThemedText */}
+						{/* 	style={[ */}
+						{/* 		styles.bingoText, */}
+						{/* 		{ color: textButtonColor }, */}
+						{/* 		editMode ? styles.hidden : {}, */}
+						{/* 	]} */}
+						{/* > */}
+						{/* 	{field3} */}
+						{/* </ThemedText> */}
+						{/* <TextInput */}
+						{/* 	placeholder='Enter...' */}
+						{/* 	placeholderTextColor={useThemeColor('placeholderText')} */}
+						{/* 	defaultValue={field3} */}
+						{/* 	onChangeText={(newText) => setField3(newText)} */}
+						{/* 	style={[ */}
+						{/* 		styles.bingoInput, */}
+						{/* 		editMode ? {} : styles.hidden, */}
+						{/* 		{ color: fadedTextColor }, */}
+						{/* 	]} */}
+						{/* /> */}
+					</BingoItem>
+					<BingoItem fieldNumber={4} editMode={editMode}>
+						{/* <ThemedText */}
+						{/* 	style={[ */}
+						{/* 		styles.bingoText, */}
+						{/* 		{ color: textButtonColor }, */}
+						{/* 		editMode ? styles.hidden : {}, */}
+						{/* 	]} */}
+						{/* > */}
+						{/* 	{field4} */}
+						{/* </ThemedText> */}
+						{/* <TextInput */}
+						{/* 	placeholder='Enter...' */}
+						{/* 	placeholderTextColor={useThemeColor('placeholderText')} */}
+						{/* 	defaultValue={field4} */}
+						{/* 	onChangeText={(newText) => setField4(newText)} */}
+						{/* 	style={[ */}
+						{/* 		styles.bingoInput, */}
+						{/* 		editMode ? {} : styles.hidden, */}
+						{/* 		{ color: fadedTextColor }, */}
+						{/* 	]} */}
+						{/* /> */}
+					</BingoItem>
+					<BingoItem fieldNumber={5} editMode={editMode}>
+						{/* <ThemedText */}
+						{/* 	style={[ */}
+						{/* 		styles.bingoText, */}
+						{/* 		{ color: textButtonColor }, */}
+						{/* 		editMode ? styles.hidden : {}, */}
+						{/* 	]} */}
+						{/* > */}
+						{/* 	{field5} */}
+						{/* </ThemedText> */}
+						{/* <TextInput */}
+						{/* 	placeholder='Enter...' */}
+						{/* 	placeholderTextColor={useThemeColor('placeholderText')} */}
+						{/* 	defaultValue={field5} */}
+						{/* 	onChangeText={(newText) => setField5(newText)} */}
+						{/* 	style={[ */}
+						{/* 		styles.bingoInput, */}
+						{/* 		editMode ? {} : styles.hidden, */}
+						{/* 		{ color: fadedTextColor }, */}
+						{/* 	]} */}
+						{/* /> */}
+					</BingoItem>
+				</ThemedView>
+				<ThemedView style={styles.row}>
+					<BingoItem fieldNumber={6} editMode={editMode} corner='BottomLeft'>
+						{/* <ThemedText */}
+						{/* 	style={[ */}
+						{/* 		styles.bingoText, */}
+						{/* 		{ color: textButtonColor }, */}
+						{/* 		editMode ? styles.hidden : {}, */}
+						{/* 	]} */}
+						{/* > */}
+						{/* 	{field6} */}
+						{/* </ThemedText> */}
+						{/* <TextInput */}
+						{/* 	placeholder='Enter...' */}
+						{/* 	placeholderTextColor={useThemeColor('placeholderText')} */}
+						{/* 	defaultValue={field6} */}
+						{/* 	onChangeText={(newText) => setField6(newText)} */}
+						{/* 	style={[ */}
+						{/* 		styles.bingoInput, */}
+						{/* 		editMode ? {} : styles.hidden, */}
+						{/* 		{ color: fadedTextColor }, */}
+						{/* 	]} */}
+						{/* /> */}
+					</BingoItem>
+					<BingoItem fieldNumber={7} editMode={editMode}>
+						{/* <ThemedText */}
+						{/* 	style={[ */}
+						{/* 		styles.bingoText, */}
+						{/* 		{ color: textButtonColor }, */}
+						{/* 		editMode ? styles.hidden : {}, */}
+						{/* 	]} */}
+						{/* > */}
+						{/* 	{field7} */}
+						{/* </ThemedText> */}
+						{/* <TextInput */}
+						{/* 	placeholder='Enter...' */}
+						{/* 	placeholderTextColor={useThemeColor('placeholderText')} */}
+						{/* 	defaultValue={field7} */}
+						{/* 	onChangeText={(newText) => setField7(newText)} */}
+						{/* 	style={[ */}
+						{/* 		styles.bingoInput, */}
+						{/* 		editMode ? {} : styles.hidden, */}
+						{/* 		{ color: fadedTextColor }, */}
+						{/* 	]} */}
+						{/* /> */}
+					</BingoItem>
+					<BingoItem fieldNumber={8} editMode={editMode} corner='BottomRight'>
+						{/* <ThemedText */}
+						{/* 	style={[ */}
+						{/* 		styles.bingoText, */}
+						{/* 		{ color: textButtonColor }, */}
+						{/* 		editMode ? styles.hidden : {}, */}
+						{/* 	]} */}
+						{/* > */}
+						{/* 	{field8} */}
+						{/* </ThemedText> */}
+						{/* <TextInput */}
+						{/* 	placeholder='Enter...' */}
+						{/* 	placeholderTextColor={useThemeColor('placeholderText')} */}
+						{/* 	defaultValue={field8} */}
+						{/* 	onChangeText={(newText) => setField8(newText)} */}
+						{/* 	style={[ */}
+						{/* 		styles.bingoInput, */}
+						{/* 		editMode ? {} : styles.hidden, */}
+						{/* 		{ color: fadedTextColor }, */}
+						{/* 	]} */}
+						{/* /> */}
+					</BingoItem>
+				</ThemedView>
+			</ThemedView>
+
 			<ThemedView style={styles.bottomBar}>
 				<ThemedIconPressable
 					disabled={!editMode}
@@ -414,7 +358,6 @@ export default function Bingo() {
 		</ThemedView>
 	);
 }
-
 const styles = StyleSheet.create({
 	default: {
 		display: 'flex',
