@@ -11,6 +11,7 @@ export type BingoItemProps = PressableProps & {
 	corner?: 'TopLeft' | 'TopRight' | 'BottomLeft' | 'BottomRight';
 };
 
+// TODO: split editMode and bingoMode into two seperate components
 export function BingoItem({
 	fieldNumber,
 	editMode,
@@ -56,7 +57,6 @@ export function BingoItem({
 			break;
 	}
 
-	// TODO: split editMode and bingoMode into two seperate components
 	return (
 		<Pressable
 			disabled={editMode}
