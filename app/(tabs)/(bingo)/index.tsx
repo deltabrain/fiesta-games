@@ -19,10 +19,10 @@ export default function Bingo() {
 		{ uuid: 1, title: 'xd' },
 		{ uuid: 2, title: 'soos' },
 		{ uuid: 3, title: 'saas' },
-		{ uuid: 4, title: 'saas' },
-		{ uuid: 5, title: 'saas' },
-		{ uuid: 6, title: 'saas' },
-		{ uuid: 7, title: 'saas' },
+		{ uuid: 4, title: 'sees' },
+		{ uuid: 5, title: 'suus' },
+		{ uuid: 6, title: 'schoosch' },
+		{ uuid: 7, title: 'saases' },
 	];
 
 	function BingoItem(soos: dataType) {
