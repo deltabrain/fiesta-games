@@ -1,52 +1,59 @@
-import { useThemeColor } from '@/hooks/useThemeColor';
+import { Loading } from '@/src/components/Loading';
+import { BingoListItem } from '@/src/components/bingo/BingoListItem';
+import { ThemedIconPressable } from '@/src/components/themed/ThemedIconPressable';
+import { addBoard, getBoards } from '@/src/lib/db';
+import { supabase } from '@/src/lib/supabase';
+import { boardIdentification } from '@/src/lib/types';
 import { ThemedText } from '@/themed/ThemedText';
 import { ThemedView } from '@/themed/ThemedView';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 
 export default function Bingo() {
-	const buttonActiveColor = useThemeColor('primary_dark');
-	const textColor = useThemeColor('text');
-	const fadedTextColor = useThemeColor('text_faded');
-	const warningColor = useThemeColor('warning');
-	const neutralColor = useThemeColor('neutral');
-	const rowBackgroundColor = useThemeColor('secondary_dark');
-	const backgroundColor = useThemeColor('background');
+	const [loading, setLoading] = useState(true);
+	const [reloading, setReloading] = useState(false);
+	const [boards, setBoards] = useState<boardIdentification[]>();
 
-	// TODO: fetch users bingo boards insted of fake data
-	type dataType = { uuid: number; title: string };
-	const data: dataType[] = [
-		{ uuid: 1, title: 'xd' },
-		{ uuid: 2, title: 'soos' },
-		{ uuid: 3, title: 'saas' },
-		{ uuid: 4, title: 'sees' },
-		{ uuid: 5, title: 'suus' },
-		{ uuid: 6, title: 'schoosch' },
-		{ uuid: 7, title: 'saases' },
-	];
+	// Subscribe to supabase changes
+	supabase
+		.channel('custom-insert-channel')
+		.on(
+			'postgres_changes',
+			{ event: '*', schema: 'public', table: 'boards' },
+			() => {
+				setReloading(true);
+			},
+		)
+		.subscribe();
 
-	function BingoItem(soos: dataType) {
-		return (
-			<ThemedView
-				style={[styles.bingoRow, { backgroundColor: rowBackgroundColor }]}
-			>
-				<ThemedText style={[styles.bingoText, { color: textColor }]}>
-					{soos.title}
-					{soos.uuid}
-				</ThemedText>
-			</ThemedView>
-		);
-	}
+	useEffect(() => {
+		getBoards().then((data) => {
+			setBoards(data);
+		});
+		setLoading(false);
+		setReloading(false);
+	}, [reloading]);
 
-	return (
+	return loading ? (
+		<Loading />
+	) : (
 		<ThemedView style={styles.default}>
-			<ThemedText style={styles.title}>Boards</ThemedText>
+			<ThemedView style={styles.topBar}>
+				<ThemedText style={styles.title}>Boards</ThemedText>
+				<ThemedIconPressable
+					icon='add-outline'
+					onPress={() => {
+						addBoard();
+					}}
+				/>
+			</ThemedView>
 			<ThemedView style={styles.bingoContainer}>
 				<FlatList
+					showsVerticalScrollIndicator={false}
 					style={styles.list}
-					data={data}
+					data={boards}
 					renderItem={({ item }) => (
-						<BingoItem uuid={item.uuid} title={item.title} />
+						<BingoListItem id={item!.id} title={item!.title} />
 					)}
 				/>
 			</ThemedView>
@@ -57,24 +64,25 @@ export default function Bingo() {
 const styles = StyleSheet.create({
 	default: {
 		height: '100%',
-		minHeight: '100%',
 		width: '100%',
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
+	topBar: {
+		flexDirection: 'row',
+		width: '80%',
+		marginTop: '20%',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+	},
 	list: {
-		marginVertical: '10%',
-		height: '100%',
-		minHeight: '100%',
+		paddingVertical: '5%',
 		width: '100%',
 	},
 	title: {
-		width: '85%',
 		textAlign: 'left',
 		fontSize: 20,
 		fontWeight: 'bold',
-		paddingVertical: '5%',
-		marginTop: '5%',
 	},
 	bingoContainer: {
 		flex: 1,
@@ -86,20 +94,6 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		flexDirection: 'column',
 		marginBottom: '5%',
-	},
-	bingoRow: {
-		height: 100,
-		width: '100%',
-		borderRadius: 10,
-		marginVertical: 8,
-		flexDirection: 'row',
-	},
-	bingoText: {
-		fontSize: 18,
-		textAlign: 'left',
-		textAlignVertical: 'center',
-		flexWrap: 'wrap',
-		marginHorizontal: '5%',
 	},
 	bottomBar: {
 		width: '100%',
