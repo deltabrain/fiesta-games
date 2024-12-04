@@ -14,7 +14,18 @@ export enum SigninResult {
 	Error,
 }
 
-export type boardIdentification = {
+export enum Corner {
+	TopLeft,
+	TopRight,
+	BottomLeft,
+	BottomRight,
+}
+
+export type Board = {
+	fields: string[];
+	fields_active: boolean[];
 	id: string;
+	size: number;
 	title: string;
-} | null;
+	user_id: string;
+};

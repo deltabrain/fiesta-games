@@ -17,7 +17,7 @@ export async function signIn(mail: string, pw: string) {
 		password: pw,
 	});
 
-	if (error) console.error(error);
+	if (error) throw error;
 }
 
 export async function signUp(mail: string, pw: string, username: string) {

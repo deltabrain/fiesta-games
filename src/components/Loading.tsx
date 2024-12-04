@@ -1,11 +1,22 @@
-import { StyleSheet } from 'react-native';
-import { ThemedText } from './themed/ThemedText';
+import {
+	ActivityIndicator,
+	ActivityIndicatorProps,
+	StyleSheet,
+} from 'react-native';
 import { ThemedView } from './themed/ThemedView';
+import { useThemeColor } from '../hooks/useThemeColor';
 
-export function Loading() {
+export type LoadingProps = ActivityIndicatorProps & {};
+
+export function Loading({ size, ...rest }: LoadingProps) {
+	const textColor = useThemeColor('text');
+	if (!size) {
+		size = 'small';
+	}
+
 	return (
 		<ThemedView style={styles.default}>
-			<ThemedText>Loading</ThemedText>
+			<ActivityIndicator size={size} color={textColor} {...rest} />
 		</ThemedView>
 	);
 }

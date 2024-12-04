@@ -3,7 +3,7 @@ import { BingoListItem } from '@/src/components/bingo/BingoListItem';
 import { ThemedIconPressable } from '@/src/components/themed/ThemedIconPressable';
 import { addBoard, getBoards } from '@/src/lib/db';
 import { supabase } from '@/src/lib/supabase';
-import { boardIdentification } from '@/src/lib/types';
+import { Board } from '@/src/lib/types';
 import { ThemedText } from '@/themed/ThemedText';
 import { ThemedView } from '@/themed/ThemedView';
 import React, { useEffect, useState } from 'react';
@@ -12,11 +12,11 @@ import { FlatList, StyleSheet } from 'react-native';
 export default function Bingo() {
 	const [loading, setLoading] = useState(true);
 	const [reloading, setReloading] = useState(false);
-	const [boards, setBoards] = useState<boardIdentification[]>();
+	const [boards, setBoards] = useState<Board[]>([]);
 
 	// Subscribe to supabase changes
 	supabase
-		.channel('custom-insert-channel')
+		.channel('custom-all-channel')
 		.on(
 			'postgres_changes',
 			{ event: '*', schema: 'public', table: 'boards' },
@@ -52,9 +52,7 @@ export default function Bingo() {
 					showsVerticalScrollIndicator={false}
 					style={styles.list}
 					data={boards}
-					renderItem={({ item }) => (
-						<BingoListItem id={item!.id} title={item!.title} />
-					)}
+					renderItem={({ item }) => <BingoListItem {...item} />}
 				/>
 			</ThemedView>
 		</ThemedView>

@@ -36,25 +36,28 @@ export type Database = {
 		Tables: {
 			boards: {
 				Row: {
-					fields: string[] | null;
+					fields: string[];
 					fields_active: boolean[];
 					id: string;
-					size: number | null;
+					size: number;
 					title: string;
+					user_id: string;
 				};
 				Insert: {
-					fields?: string[] | null;
+					fields?: string[];
 					fields_active?: boolean[];
 					id?: string;
-					size?: number | null;
+					size?: number;
 					title?: string;
+					user_id?: string;
 				};
 				Update: {
-					fields?: string[] | null;
+					fields?: string[];
 					fields_active?: boolean[];
 					id?: string;
-					size?: number | null;
+					size?: number;
 					title?: string;
+					user_id?: string;
 				};
 				Relationships: [];
 			};
