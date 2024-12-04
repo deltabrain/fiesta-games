@@ -8,11 +8,11 @@ export default function BingoLayout() {
 			}}
 		>
 			<Stack.Screen
-				name='[editorId]/index'
+				name='editor/[id]'
 				options={{ title: 'Editor', animation: 'slide_from_bottom' }}
 			/>
 			<Stack.Screen
-				name='[boardId]/index'
+				name='board/[id]'
 				options={{ title: 'Board', animation: 'simple_push' }}
 			/>
 		</Stack>
