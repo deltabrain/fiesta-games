@@ -13,3 +13,8 @@ export enum SigninResult {
 	InputMissing,
 	Error,
 }
+
+export type boardIdentification = {
+	id: string;
+	title: string;
+} | null;

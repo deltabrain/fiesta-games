@@ -38,37 +38,43 @@ export type Database = {
 				Row: {
 					fields: string[] | null;
 					fields_active: boolean[];
+					id: string;
 					size: number | null;
-					user_id: string;
+					title: string;
 				};
 				Insert: {
 					fields?: string[] | null;
 					fields_active?: boolean[];
+					id?: string;
 					size?: number | null;
-					user_id?: string;
+					title?: string;
 				};
 				Update: {
 					fields?: string[] | null;
 					fields_active?: boolean[];
+					id?: string;
 					size?: number | null;
-					user_id?: string;
+					title?: string;
 				};
 				Relationships: [];
 			};
 			users: {
 				Row: {
+					boards: string[];
 					email: string;
 					profile_picture_url: string | null;
 					user_id: string;
 					username: string;
 				};
 				Insert: {
+					boards?: string[];
 					email: string;
 					profile_picture_url?: string | null;
 					user_id?: string;
 					username: string;
 				};
 				Update: {
+					boards?: string[];
 					email?: string;
 					profile_picture_url?: string | null;
 					user_id?: string;

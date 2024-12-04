@@ -20,7 +20,6 @@ export async function signIn(mail: string, pw: string) {
 	if (error) console.error(error);
 }
 
-// TODO: Error handling
 export async function signUp(mail: string, pw: string, username: string) {
 	if (mail === '' || null || pw === '' || null) {
 		showToast('Enter email address and password!');
@@ -37,11 +36,13 @@ export async function signUp(mail: string, pw: string, username: string) {
 		return;
 	}
 
+	if (!session) {
+		return;
+	}
+
 	await supabase
 		.from('users')
-		.insert({ user_id: session?.user.id, email: mail, username: username });
-
-	await supabase.from('boards').insert({ user_id: session?.user.id });
+		.insert({ user_id: session.user.id, email: mail, username: username });
 }
 
 export async function signOut() {
@@ -50,6 +51,11 @@ export async function signOut() {
 
 export async function getUserId() {
 	const { data: authData } = await supabase.auth.getSession();
-	const id = authData.session!.user.id;
+
+	if (authData.session == null) {
+		return 'no user';
+	}
+
+	const id = authData.session.user.id;
 	return id;
 }
