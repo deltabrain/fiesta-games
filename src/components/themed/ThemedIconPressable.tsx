@@ -16,8 +16,6 @@ export function ThemedIconPressable({
 	type = 'default',
 	...rest
 }: ThemedIconPressableProps) {
-	// unfortunately, we can't use useThemeColor outside of a function, so we can't create
-	// the styles on the top level of this component, if you find a workaround, go ahead lol
 	const primaryColor = useThemeColor('secondary');
 	const accentColor = useThemeColor('secondary_light');
 	const textColor = useThemeColor('text_button');
@@ -28,11 +26,11 @@ export function ThemedIconPressable({
 		<Pressable
 			style={[
 				usedStyle,
+				style,
 				{
 					backgroundColor: primaryColor,
 					borderColor: accentColor,
 				},
-				style,
 			]}
 			{...rest}
 		>
