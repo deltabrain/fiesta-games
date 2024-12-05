@@ -1,54 +1,37 @@
-import { Loading } from '@/components/Loading';
 import { useThemeColor } from '@/hooks/useThemeColor';
-import { getField, getFieldActive, toggleActive } from '@/lib/db';
 import { Corner } from '@/lib/types';
 import { ThemedText } from '@/themed/ThemedText';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Pressable, PressableProps, StyleSheet } from 'react-native';
 
 export type BingoBoardItemProps = PressableProps & {
-	fieldNumber: number;
-	bingoId: string;
+	value: string;
+	initActive: boolean;
 	corner: Corner | null;
-	reloadToggle: boolean;
+	id: string;
+	field: number;
 };
 
 export function BingoBoardItem({
-	fieldNumber,
-	bingoId,
+	value,
+	initActive,
 	corner,
-	reloadToggle,
+	id,
+	field,
 	...rest
 }: BingoBoardItemProps) {
-	const [active, setActive] = useState<boolean>();
-	const [value, setValue] = useState('');
-	const [loading, setLoading] = useState(true);
+	const [active, setActive] = useState(initActive);
 	const primaryColor = useThemeColor('secondary_dark');
 	const accentColor = useThemeColor('primary_dark');
 	const neutralColor = useThemeColor('neutral');
 	const textButtonColor = useThemeColor('text_button');
 	var cornerStyle;
 
-	useEffect(() => {
-		setLoading(true);
-		getField(bingoId, fieldNumber).then((data) => {
-			setValue(data);
-		});
-
-		getFieldActive(bingoId, fieldNumber).then((data) => {
-			setActive(data);
-		});
-
-		setLoading(false);
-	}, [reloadToggle, bingoId, fieldNumber]);
-
 	async function toggle() {
-		if (loading) {
-			return;
-		}
 		setActive(!active);
 
-		await toggleActive(bingoId, fieldNumber);
+		// TODO: write changes to db
+		// await toggleActive(bingoId, fieldNumber);
 	}
 
 	switch (corner) {
@@ -79,18 +62,12 @@ export function BingoBoardItem({
 					: { backgroundColor: neutralColor },
 				cornerStyle,
 			]}
-			onPress={() => {
-				toggle();
-			}}
+			onPress={() => toggle()}
 			{...rest}
 		>
-			{loading ? (
-				<Loading />
-			) : (
-				<ThemedText style={[styles.bingoText, { color: textButtonColor }]}>
-					{value}
-				</ThemedText>
-			)}
+			<ThemedText style={[styles.bingoText, { color: textButtonColor }]}>
+				{value}
+			</ThemedText>
 		</Pressable>
 	);
 }
