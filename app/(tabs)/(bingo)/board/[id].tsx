@@ -1,19 +1,18 @@
 import { Loading } from '@/components/Loading';
 import { BingoBoardItem } from '@/components/bingo/BingoBoardItem';
-import { getSize, shuffleBoard } from '@/lib/db';
+import { getBoard, shuffleBoard, toggleActive } from '@/lib/db';
 import { supabase } from '@/lib/supabase';
-import { Corner } from '@/lib/types';
+import { Corner, type Board } from '@/lib/types';
 import { ThemedIconPressable } from '@/themed/ThemedIconPressable';
 import { ThemedView } from '@/themed/ThemedView';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
-export default function Board() {
+export default function BoardView() {
 	const [loading, setLoading] = useState(true);
-	const [reloading, setReloading] = useState(false);
+	const [reloadToggle, setReloadToggle] = useState(false);
 	const [items, setItems] = useState<React.JSX.Element[]>();
-	const [toggle, setToggle] = useState(true);
 	const { id } = useLocalSearchParams();
 
 	// Subscribe to changes in bingo table for shuffling
@@ -28,47 +27,48 @@ export default function Board() {
 				filter: `id=eq.${id}`,
 			},
 			() => {
-				console.log('soos');
-
-				setToggle(!toggle);
+				setReloadToggle(!reloadToggle);
 			},
 		)
 		.subscribe();
 
 	useEffect(() => {
-		var size: number;
 		var nextCorner: Corner = Corner.TopLeft;
 		var row: React.JSX.Element[] = [];
+		var rowNumber: number = 0;
 		const itemArray: React.JSX.Element[] = [];
 
-		getSize(id.toString()).then((data) => {
-			size = data;
-			var rowNumber: number = 0;
-
-			for (var i = 0; i < size ** 2; i++) {
+		getBoard(id.toString()).then((data) => {
+			// TODO: save info on active fields to update later
+			rowNumber = 0;
+			for (var i = 0; i < data.size ** 2; i++) {
 				var corner: Corner | null = null;
 				if (i === 0) {
 					corner = nextCorner++;
 				}
-				if (i === size - 1) {
+				if (i === data.size - 1) {
 					corner = nextCorner++;
 				}
-				if (i === size * (size - 1)) {
+				if (i === data.size * (data.size - 1)) {
 					corner = nextCorner++;
 				}
-				if (i === size ** 2 - 1) {
+				if (i === data.size ** 2 - 1) {
 					corner = nextCorner++;
 				}
+
+				console.log(i);
+
 				row.push(
 					<BingoBoardItem
-						reloadToggle={toggle}
-						fieldNumber={i}
 						key={i}
-						bingoId={id.toString()}
+						field={i}
+						id={data.id}
+						value={data.fields[i]}
+						initActive={data.fields_active[i]}
 						corner={corner}
 					/>,
 				);
-				if (i % size === size - 1) {
+				if (i % data.size === data.size - 1) {
 					itemArray.push(
 						<ThemedView key={rowNumber} style={styles.row}>
 							{row}
@@ -78,11 +78,12 @@ export default function Board() {
 					row = [];
 				}
 			}
+
 			setItems(itemArray);
 			setLoading(false);
-			setReloading(false);
+			setReloadToggle(false);
 		});
-	}, [reloading, toggle]);
+	}, [reloadToggle]);
 
 	return loading ? (
 		<Loading />
@@ -98,7 +99,7 @@ export default function Board() {
 				<ThemedIconPressable
 					icon='reload-outline'
 					onPress={() => {
-						// Shuffle
+						// TODO: update active fields in db before shuffling
 						shuffleBoard(id.toString());
 					}}
 				/>

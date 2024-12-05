@@ -65,6 +65,16 @@ export async function setField(id: string, fieldNumber: number, value: string) {
 	await supabase.from('boards').update({ fields: fields }).eq('id', id);
 }
 
+export async function getBoard(id: string) {
+	const { data, error } = await supabase
+		.from('boards')
+		.select('*')
+		.eq('id', id);
+	if (error) throw error;
+
+	return data[0] as Board;
+}
+
 export async function getBoards() {
 	const id = await getUserId();
 
@@ -79,14 +89,20 @@ export async function getBoards() {
 }
 
 export async function toggleActive(id: string, fieldNumber: number) {
+	console.log(id, fieldNumber);
+
 	const { data, error } = await supabase
 		.from('boards')
 		.select('fields_active')
 		.eq('id', id);
 	if (error) throw error;
 
-	const fieldsActive = data[0].fields_active;
+	console.log(data[0].fields_active);
+
+	var fieldsActive = data[0].fields_active;
 	fieldsActive[fieldNumber] = !fieldsActive[fieldNumber];
+
+	console.log(fieldsActive);
 
 	await supabase
 		.from('boards')
@@ -131,15 +147,26 @@ export async function getUsername() {
 }
 
 export async function shuffleBoard(id: string) {
-	const fields = await getFields(id);
-	var newFields = fields;
+	const board = await getBoard(id);
+	var newBoard = board;
 
-	for (var i = fields.length - 1; i > 0; i--) {
+	for (var i = board.fields.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1));
-		[newFields[i], newFields[j]] = [newFields[j], fields[i]];
+		[board.fields[i], newBoard.fields[j]] = [
+			newBoard.fields[j],
+			board.fields[i],
+		];
+		[board.fields_active[i], newBoard.fields_active[j]] = [
+			newBoard.fields_active[j],
+			board.fields_active[i],
+		];
 	}
 
-	await setFields(id, newFields);
+	await setBoard(newBoard);
+}
+
+export async function setBoard(data: Board) {
+	await supabase.from('boards').update(data).eq('id', data.id);
 }
 
 export async function addBoard(size: number = 3) {

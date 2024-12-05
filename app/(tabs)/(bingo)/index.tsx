@@ -32,7 +32,7 @@ export default function Bingo() {
 		});
 		setLoading(false);
 		setReloading(false);
-	}, [reloading]);
+	}, [loading, reloading]);
 
 	return loading ? (
 		<Loading />
