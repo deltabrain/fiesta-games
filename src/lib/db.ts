@@ -1,8 +1,6 @@
 import { getUserId } from '@/lib/auth';
 import { supabase } from '@/lib/supabase';
-import { Board } from './types';
-
-// TODO: Error handling
+import { Board } from '@/types';
 
 export async function getSize(id: string) {
 	const { data, error } = await supabase
@@ -49,20 +47,22 @@ export async function getField(id: string, fieldNumber: number) {
 }
 
 export async function setFields(id: string, fields: string[]) {
-	await supabase.from('boards').update({ fields: fields }).eq('id', id);
+	const { error } = await supabase
+		.from('boards')
+		.update({ fields: fields })
+		.eq('id', id);
+	if (error) throw error;
 }
 
 export async function setField(id: string, fieldNumber: number, value: string) {
-	const { data, error } = await supabase
-		.from('boards')
-		.select('fields')
-		.eq('id', id);
-	if (error) throw error;
-	var fields = data[0].fields!;
-
+	const fields = await getFields(id);
 	fields[fieldNumber] = value;
 
-	await supabase.from('boards').update({ fields: fields }).eq('id', id);
+	const { error } = await supabase
+		.from('boards')
+		.update({ fields: fields })
+		.eq('id', id);
+	if (error) throw error;
 }
 
 export async function getBoard(id: string) {
@@ -89,25 +89,15 @@ export async function getBoards() {
 }
 
 export async function toggleActive(id: string, fieldNumber: number) {
-	console.log(id, fieldNumber);
+	const fields = await getFieldsActive(id);
 
-	const { data, error } = await supabase
+	fields[fieldNumber] = !fields[fieldNumber];
+
+	const { error } = await supabase
 		.from('boards')
-		.select('fields_active')
+		.update({ fields_active: fields })
 		.eq('id', id);
 	if (error) throw error;
-
-	console.log(data[0].fields_active);
-
-	var fieldsActive = data[0].fields_active;
-	fieldsActive[fieldNumber] = !fieldsActive[fieldNumber];
-
-	console.log(fieldsActive);
-
-	await supabase
-		.from('boards')
-		.update({ fields_active: fieldsActive })
-		.eq('id', id);
 }
 
 export async function getFieldActive(id: string, fieldNumber: number) {
@@ -166,7 +156,11 @@ export async function shuffleBoard(id: string) {
 }
 
 export async function setBoard(data: Board) {
-	await supabase.from('boards').update(data).eq('id', data.id);
+	const { error } = await supabase
+		.from('boards')
+		.update(data)
+		.eq('id', data.id);
+	if (error) throw error;
 }
 
 export async function addBoard(size: number = 3) {
@@ -193,13 +187,18 @@ export async function addBoard(size: number = 3) {
 	const newBoards: string[] = boards![0].boards;
 	newBoards.push(data![0].id);
 
-	await supabase.from('users').update({ boards: newBoards }).eq('user_id', id);
+	const { error: e } = await supabase
+		.from('users')
+		.update({ boards: newBoards })
+		.eq('user_id', id);
+	if (e) throw e;
 }
 
 export async function deleteBoard(id: string) {
 	const user_id = await getUserId();
 
-	await supabase.from('boards').delete().eq('id', id);
+	const { error: e } = await supabase.from('boards').delete().eq('id', id);
+	if (e) throw e;
 
 	const { data, error } = await supabase
 		.from('users')
