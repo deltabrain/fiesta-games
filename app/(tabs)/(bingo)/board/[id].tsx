@@ -1,8 +1,8 @@
 import { Loading } from '@/components/Loading';
 import { BingoBoardItem } from '@/components/bingo/BingoBoardItem';
-import { getBoard, shuffleBoard, toggleActive } from '@/lib/db';
+import { getBoard, shuffleBoard } from '@/lib/db';
 import { supabase } from '@/lib/supabase';
-import { Corner, type Board } from '@/lib/types';
+import { Corner } from '@/lib/types';
 import { ThemedIconPressable } from '@/themed/ThemedIconPressable';
 import { ThemedView } from '@/themed/ThemedView';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -83,7 +83,7 @@ export default function BoardView() {
 			setLoading(false);
 			setReloadToggle(false);
 		});
-	}, [reloadToggle]);
+	}, [id, reloadToggle]);
 
 	return loading ? (
 		<Loading />

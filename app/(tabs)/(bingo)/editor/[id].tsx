@@ -8,6 +8,8 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, TextInput } from 'react-native';
 
+// TODO: add button for deleting board somewhere
+
 export default function Editor() {
 	const { id } = useLocalSearchParams();
 
@@ -62,6 +64,7 @@ export default function Editor() {
 				<ThemedIconPressable
 					icon='save-outline'
 					onPress={() => {
+						// TODO: save new title if necessary
 						setFields(id.toString(), fieldArray);
 					}}
 				/>
