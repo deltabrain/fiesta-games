@@ -1,9 +1,9 @@
-import { TopBar } from '@/components/layout/TopBar';
-import { signOut } from '@/lib/auth';
-import { getUsername } from '@/lib/db';
-import { ThemedIconPressable } from '@/themed/ThemedIconPressable';
-import { ThemedText } from '@/themed/ThemedText';
-import { ThemedView } from '@/themed/ThemedView';
+import { TopBar } from '@components/layout/TopBar';
+import { signOut } from '@lib/auth';
+import { getUsername } from '@lib/db';
+import { IconButton } from '@themed/IconButton';
+import { ThemedText } from '@themed/ThemedText';
+import { ThemedView } from '@themed/ThemedView';
 import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
@@ -23,7 +23,7 @@ export default function Profile() {
 				<ThemedText>{loading ? '...' : name}</ThemedText>
 			</ThemedView>
 			<ThemedView style={styles.bottomBar}>
-				<ThemedIconPressable icon='log-out-outline' onPress={() => signOut()} />
+				<IconButton icon='log-out-outline' onPress={() => signOut()} />
 			</ThemedView>
 		</ThemedView>
 	);

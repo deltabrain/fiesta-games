@@ -1,10 +1,10 @@
-import { Loading } from '@/components/Loading';
-import { BingoBoardItem } from '@/components/bingo/BingoBoardItem';
-import { getBoard, shuffleBoard } from '@/lib/db';
-import { supabase } from '@/lib/supabase';
-import { Corner } from '@/lib/types';
-import { ThemedIconPressable } from '@/themed/ThemedIconPressable';
-import { ThemedView } from '@/themed/ThemedView';
+import { Loading } from '@components/Loading';
+import { BingoBoardItem } from '@components/bingo/BingoBoardItem';
+import { getBoard, shuffleBoard } from '@lib/db';
+import { supabase } from '@lib/supabase';
+import { Corner } from '@lib/types';
+import { IconButton } from '@themed/IconButton';
+import { ThemedView } from '@themed/ThemedView';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
@@ -90,13 +90,13 @@ export default function BoardView() {
 	) : (
 		<ThemedView style={styles.default}>
 			<ThemedView style={styles.topBar}>
-				<ThemedIconPressable
+				<IconButton
 					icon='arrow-back-outline'
 					onPress={() => {
 						router.back();
 					}}
 				/>
-				<ThemedIconPressable
+				<IconButton
 					icon='reload-outline'
 					onPress={() => {
 						// TODO: update active fields in db before shuffling

@@ -1,9 +1,9 @@
-import { Loading } from '@/components/Loading';
-import { BingoEditorItem } from '@/components/bingo/BingoEditorItem';
-import { useThemeColor } from '@/hooks/useThemeColor';
-import { getBingoTitle, getFields, setFields } from '@/lib/db';
-import { ThemedIconPressable } from '@/themed/ThemedIconPressable';
-import { ThemedView } from '@/themed/ThemedView';
+import { Loading } from '@components/Loading';
+import { BingoEditorItem } from '@components/bingo/BingoEditorItem';
+import { useThemeColor } from '@hooks/useThemeColor';
+import { getBingoTitle, getFields, setFields } from '@lib/db';
+import { IconButton } from '@themed/IconButton';
+import { ThemedView } from '@themed/ThemedView';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, TextInput } from 'react-native';
@@ -46,7 +46,7 @@ export default function Editor() {
 	return (
 		<ThemedView style={[styles.default, { backgroundColor: bgColor }]}>
 			<ThemedView style={styles.topBar}>
-				<ThemedIconPressable
+				<IconButton
 					icon='arrow-back'
 					onPress={() => {
 						router.back();
@@ -61,7 +61,7 @@ export default function Editor() {
 					onChangeText={(newText) => setTitle(newText)}
 					style={[styles.title, { color: textColor }]}
 				/>
-				<ThemedIconPressable
+				<IconButton
 					icon='save-outline'
 					onPress={() => {
 						// TODO: save new title if necessary

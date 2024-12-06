@@ -1,8 +1,8 @@
-import { Auth } from '@/components/Auth';
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { useThemeColor } from '@/hooks/useThemeColor';
-import { supabase } from '@/lib/supabase';
-import { ThemedView } from '@/themed/ThemedView';
+import { Auth } from '@components/Auth';
+import { TabBarIcon } from '@components/navigation/TabBarIcon';
+import { useThemeColor } from '@hooks/useThemeColor';
+import { supabase } from '@lib/supabase';
+import { ThemedView } from '@themed/ThemedView';
 import { Session } from '@supabase/supabase-js';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Tabs } from 'expo-router';

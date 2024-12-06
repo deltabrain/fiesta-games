@@ -1,11 +1,11 @@
-import { Loading } from '@/src/components/Loading';
-import { BingoListItem } from '@/src/components/bingo/BingoListItem';
-import { ThemedIconPressable } from '@/src/components/themed/ThemedIconPressable';
-import { addBoard, getBoards } from '@/src/lib/db';
-import { supabase } from '@/src/lib/supabase';
-import { Board } from '@/src/lib/types';
-import { ThemedText } from '@/themed/ThemedText';
-import { ThemedView } from '@/themed/ThemedView';
+import { Loading } from '@components/Loading';
+import { BingoListItem } from '@components/bingo/BingoListItem';
+import { IconButton } from '@components/themed/IconButton';
+import { addBoard, getBoards } from '@lib/db';
+import { supabase } from '@lib/supabase';
+import { Board } from '@lib/types';
+import { ThemedText } from '@themed/ThemedText';
+import { ThemedView } from '@themed/ThemedView';
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet } from 'react-native';
 
@@ -40,7 +40,7 @@ export default function Bingo() {
 		<ThemedView style={styles.default}>
 			<ThemedView style={styles.topBar}>
 				<ThemedText style={styles.title}>Boards</ThemedText>
-				<ThemedIconPressable
+				<IconButton
 					icon='add-outline'
 					onPress={() => {
 						addBoard();
