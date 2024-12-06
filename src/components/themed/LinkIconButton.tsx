@@ -1,21 +1,21 @@
-import { ButtonIcon } from '@/components/ButtonIcon';
-import { useThemeColor } from '@/src/hooks/useThemeColor';
+import { ButtonIcon } from '@components/ButtonIcon';
 import { Ionicons } from '@expo/vector-icons';
+import { useThemeColor } from '@hooks/useThemeColor';
 import { Link, LinkProps } from 'expo-router';
 import { ComponentProps } from 'react';
 import { StyleSheet } from 'react-native';
 
-export type ThemedLinkIconButtonProps = LinkProps & {
+export type LinkIconButtonProps = LinkProps & {
 	icon: ComponentProps<typeof Ionicons>['name'];
 	style?: any;
 };
 
-export function ThemedLinkIconButton({
+export function LinkIconButton({
 	icon,
 	style,
 	href,
 	...rest
-}: ThemedLinkIconButtonProps) {
+}: LinkIconButtonProps) {
 	const primaryColor = useThemeColor('secondary');
 	const accentColor = useThemeColor('secondary_light');
 	const textColor = useThemeColor('text_button');

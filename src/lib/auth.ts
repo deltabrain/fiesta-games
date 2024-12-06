@@ -1,5 +1,5 @@
+import { supabase } from '@lib/supabase';
 import { ToastAndroid } from 'react-native';
-import { supabase } from './supabase';
 
 const showToast = (msg: string) => {
 	ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM);

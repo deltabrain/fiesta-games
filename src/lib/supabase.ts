@@ -1,6 +1,6 @@
-import { createClient } from '@supabase/supabase-js';
-import type { Database } from './supabase.types';
+import type { Database } from '@lib/supabase.types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { createClient } from '@supabase/supabase-js';
 
 // TODO: obfuscate these values
 const supabaseUrl = 'https://qfpdgpcfbwaflfvzdtgz.supabase.co';

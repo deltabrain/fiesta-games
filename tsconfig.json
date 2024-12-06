@@ -5,14 +5,14 @@
 	"compilerOptions": {
 		"strict": true,
 		"paths": {
-			"@/*": ["./*"],
-			"@/src/*": ["./src/*"],
-			"@/assets/*": ["./src/assets/*"],
-			"@/components/*": ["./src/components/*"],
-			"@/themed/*": ["./src/components/themed/*"],
-			"@/hooks/*": ["./src/hooks/*"],
-			"@/lib/*": ["./src/lib/*"],
-			"@/types": ["./src/lib/types.ts"]
+			"@assets/*": ["./src/assets/*"],
+			"@components/*": ["./src/components/*"],
+			"@constants/*": ["./src/constants/*"],
+			"@themed/*": ["./src/components/themed/*"],
+			"@hooks/*": ["./src/hooks/*"],
+			"@lib/*": ["./src/lib/*"],
+			"@util/*": ["./src/util/*"],
+			"@types": ["./src/lib/types.ts"]
 		}
 	},
 	"include": ["**/*.ts", "**/*.tsx", ".expo/types/**/*.ts", "expo-env.d.ts"]

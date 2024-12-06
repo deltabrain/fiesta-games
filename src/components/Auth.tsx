@@ -1,8 +1,8 @@
-import { useThemeColor } from '@/hooks/useThemeColor';
-import { signIn, signUp } from '@/lib/auth';
-import { ThemedIconPressable } from '@/themed/ThemedIconPressable';
-import { ThemedText } from '@/themed/ThemedText';
-import { ThemedView } from '@/themed/ThemedView';
+import { ThemedText } from '@themed/ThemedText';
+import { ThemedView } from '@themed/ThemedView';
+import { useThemeColor } from '@hooks/useThemeColor';
+import { signIn, signUp } from '@lib/auth';
+import { IconButton } from '@themed/IconButton';
 import { useState } from 'react';
 import { StyleSheet, TextInput } from 'react-native';
 
@@ -54,7 +54,7 @@ export function Auth() {
 				secureTextEntry
 			/>
 			{newAccount ? (
-				<ThemedIconPressable
+				<IconButton
 					onPress={() => {
 						signUp(email, password, username);
 					}}
@@ -62,7 +62,7 @@ export function Auth() {
 					type='round'
 				/>
 			) : (
-				<ThemedIconPressable
+				<IconButton
 					onPress={() => {
 						signIn(email, password);
 					}}

@@ -1,20 +1,21 @@
-import { type PressableProps, Pressable, Text } from 'react-native';
-import { StyleSheet } from 'react-native';
-import { useThemeColor } from '@/hooks/useThemeColor';
-import React from 'react';
+import { ButtonIcon } from '@components/ButtonIcon';
+import { useThemeColor } from '@hooks/useThemeColor';
+import { Ionicons } from '@expo/vector-icons';
+import React, { ComponentProps } from 'react';
+import { Pressable, StyleSheet, type PressableProps } from 'react-native';
 
-export type ThemedTextPressableProps = PressableProps & {
+export type IconButtonProps = PressableProps & {
+	icon: ComponentProps<typeof Ionicons>['name'];
 	style?: any;
 	type?: 'default' | 'round';
-	text: string;
 };
 
-export function ThemedTextPressable({
+export function IconButton({
+	icon,
 	style,
 	type = 'default',
-	text,
 	...rest
-}: ThemedTextPressableProps) {
+}: IconButtonProps) {
 	const primaryColor = useThemeColor('secondary');
 	const accentColor = useThemeColor('secondary_light');
 	const textColor = useThemeColor('text_button');
@@ -25,15 +26,19 @@ export function ThemedTextPressable({
 		<Pressable
 			style={[
 				usedStyle,
+				style,
 				{
 					backgroundColor: primaryColor,
 					borderColor: accentColor,
 				},
-				style,
 			]}
 			{...rest}
 		>
-			<Text style={[styles.text, { color: textColor }]}>{text}</Text>
+			<ButtonIcon
+				color={textColor}
+				style={type === 'round' ? styles.roundIcon : {}}
+				name={icon}
+			/>
 		</Pressable>
 	);
 }
@@ -55,10 +60,8 @@ const styles = StyleSheet.create({
 		padding: 0,
 		justifyContent: 'center',
 	},
-	text: {
-		fontSize: 18,
-		fontWeight: 'bold',
+	roundIcon: {
 		textAlign: 'center',
-		textAlignVertical: 'center',
+		borderWidth: 0,
 	},
 });

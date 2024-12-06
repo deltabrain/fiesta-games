@@ -1,6 +1,6 @@
-import { getUserId } from '@/lib/auth';
-import { supabase } from '@/lib/supabase';
-import { Board } from '@/types';
+import { getUserId } from '@lib/auth';
+import { supabase } from '@lib/supabase';
+import { Board } from '@types';
 
 export async function getSize(id: string) {
 	const { data, error } = await supabase

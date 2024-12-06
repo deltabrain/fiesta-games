@@ -1,6 +1,6 @@
-import { useThemeColor } from '@/hooks/useThemeColor';
-import { Corner } from '@/lib/types';
-import { ThemedText } from '@/themed/ThemedText';
+import { useThemeColor } from '@hooks/useThemeColor';
+import { Corner } from '@types';
+import { ThemedText } from '@themed/ThemedText';
 import { useState } from 'react';
 import { Pressable, PressableProps, StyleSheet } from 'react-native';
 

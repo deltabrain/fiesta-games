@@ -1,10 +1,10 @@
-import { useThemeColor } from '@/hooks/useThemeColor';
-import { ThemedLinkIconButton } from '@/themed/ThemedLinkIconButton';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Error } from '@components/Error';
+import { useThemeColor } from '@hooks/useThemeColor';
+import { LinkIconButton } from '@themed/LinkIconButton';
+import { ThemedText } from '@themed/ThemedText';
+import { Board } from '@types';
 import { Link } from 'expo-router';
-import { ThemedText } from '@/themed/ThemedText';
-import { Board } from '@/types';
-import { Error } from '@/components/Error';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
 export function BingoListItem(board: Board) {
 	const textColor = useThemeColor('text');
@@ -31,7 +31,7 @@ export function BingoListItem(board: Board) {
 				<ThemedText style={[styles.text, { color: textColor }]}>
 					{board.title}
 				</ThemedText>
-				<ThemedLinkIconButton
+				<LinkIconButton
 					href={{
 						pathname: '/(tabs)/(bingo)/editor/[id]',
 						params: { id: board.id },

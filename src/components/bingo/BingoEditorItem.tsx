@@ -1,5 +1,5 @@
-import { useThemeColor } from '@/hooks/useThemeColor';
-import { ThemedView, ThemedViewProps } from '@/themed/ThemedView';
+import { useThemeColor } from '@hooks/useThemeColor';
+import { ThemedView, ThemedViewProps } from '@themed/ThemedView';
 import { useState } from 'react';
 import { StyleSheet, TextInput } from 'react-native';
 

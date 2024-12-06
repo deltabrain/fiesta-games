@@ -1,9 +1,9 @@
+import { useThemeColor } from '@hooks/useThemeColor';
+import { IconButton } from '@themed/IconButton';
+import { ThemedText } from '@themed/ThemedText';
+import { ThemedView } from '@themed/ThemedView';
 import React from 'react';
 import { Linking, StyleSheet } from 'react-native';
-import { ThemedIconPressable } from '@/themed/ThemedIconPressable';
-import { ThemedText } from '@/themed/ThemedText';
-import { ThemedView } from '@/themed/ThemedView';
-import { useThemeColor } from '@/hooks/useThemeColor';
 
 export function TopBar() {
 	const backgroundColor = useThemeColor('background');
@@ -11,7 +11,7 @@ export function TopBar() {
 	return (
 		<ThemedView style={[styles.topBar, { backgroundColor: backgroundColor }]}>
 			<ThemedView style={styles.view}>
-				<ThemedIconPressable
+				<IconButton
 					style={{ marginLeft: 15 }}
 					icon='git-pull-request-outline'
 					type='round'
