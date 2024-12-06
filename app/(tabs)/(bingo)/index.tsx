@@ -1,6 +1,7 @@
 import { Loading } from '@components/Loading';
 import { BingoListItem } from '@components/bingo/BingoListItem';
 import { IconButton } from '@components/themed/IconButton';
+import { useThemeColor } from '@hooks/useThemeColor';
 import { addBoard, getBoards } from '@lib/db';
 import { supabase } from '@lib/supabase';
 import { Board } from '@lib/types';
@@ -47,8 +48,9 @@ export default function Bingo() {
 					}}
 				/>
 			</ThemedView>
-			<ThemedView style={styles.bingoContainer}>
+			<ThemedView style={[styles.bingoContainer]}>
 				<FlatList
+					contentContainerStyle={{ alignItems: 'center' }}
 					showsVerticalScrollIndicator={false}
 					style={styles.list}
 					data={boards}
@@ -63,18 +65,18 @@ const styles = StyleSheet.create({
 	default: {
 		height: '100%',
 		width: '100%',
-		justifyContent: 'center',
+		justifyContent: 'space-around',
 		alignItems: 'center',
 	},
 	topBar: {
 		flexDirection: 'row',
 		width: '80%',
-		marginTop: '20%',
+		marginTop: '10%',
+		marginBottom: '2%',
 		justifyContent: 'space-between',
 		alignItems: 'center',
 	},
 	list: {
-		paddingVertical: '5%',
 		width: '100%',
 	},
 	title: {
@@ -84,14 +86,10 @@ const styles = StyleSheet.create({
 	},
 	bingoContainer: {
 		flex: 1,
-		width: '90%',
-		maxWidth: '90%',
-		height: '90%',
-		minHeight: '90%',
+		width: '100%',
 		justifyContent: 'center',
 		alignItems: 'center',
 		flexDirection: 'column',
-		marginBottom: '5%',
 	},
 	bottomBar: {
 		width: '100%',

@@ -1,6 +1,7 @@
 import { useThemeColor } from '@hooks/useThemeColor';
 import { ThemedView, ThemedViewProps } from '@themed/ThemedView';
-import { useState } from 'react';
+import { useNavigation } from 'expo-router';
+import { useEffect, useState } from 'react';
 import { StyleSheet, TextInput } from 'react-native';
 
 export type BingoEditorItemProps = ThemedViewProps & {
@@ -25,7 +26,7 @@ export function BingoEditorItem({
 		<ThemedView
 			style={[
 				{ backgroundColor: backgroundColor, borderColor: accentColor },
-				styles.bingoItem,
+				styles.row,
 			]}
 			{...rest}
 		>
@@ -47,15 +48,15 @@ export function BingoEditorItem({
 }
 
 const styles = StyleSheet.create({
-	bingoItem: {
+	row: {
 		borderStyle: 'solid',
 		borderWidth: 2,
 		height: 100,
-		width: '100%',
+		width: '90%',
 		borderRadius: 10,
 		marginVertical: 8,
 		flexDirection: 'row',
-		justifyContent: 'center',
+		justifyContent: 'space-between',
 		alignItems: 'center',
 	},
 	bingoInput: {
@@ -65,6 +66,6 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		textAlignVertical: 'center',
 		flexWrap: 'wrap',
-		paddingHorizontal: '4%',
+		paddingHorizontal: '5%',
 	},
 });

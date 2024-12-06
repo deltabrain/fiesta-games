@@ -7,7 +7,7 @@ import { Link } from 'expo-router';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 export function BingoListItem(board: Board) {
-	const textColor = useThemeColor('text');
+	const textColor = useThemeColor('text_button');
 	const backgroundColor = useThemeColor('secondary_dark');
 	const borderColor = useThemeColor('secondary');
 
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
 		borderStyle: 'solid',
 		borderWidth: 2,
 		height: 100,
-		width: '100%',
+		width: '90%',
 		borderRadius: 10,
 		marginVertical: 8,
 		flexDirection: 'row',

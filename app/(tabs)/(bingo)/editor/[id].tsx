@@ -1,14 +1,18 @@
 import { Loading } from '@components/Loading';
 import { BingoEditorItem } from '@components/bingo/BingoEditorItem';
 import { useThemeColor } from '@hooks/useThemeColor';
-import { getBingoTitle, getFields, setFields } from '@lib/db';
+import {
+	deleteBoard,
+	getBingoTitle,
+	getFields,
+	setBingoTitle,
+	setFields,
+} from '@lib/db';
 import { IconButton } from '@themed/IconButton';
 import { ThemedView } from '@themed/ThemedView';
-import { router, useLocalSearchParams } from 'expo-router';
+import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, TextInput } from 'react-native';
-
-// TODO: add button for deleting board somewhere
 
 export default function Editor() {
 	const { id } = useLocalSearchParams();
@@ -16,31 +20,47 @@ export default function Editor() {
 	const [loading, setLoading] = useState(true);
 	const [title, setTitle] = useState('');
 	const [initialFields, setInitialFields] = useState<string[]>();
+	const [fieldArray, setFieldArray] = useState<string[]>();
 
 	const bgColor = useThemeColor('background');
 	const placeholderTextColor = useThemeColor('placeholderText');
 	const textColor = useThemeColor('text');
-
-	const [fieldArray, setFieldArray] = useState<string[]>([]);
+	const warnColor = useThemeColor('warning');
+	const navigation = useNavigation();
 
 	useEffect(() => {
-		getFields(id.toString()).then((data) => {
-			setInitialFields(data);
-			setFieldArray(data);
+		navigation.addListener('blur', () => {
+			if (fieldArray != undefined) {
+				setFields(id.toString(), fieldArray);
+			}
+			if (title != '') {
+				setBingoTitle(id.toString(), title);
+			}
 		});
+	}, [navigation, fieldArray, title]);
 
-		getBingoTitle(id.toString()).then((data) => {
-			setTitle(data);
+	useEffect(() => {
+		const unsubscribe = navigation.addListener('focus', () => {
+			getFields(id.toString()).then((data) => {
+				setInitialFields(data);
+				setFieldArray(data);
+			});
+
+			getBingoTitle(id.toString()).then((data) => {
+				setTitle(data);
+			});
+
+			setLoading(false);
 		});
-
-		setLoading(false);
-	}, [id]);
+		return unsubscribe;
+	}, [navigation]);
 
 	function changeField(index: number, val: string) {
-		var arr = fieldArray;
-		arr[index] = val;
-
-		setFieldArray(arr);
+		if (fieldArray != undefined) {
+			var arr = fieldArray;
+			arr[index] = val;
+			setFieldArray(arr);
+		}
 	}
 
 	return (
@@ -58,14 +78,17 @@ export default function Editor() {
 					placeholder='No title'
 					placeholderTextColor={placeholderTextColor}
 					value={title}
-					onChangeText={(newText) => setTitle(newText)}
+					onChangeText={(newText) => {
+						setTitle(newText);
+					}}
 					style={[styles.title, { color: textColor }]}
 				/>
 				<IconButton
-					icon='save-outline'
+					style={{ backgroundColor: warnColor }}
+					icon='trash-outline'
 					onPress={() => {
-						// TODO: save new title if necessary
-						setFields(id.toString(), fieldArray);
+						deleteBoard(id.toString());
+						router.back();
 					}}
 				/>
 			</ThemedView>
@@ -74,6 +97,7 @@ export default function Editor() {
 			) : (
 				<ThemedView style={styles.bingoContainer}>
 					<FlatList
+						contentContainerStyle={{ alignItems: 'center' }}
 						showsVerticalScrollIndicator={false}
 						style={styles.list}
 						data={initialFields}
@@ -95,34 +119,28 @@ const styles = StyleSheet.create({
 	default: {
 		height: '100%',
 		width: '100%',
-		justifyContent: 'center',
+		justifyContent: 'space-around',
 		alignItems: 'center',
-	},
-	title: {
-		fontSize: 20,
-		textAlign: 'center',
-		textAlignVertical: 'center',
-		flexWrap: 'wrap',
-		paddingHorizontal: '10%',
 	},
 	topBar: {
 		flexDirection: 'row',
-		width: '90%',
-		height: '15%',
-		paddingTop: '10%',
+		width: '80%',
+		marginTop: '10%',
 		marginBottom: '2%',
 		justifyContent: 'space-between',
 		alignItems: 'center',
 	},
 	list: {
 		width: '100%',
-		height: '100%',
+	},
+	title: {
+		textAlign: 'left',
+		fontSize: 20,
+		fontWeight: 'bold',
 	},
 	bingoContainer: {
-		flex: 0,
-		width: '90%',
-		maxWidth: '90%',
-		height: '85%',
+		flex: 1,
+		width: '100%',
 		justifyContent: 'center',
 		alignItems: 'center',
 		flexDirection: 'column',

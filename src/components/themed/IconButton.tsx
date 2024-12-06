@@ -26,11 +26,11 @@ export function IconButton({
 		<Pressable
 			style={[
 				usedStyle,
-				style,
 				{
 					backgroundColor: primaryColor,
 					borderColor: accentColor,
 				},
+				style,
 			]}
 			{...rest}
 		>

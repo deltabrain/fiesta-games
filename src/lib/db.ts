@@ -26,6 +26,14 @@ export async function getBingoTitle(id: string) {
 	return data[0].title;
 }
 
+export async function setBingoTitle(id: string, value: string) {
+	const { error } = await supabase
+		.from('boards')
+		.update({ title: value })
+		.eq('id', id);
+	if (error) throw error;
+}
+
 export async function getFields(id: string) {
 	const { data, error } = await supabase
 		.from('boards')
