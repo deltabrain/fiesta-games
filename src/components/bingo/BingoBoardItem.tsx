@@ -34,10 +34,6 @@ export function BingoBoardItem({
 
 	function toggle() {
 		setActive(!active);
-
-		console.log(active);
-
-		// TODO: write changes to db
 		setFieldActive(id, field, !active);
 	}
 

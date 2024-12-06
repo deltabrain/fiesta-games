@@ -39,7 +39,6 @@ export default function BoardView() {
 		const itemArray: React.JSX.Element[] = [];
 
 		getBoard(id.toString()).then((data) => {
-			// TODO: save info on active fields to update later
 			rowNumber = 0;
 			for (var i = 0; i < data.size ** 2; i++) {
 				var corner: Corner | null = null;
@@ -97,7 +96,6 @@ export default function BoardView() {
 				<IconButton
 					icon='reload-outline'
 					onPress={() => {
-						// TODO: update active fields in db before shuffling
 						shuffleBoard(id.toString());
 					}}
 				/>

@@ -72,8 +72,6 @@ export async function getBoard(id: string) {
 		.eq('id', id);
 	if (error) throw error;
 
-	console.log(data[0].fields_active);
-
 	return data[0] as Board;
 }
 
