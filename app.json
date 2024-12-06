@@ -3,11 +3,12 @@
 		"name": "Fiesta",
 		"slug": "Fiesta-Trinkspiele",
 		"owner": "deltabrain",
-		"version": "0.2.3",
+		"version": "0.2.4",
 		"orientation": "portrait",
 		"icon": "./src/assets/images/logo.png",
 		"scheme": "myapp",
 		"userInterfaceStyle": "automatic",
+		"newArchEnabled": true,
 		"splash": {
 			"image": "./src/assets/images/logo.png",
 			"resizeMode": "contain",

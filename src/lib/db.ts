@@ -72,6 +72,8 @@ export async function getBoard(id: string) {
 		.eq('id', id);
 	if (error) throw error;
 
+	console.log(data[0].fields_active);
+
 	return data[0] as Board;
 }
 
@@ -92,6 +94,22 @@ export async function toggleActive(id: string, fieldNumber: number) {
 	const fields = await getFieldsActive(id);
 
 	fields[fieldNumber] = !fields[fieldNumber];
+
+	const { error } = await supabase
+		.from('boards')
+		.update({ fields_active: fields })
+		.eq('id', id);
+	if (error) throw error;
+}
+
+export async function setFieldActive(
+	id: string,
+	fieldNumber: number,
+	value: boolean,
+) {
+	const fields = await getFieldsActive(id);
+
+	fields[fieldNumber] = value;
 
 	const { error } = await supabase
 		.from('boards')

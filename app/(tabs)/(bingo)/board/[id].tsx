@@ -56,8 +56,6 @@ export default function BoardView() {
 					corner = nextCorner++;
 				}
 
-				console.log(i);
-
 				row.push(
 					<BingoBoardItem
 						key={i}
@@ -113,11 +111,11 @@ const styles = StyleSheet.create({
 	default: {
 		height: '100%',
 		width: '100%',
-		justifyContent: 'center',
+		justifyContent: 'space-evenly',
 		alignItems: 'center',
 	},
 	topBar: {
-		flex: 0,
+		flex: 1,
 		height: '10%',
 		marginTop: '5%',
 		flexDirection: 'row',
@@ -126,7 +124,7 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 	},
 	bingoContainer: {
-		flex: 1,
+		flex: 6,
 		height: '100%',
 		width: '95%',
 		justifyContent: 'center',

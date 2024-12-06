@@ -1,8 +1,9 @@
 import { useThemeColor } from '@hooks/useThemeColor';
 import { Corner } from '@types';
 import { ThemedText } from '@themed/ThemedText';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Pressable, PressableProps, StyleSheet } from 'react-native';
+import { setFieldActive } from '@lib/db';
 
 export type BingoBoardItemProps = PressableProps & {
 	value: string;
@@ -27,11 +28,17 @@ export function BingoBoardItem({
 	const textButtonColor = useThemeColor('text_button');
 	var cornerStyle;
 
-	async function toggle() {
+	useEffect(() => {
+		setActive(initActive);
+	}, [initActive]);
+
+	function toggle() {
 		setActive(!active);
 
+		console.log(active);
+
 		// TODO: write changes to db
-		// await toggleActive(bingoId, fieldNumber);
+		setFieldActive(id, field, !active);
 	}
 
 	switch (corner) {
