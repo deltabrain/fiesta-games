@@ -15,6 +15,8 @@ export default function BoardView() {
 	const [items, setItems] = useState<React.JSX.Element[]>();
 	const { id } = useLocalSearchParams();
 
+	console.log('board', id);
+
 	// Subscribe to changes in bingo table for shuffling
 	supabase
 		.channel('custom-filter-channel')

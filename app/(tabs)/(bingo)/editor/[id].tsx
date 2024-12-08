@@ -12,7 +12,7 @@ import { IconButton } from '@themed/IconButton';
 import { ThemedView } from '@themed/ThemedView';
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, TextInput } from 'react-native';
+import { FlatList, LogBox, StyleSheet, TextInput } from 'react-native';
 
 export default function Editor() {
 	const { id } = useLocalSearchParams();
@@ -23,17 +23,17 @@ export default function Editor() {
 	const [fieldArray, setFieldArray] = useState<string[]>();
 
 	const bgColor = useThemeColor('background');
-	const placeholderTextColor = useThemeColor('placeholderText');
+	const placeholderTextColor = useThemeColor('text_placeholder');
 	const textColor = useThemeColor('text');
 	const warnColor = useThemeColor('warning');
 	const navigation = useNavigation();
 
 	useEffect(() => {
 		navigation.addListener('blur', () => {
-			if (fieldArray != undefined) {
+			if (fieldArray != undefined && id != undefined) {
 				setFields(id.toString(), fieldArray);
 			}
-			if (title != '') {
+			if (title != '' && id != undefined) {
 				setBingoTitle(id.toString(), title);
 			}
 		});
@@ -41,16 +41,17 @@ export default function Editor() {
 
 	useEffect(() => {
 		const unsubscribe = navigation.addListener('focus', () => {
-			getFields(id.toString()).then((data) => {
-				setInitialFields(data);
-				setFieldArray(data);
-			});
+			if (id != undefined) {
+				getFields(id.toString()).then((data) => {
+					setInitialFields(data);
+					setFieldArray(data);
+				});
 
-			getBingoTitle(id.toString()).then((data) => {
-				setTitle(data);
-			});
-
-			setLoading(false);
+				getBingoTitle(id.toString()).then((data) => {
+					setTitle(data);
+				});
+				setLoading(false);
+			}
 		});
 		return unsubscribe;
 	}, [navigation]);
@@ -67,12 +68,14 @@ export default function Editor() {
 		<ThemedView style={[styles.default, { backgroundColor: bgColor }]}>
 			<ThemedView style={styles.topBar}>
 				<IconButton
+					style={styles.button}
 					icon='arrow-back'
 					onPress={() => {
 						router.back();
 					}}
 				/>
 				<TextInput
+					multiline={true}
 					spellCheck={false}
 					autoCorrect={false}
 					placeholder='No title'
@@ -84,7 +87,7 @@ export default function Editor() {
 					style={[styles.title, { color: textColor }]}
 				/>
 				<IconButton
-					style={{ backgroundColor: warnColor }}
+					style={[styles.button, { backgroundColor: warnColor }]}
 					icon='trash-outline'
 					onPress={() => {
 						deleteBoard(id.toString());
@@ -134,9 +137,12 @@ const styles = StyleSheet.create({
 		width: '100%',
 	},
 	title: {
-		textAlign: 'left',
+		flex: 2,
+		textAlign: 'center',
+		textAlignVertical: 'center',
 		fontSize: 20,
 		fontWeight: 'bold',
+		flexWrap: 'wrap',
 	},
 	bingoContainer: {
 		flex: 1,
@@ -144,5 +150,8 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center',
 		flexDirection: 'column',
+	},
+	button: {
+		flex: 0,
 	},
 });

@@ -1,10 +1,9 @@
 import { Loading } from '@components/Loading';
 import { BingoListItem } from '@components/bingo/BingoListItem';
-import { IconButton } from '@components/themed/IconButton';
-import { useThemeColor } from '@hooks/useThemeColor';
 import { addBoard, getBoards } from '@lib/db';
 import { supabase } from '@lib/supabase';
 import { Board } from '@lib/types';
+import { IconButton } from '@themed/IconButton';
 import { ThemedText } from '@themed/ThemedText';
 import { ThemedView } from '@themed/ThemedView';
 import React, { useEffect, useState } from 'react';

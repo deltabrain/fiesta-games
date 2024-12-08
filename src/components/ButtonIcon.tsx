@@ -7,14 +7,13 @@ export function ButtonIcon({
 	style,
 	...rest
 }: IconProps<ComponentProps<typeof Ionicons>['name']>) {
-	return <Ionicons size={28} style={[styles.default, style]} {...rest} />;
+	return <Ionicons size={22} style={[styles.default, style]} {...rest} />;
 }
 
 const styles = StyleSheet.create({
 	default: {
-		borderRadius: 6,
-		borderWidth: 1,
-		borderStyle: 'solid',
 		padding: 10,
+		textAlign: 'center',
+		textAlignVertical: 'center',
 	},
 });

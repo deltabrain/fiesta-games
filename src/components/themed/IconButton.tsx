@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
 		borderStyle: 'solid',
 		padding: 0,
 		textAlign: 'center',
+		textAlignVertical: 'center',
 	},
 	round: {
 		width: 64,
@@ -59,9 +60,9 @@ const styles = StyleSheet.create({
 		borderStyle: 'solid',
 		padding: 0,
 		justifyContent: 'center',
+		textAlignVertical: 'center',
 	},
 	roundIcon: {
-		textAlign: 'center',
 		borderWidth: 0,
 	},
 });

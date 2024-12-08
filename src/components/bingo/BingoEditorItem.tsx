@@ -1,7 +1,6 @@
 import { useThemeColor } from '@hooks/useThemeColor';
 import { ThemedView, ThemedViewProps } from '@themed/ThemedView';
-import { useNavigation } from 'expo-router';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { StyleSheet, TextInput } from 'react-native';
 
 export type BingoEditorItemProps = ThemedViewProps & {
@@ -18,7 +17,7 @@ export function BingoEditorItem({
 }: BingoEditorItemProps) {
 	const [value, setValue] = useState(initialValue);
 	const backgroundColor = useThemeColor('background_dark');
-	const placeholderTextColor = useThemeColor('placeholderText');
+	const placeholderTextColor = useThemeColor('text_placeholder');
 	const accentColor = useThemeColor('primary_dark');
 	const textColor = useThemeColor('text');
 

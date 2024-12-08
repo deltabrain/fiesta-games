@@ -43,9 +43,12 @@ export async function signUp(mail: string, pw: string, username: string) {
 		return;
 	}
 
-	await supabase
-		.from('users')
-		.insert({ user_id: session.user.id, email: mail, username: username });
+	await supabase.from('users').insert({
+		user_id: session.user.id,
+		email: mail,
+		username: username,
+		boards: [],
+	});
 }
 
 export async function signOut() {

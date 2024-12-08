@@ -1,14 +1,20 @@
 import { Error } from '@components/Error';
+import { IconButton } from '@components/themed/IconButton';
 import { useThemeColor } from '@hooks/useThemeColor';
+import { deleteBoard } from '@lib/db';
 import { LinkIconButton } from '@themed/LinkIconButton';
 import { ThemedText } from '@themed/ThemedText';
 import { Board } from '@types';
 import { Link } from 'expo-router';
+import { useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 
 export function BingoListItem(board: Board) {
+	const [isDeleting, setIsDeleting] = useState(false);
+
 	const textColor = useThemeColor('text_button');
-	const backgroundColor = useThemeColor('secondary_dark');
+	const bgColor = useThemeColor('secondary_dark');
+	const deletingBgColor = useThemeColor('warning');
 	const borderColor = useThemeColor('secondary');
 
 	if (!board) {
@@ -17,9 +23,13 @@ export function BingoListItem(board: Board) {
 
 	return (
 		<Link
+			onLongPress={() => setIsDeleting(!isDeleting)}
 			style={[
 				styles.row,
-				{ backgroundColor: backgroundColor, borderColor: borderColor },
+				{
+					backgroundColor: bgColor,
+					borderColor: borderColor,
+				},
 			]}
 			asChild
 			href={{
@@ -31,14 +41,22 @@ export function BingoListItem(board: Board) {
 				<ThemedText style={[styles.text, { color: textColor }]}>
 					{board.title}
 				</ThemedText>
-				<LinkIconButton
-					href={{
-						pathname: '/(tabs)/(bingo)/editor/[id]',
-						params: { id: board.id },
-					}}
-					icon='cog-outline'
-					style={styles.button}
-				/>
+				{isDeleting ? (
+					<IconButton
+						icon='trash-outline'
+						onPress={() => deleteBoard(board.id)}
+						style={[styles.button, { backgroundColor: deletingBgColor }]}
+					/>
+				) : (
+					<LinkIconButton
+						href={{
+							pathname: '/(tabs)/(bingo)/editor/[id]',
+							params: { id: board.id },
+						}}
+						icon='cog-outline'
+						style={styles.button}
+					/>
+				)}
 			</TouchableOpacity>
 		</Link>
 	);

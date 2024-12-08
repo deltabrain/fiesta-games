@@ -19,8 +19,8 @@ export const Colors = {
 		text: '#111213',
 		text_button: '#dfdfdf',
 		text_faded: '#ecedee',
+		text_placeholder: '#a0a0a0',
 		// this should be deleted later
-		placeholderText: '#a0a0a0',
 		tint: tintColorLight,
 		icon: '#687076',
 		tabIconDefault: '#687076',
@@ -47,8 +47,8 @@ export const Colors = {
 		text: '#ecedee',
 		text_button: '#dfdfdf',
 		text_faded: '#aaacad',
+		text_placeholder: '#bbbbbb',
 		// this should be deleted later
-		placeholderText: '#bbbbbb',
 		tint: tintColorDark,
 		icon: '#9ba1a6',
 		tabIconDefault: '#9ba1a6',
