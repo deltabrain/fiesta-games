@@ -121,20 +121,17 @@ export async function getFieldsActive(id: string) {
 	return data[0].fields_active;
 }
 
-export async function getUsername() {
+export async function getUserData() {
 	const id = await getUserId();
 
 	const { data, error } = await supabase
 		.from('users')
-		.select('username')
+		.select('*')
 		.eq('user_id', id);
 
 	if (error) throw error;
 
-	if (data) {
-		return data[0].username;
-	}
-	return 'No user';
+	return data[0];
 }
 
 export async function shuffleBoard(id: string) {
