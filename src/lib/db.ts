@@ -15,17 +15,6 @@ export async function getSize(id: string) {
 	return res;
 }
 
-export async function getBingoTitle(id: string) {
-	const { data, error } = await supabase
-		.from('boards')
-		.select('title')
-		.eq('id', id);
-
-	if (error) throw error;
-
-	return data[0].title;
-}
-
 export async function setBingoTitle(id: string, value: string) {
 	const { error } = await supabase
 		.from('boards')
@@ -44,14 +33,14 @@ export async function getFields(id: string) {
 	return data[0].fields;
 }
 
-export async function getField(id: string, fieldNumber: number) {
+export async function getField(id: string, field: number) {
 	const { data, error } = await supabase
 		.from('boards')
 		.select('fields')
 		.eq('id', id);
 	if (error) throw error;
 
-	return data[0].fields[fieldNumber];
+	return data[0].fields[field];
 }
 
 export async function setFields(id: string, fields: string[]) {
@@ -62,9 +51,9 @@ export async function setFields(id: string, fields: string[]) {
 	if (error) throw error;
 }
 
-export async function setField(id: string, fieldNumber: number, value: string) {
+export async function setField(id: string, field: number, value: string) {
 	const fields = await getFields(id);
-	fields[fieldNumber] = value;
+	fields[field] = value;
 
 	const { error } = await supabase
 		.from('boards')
@@ -83,7 +72,7 @@ export async function getBoard(id: string) {
 	return data[0] as Board;
 }
 
-export async function getBoards() {
+export async function getUserBoards() {
 	const id = await getUserId();
 
 	const { data: res, error: err } = await supabase
@@ -96,26 +85,14 @@ export async function getBoards() {
 	return res as Board[];
 }
 
-export async function toggleActive(id: string, fieldNumber: number) {
-	const fields = await getFieldsActive(id);
-
-	fields[fieldNumber] = !fields[fieldNumber];
-
-	const { error } = await supabase
-		.from('boards')
-		.update({ fields_active: fields })
-		.eq('id', id);
-	if (error) throw error;
-}
-
 export async function setFieldActive(
 	id: string,
-	fieldNumber: number,
+	field: number,
 	value: boolean,
 ) {
 	const fields = await getFieldsActive(id);
 
-	fields[fieldNumber] = value;
+	fields[field] = value;
 
 	const { error } = await supabase
 		.from('boards')
@@ -124,14 +101,14 @@ export async function setFieldActive(
 	if (error) throw error;
 }
 
-export async function getFieldActive(id: string, fieldNumber: number) {
+export async function getFieldActive(id: string, field: number) {
 	const { data, error } = await supabase
 		.from('boards')
 		.select('fields_active')
 		.eq('id', id);
 	if (error) throw error;
 
-	return data[0].fields_active[fieldNumber];
+	return data[0].fields_active[field];
 }
 
 export async function getFieldsActive(id: string) {

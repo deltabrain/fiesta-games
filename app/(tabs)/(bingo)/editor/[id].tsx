@@ -1,18 +1,12 @@
 import { Loading } from '@components/Loading';
 import { BingoEditorItem } from '@components/bingo/BingoEditorItem';
 import { useThemeColor } from '@hooks/useThemeColor';
-import {
-	deleteBoard,
-	getBingoTitle,
-	getFields,
-	setBingoTitle,
-	setFields,
-} from '@lib/db';
+import { deleteBoard, getBoard, setBingoTitle, setFields } from '@lib/db';
 import { IconButton } from '@themed/IconButton';
 import { ThemedView } from '@themed/ThemedView';
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { FlatList, LogBox, StyleSheet, TextInput } from 'react-native';
+import { FlatList, StyleSheet, TextInput } from 'react-native';
 
 export default function Editor() {
 	const { id } = useLocalSearchParams();
@@ -42,13 +36,10 @@ export default function Editor() {
 	useEffect(() => {
 		const unsubscribe = navigation.addListener('focus', () => {
 			if (id != undefined) {
-				getFields(id.toString()).then((data) => {
-					setInitialFields(data);
-					setFieldArray(data);
-				});
-
-				getBingoTitle(id.toString()).then((data) => {
-					setTitle(data);
+				getBoard(id.toString()).then((data) => {
+					setInitialFields(data.fields);
+					setFieldArray(data.fields);
+					setTitle(data.title);
 				});
 				setLoading(false);
 			}

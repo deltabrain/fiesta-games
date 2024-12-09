@@ -10,10 +10,10 @@ import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 
 export default function BoardView() {
+	const { id } = useLocalSearchParams();
 	const [loading, setLoading] = useState(true);
 	const [reloadToggle, setReloadToggle] = useState(false);
 	const [items, setItems] = useState<React.JSX.Element[]>();
-	const { id } = useLocalSearchParams();
 
 	console.log('board', id);
 

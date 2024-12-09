@@ -1,6 +1,6 @@
 import { Loading } from '@components/Loading';
 import { BingoListItem } from '@components/bingo/BingoListItem';
-import { addBoard, getBoards } from '@lib/db';
+import { addBoard, getUserBoards } from '@lib/db';
 import { supabase } from '@lib/supabase';
 import { Board } from '@lib/types';
 import { IconButton } from '@themed/IconButton';
@@ -27,7 +27,7 @@ export default function Bingo() {
 		.subscribe();
 
 	useEffect(() => {
-		getBoards().then((data) => {
+		getUserBoards().then((data) => {
 			setBoards(data);
 		});
 		setLoading(false);
