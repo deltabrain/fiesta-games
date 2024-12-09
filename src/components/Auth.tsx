@@ -31,6 +31,8 @@ export function Auth() {
 				placeholder='Username'
 				placeholderTextColor={fadedTextColor}
 				textContentType='username'
+				spellCheck={false}
+				autoCorrect={false}
 			/>
 			<TextInput
 				style={[
@@ -41,6 +43,8 @@ export function Auth() {
 				placeholder='Email'
 				placeholderTextColor={fadedTextColor}
 				textContentType='emailAddress'
+				spellCheck={false}
+				autoCorrect={false}
 			/>
 			<TextInput
 				style={[
@@ -51,6 +55,8 @@ export function Auth() {
 				placeholder='Password'
 				placeholderTextColor={fadedTextColor}
 				textContentType='password'
+				spellCheck={false}
+				autoCorrect={false}
 				secureTextEntry
 			/>
 			{newAccount ? (
