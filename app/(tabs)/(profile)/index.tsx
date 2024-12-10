@@ -1,17 +1,18 @@
 import { launchImageLibraryAsync } from 'expo-image-picker';
 import { signOut } from '@lib/auth';
-import { getUserData, uploadAvatar } from '@lib/db';
+import { getAvatar, getUserData, uploadAvatar } from '@lib/db';
 import { IconButton } from '@themed/IconButton';
 import { ThemedText } from '@themed/ThemedText';
 import { ThemedView } from '@themed/ThemedView';
 import { useNavigation } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
+import { Image } from 'expo-image';
 
 export default function Profile() {
 	const [loading, setLoading] = useState(true);
 	const [name, setName] = useState('');
-	const [image, setImage] = useState<string | null>(null);
+	const [avatar, setAvatar] = useState('');
 
 	const navigation = useNavigation();
 	const pickImage = async () => {
@@ -21,14 +22,8 @@ export default function Profile() {
 			quality: 1,
 		});
 
-		console.log(result);
-
-		if (!result.canceled) {
-			setImage(result.assets[0].uri);
-		}
-
-		if (image != null) {
-			uploadAvatar(image);
+		if (result.assets) {
+			uploadAvatar(result.assets[0]);
 		}
 	};
 
@@ -36,6 +31,9 @@ export default function Profile() {
 		navigation.addListener('focus', () => {
 			getUserData().then((res) => {
 				setName(res.username);
+				getAvatar(res.user_id).then((data) => {
+					setAvatar(data);
+				});
 				setLoading(false);
 			});
 		});
@@ -47,6 +45,7 @@ export default function Profile() {
 				<ThemedText style={styles.username}>
 					{loading ? '...' : name}
 				</ThemedText>
+				<Image source={avatar} />
 			</ThemedView>
 			<ThemedView style={styles.contentContainer}>
 				<IconButton type='round' icon='add-outline' onPress={pickImage} />

@@ -1,6 +1,7 @@
 import { getUserId } from '@lib/auth';
 import { supabase } from '@lib/supabase';
 import { Board } from '@types';
+import { ImagePickerAsset } from 'expo-image-picker';
 
 export async function getSize(id: string) {
 	const { data, error } = await supabase
@@ -215,13 +216,17 @@ export async function deleteBoard(id: string) {
 	if (err) throw err;
 }
 
-export async function uploadAvatar(uri: string) {
+export async function uploadAvatar(file: ImagePickerAsset) {
+	if (!file.mimeType) {
+		throw 'not a valid file format';
+	}
 	const id = await getUserId();
+	const fileExtension = file.mimeType.replace('image/', '.');
+	const fileName = `${id}${fileExtension}`;
+
 	const { data, error } = await supabase.storage
 		.from('avatars')
-		.upload(`${id}.png`, uri);
-
-	console.log(data);
+		.upload(fileName, file.uri);
 
 	if (error) throw error;
 
@@ -229,4 +234,35 @@ export async function uploadAvatar(uri: string) {
 		.from('users')
 		.update({ profile_picture_url: data.path })
 		.eq('user_id', id);
+}
+
+export async function getAvatar(id: string) {
+	const { data, error } = await supabase
+		.from('users')
+		.select('profile_picture_url')
+		.eq('user_id', id)
+		.single();
+
+	if (error) throw error;
+
+	if (data.profile_picture_url === null) {
+		return 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png';
+	}
+
+	const { data: url } = supabase.storage
+		.from('avatars')
+		.getPublicUrl(data.profile_picture_url);
+
+	console.log('url: ', url);
+
+	// const { data: res, error: err } = await supabase.storage
+	// 	.from('avatars')
+	// 	.download(url.publicUrl);
+	// if (err) throw err;
+	// if (res != undefined) {
+	// 	return res;
+	// } else {
+	// 	return new Blob();
+	// }
+	return url.publicUrl;
 }
