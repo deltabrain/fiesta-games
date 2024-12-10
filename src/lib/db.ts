@@ -214,3 +214,19 @@ export async function deleteBoard(id: string) {
 		.eq('user_id', user_id);
 	if (err) throw err;
 }
+
+export async function uploadAvatar(uri: string) {
+	const id = await getUserId();
+	const { data, error } = await supabase.storage
+		.from('avatars')
+		.upload(`${id}.png`, uri);
+
+	console.log(data);
+
+	if (error) throw error;
+
+	await supabase
+		.from('users')
+		.update({ profile_picture_url: data.path })
+		.eq('user_id', id);
+}
