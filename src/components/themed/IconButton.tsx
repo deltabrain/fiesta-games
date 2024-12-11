@@ -2,9 +2,13 @@ import { ButtonIcon } from '@components/ButtonIcon';
 import { useThemeColor } from '@hooks/useThemeColor';
 import { Ionicons } from '@expo/vector-icons';
 import React, { ComponentProps } from 'react';
-import { Pressable, StyleSheet, type PressableProps } from 'react-native';
+import {
+	StyleSheet,
+	TouchableOpacity,
+	TouchableOpacityProps,
+} from 'react-native';
 
-export type IconButtonProps = PressableProps & {
+export type IconButtonProps = TouchableOpacityProps & {
 	icon: ComponentProps<typeof Ionicons>['name'];
 	style?: any;
 	type?: 'default' | 'round';
@@ -23,12 +27,14 @@ export function IconButton({
 	var usedStyle = type === 'round' ? styles.round : styles.default;
 
 	return (
-		<Pressable
+		<TouchableOpacity
+			activeOpacity={0.7}
 			style={[
 				usedStyle,
 				{
 					backgroundColor: primaryColor,
 					borderColor: accentColor,
+					shadowColor: accentColor,
 				},
 				style,
 			]}
@@ -39,7 +45,7 @@ export function IconButton({
 				style={type === 'round' ? styles.roundIcon : {}}
 				name={icon}
 			/>
-		</Pressable>
+		</TouchableOpacity>
 	);
 }
 
@@ -61,6 +67,7 @@ const styles = StyleSheet.create({
 		padding: 0,
 		justifyContent: 'center',
 		textAlignVertical: 'center',
+		elevation: 10,
 	},
 	roundIcon: {
 		borderWidth: 0,

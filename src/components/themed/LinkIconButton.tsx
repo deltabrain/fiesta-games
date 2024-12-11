@@ -3,7 +3,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useThemeColor } from '@hooks/useThemeColor';
 import { Link, LinkProps } from 'expo-router';
 import { ComponentProps } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity } from 'react-native';
 
 export type LinkIconButtonProps = LinkProps & {
 	icon: ComponentProps<typeof Ionicons>['name'];
@@ -32,8 +32,11 @@ export function LinkIconButton({
 				style,
 			]}
 			{...rest}
+			asChild
 		>
-			<ButtonIcon color={textColor} name={icon} />
+			<TouchableOpacity activeOpacity={0.6}>
+				<ButtonIcon color={textColor} name={icon} />
+			</TouchableOpacity>
 		</Link>
 	);
 }

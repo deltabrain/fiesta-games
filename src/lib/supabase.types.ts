@@ -63,23 +63,23 @@ export type Database = {
 			};
 			users: {
 				Row: {
+					avatar_file: string | null;
 					boards: string[];
 					email: string;
-					profile_picture_url: string | null;
 					user_id: string;
 					username: string;
 				};
 				Insert: {
+					avatar_file?: string | null;
 					boards?: string[];
 					email: string;
-					profile_picture_url?: string | null;
 					user_id?: string;
 					username: string;
 				};
 				Update: {
+					avatar_file?: string | null;
 					boards?: string[];
 					email?: string;
-					profile_picture_url?: string | null;
 					user_id?: string;
 					username?: string;
 				};

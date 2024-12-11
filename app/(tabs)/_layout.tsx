@@ -2,8 +2,8 @@ import { Auth } from '@components/Auth';
 import { TabBarIcon } from '@components/navigation/TabBarIcon';
 import { useThemeColor } from '@hooks/useThemeColor';
 import { supabase } from '@lib/supabase';
-import { ThemedView } from '@themed/ThemedView';
 import { Session } from '@supabase/supabase-js';
+import { ThemedView } from '@themed/ThemedView';
 import * as NavigationBar from 'expo-navigation-bar';
 import { Tabs } from 'expo-router';
 import { useEffect, useState } from 'react';
@@ -15,6 +15,7 @@ export default function TabLayout() {
 	const backgroundColor = useThemeColor('background');
 	const statusBarStyle =
 		useColorScheme() === 'light' ? 'dark-content' : 'light-content';
+
 	NavigationBar.setBackgroundColorAsync(useThemeColor('background_dark'));
 	StatusBar.setBackgroundColor(useThemeColor('background'));
 

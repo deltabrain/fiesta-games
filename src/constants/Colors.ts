@@ -18,7 +18,7 @@ export const Colors = {
 		background_dark: '#d5d5d5',
 		text: '#111213',
 		text_button: '#dfdfdf',
-		text_faded: '#ecedee',
+		text_faded: '#353535',
 		text_placeholder: '#a0a0a0',
 		// this should be deleted later
 		tint: tintColorLight,

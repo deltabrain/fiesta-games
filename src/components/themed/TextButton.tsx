@@ -1,39 +1,54 @@
 import { useThemeColor } from '@hooks/useThemeColor';
 import React from 'react';
-import { Pressable, StyleSheet, Text, type PressableProps } from 'react-native';
+import {
+	StyleSheet,
+	Text,
+	TouchableOpacity,
+	TouchableOpacityProps,
+} from 'react-native';
 
-export type TextButtonProps = PressableProps & {
-	style?: any;
-	type?: 'default' | 'round';
+export type TextButtonProps = TouchableOpacityProps & {
 	text: string;
+	style?: any;
+	textStyle?: any;
+	type?: 'default' | 'ghost';
 };
 
 export function TextButton({
-	style,
-	type = 'default',
 	text,
+	style,
+	textStyle,
+	type = 'default',
 	...rest
 }: TextButtonProps) {
 	const primaryColor = useThemeColor('secondary');
 	const accentColor = useThemeColor('secondary_light');
 	const textColor = useThemeColor('text_button');
-
-	var usedStyle = type === 'round' ? styles.round : styles.default;
+	const ghostTextColor = useThemeColor('text');
 
 	return (
-		<Pressable
+		<TouchableOpacity
+			activeOpacity={0.7}
 			style={[
-				usedStyle,
+				styles.default,
 				{
-					backgroundColor: primaryColor,
+					backgroundColor: type == 'default' ? primaryColor : 'transparent',
 					borderColor: accentColor,
 				},
 				style,
 			]}
 			{...rest}
 		>
-			<Text style={[styles.text, { color: textColor }]}>{text}</Text>
-		</Pressable>
+			<Text
+				style={[
+					styles.text,
+					{ color: type == 'default' ? textColor : ghostTextColor },
+					textStyle,
+				]}
+			>
+				{text}
+			</Text>
+		</TouchableOpacity>
 	);
 }
 
@@ -42,21 +57,11 @@ const styles = StyleSheet.create({
 		borderWidth: 2,
 		borderRadius: 8,
 		borderStyle: 'solid',
-		padding: 0,
 		textAlign: 'center',
-	},
-	round: {
-		width: 64,
-		height: 64,
-		borderWidth: 2,
-		borderRadius: 32,
-		borderStyle: 'solid',
-		padding: 0,
-		justifyContent: 'center',
+		textAlignVertical: 'center',
 	},
 	text: {
 		fontSize: 18,
-		fontWeight: 'bold',
 		textAlign: 'center',
 		textAlignVertical: 'center',
 	},
