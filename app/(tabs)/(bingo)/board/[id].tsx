@@ -15,8 +15,6 @@ export default function BoardView() {
 	const [reloadToggle, setReloadToggle] = useState(false);
 	const [items, setItems] = useState<React.JSX.Element[]>();
 
-	console.log('board', id);
-
 	// Subscribe to changes in bingo table for shuffling
 	supabase
 		.channel('custom-filter-channel')

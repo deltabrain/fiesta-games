@@ -1,26 +1,34 @@
 import { useThemeColor } from '@hooks/useThemeColor';
 import { Image } from 'expo-image';
-import { Pressable, PressableProps, StyleSheet } from 'react-native';
+import {
+	StyleSheet,
+	TouchableOpacity,
+	TouchableOpacityProps,
+} from 'react-native';
 
-export type AvatarProps = PressableProps & {
+export type AvatarProps = TouchableOpacityProps & {
 	imageSrc: string;
 	style?: any;
 };
 
-// TODO: onPress open avatar in fullscreen mode and add ui elements to delete, update, ...
 export function Avatar({ imageSrc, style, ...rest }: AvatarProps) {
 	const borderColor = useThemeColor('accent_dark');
 	return (
-		<Pressable style={[styles.default, style]} {...rest}>
+		<TouchableOpacity
+			activeOpacity={0.7}
+			style={[styles.default, style]}
+			{...rest}
+		>
 			<Image
 				placeholder={
 					'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png'
 				}
-				transition={200}
+				transition={100}
 				style={[styles.default, styles.border, { borderColor: borderColor }]}
 				source={imageSrc}
+				cachePolicy={'none'}
 			/>
-		</Pressable>
+		</TouchableOpacity>
 	);
 }
 

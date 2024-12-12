@@ -226,6 +226,14 @@ export async function uploadAvatar(file: ImagePickerAsset) {
 	const fileExtension = file.mimeType.replace('image/', '.');
 	const fileName = `${id}${fileExtension}`;
 
+	const { data: exists } = await supabase.storage
+		.from('avatars')
+		.exists(fileName);
+
+	if (exists) {
+		await supabase.storage.from('avatars').remove([fileName]);
+	}
+
 	const { data, error } = await supabase.storage
 		.from('avatars')
 		.upload(fileName, decode(file.base64), { contentType: file.mimeType });
