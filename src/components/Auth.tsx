@@ -77,6 +77,7 @@ export function Auth() {
 			<ThemedView style={styles.bottomContainer}>
 				<IconButton
 					onPress={() => {
+						//eslint-disable-next-line
 						newAccount
 							? signUp(email, password, username)
 							: signIn(email, password);

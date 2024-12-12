@@ -24,18 +24,18 @@ export default function Editor() {
 
 	useEffect(() => {
 		navigation.addListener('blur', () => {
-			if (fieldArray != undefined && id != undefined) {
+			if (fieldArray !== undefined && id !== undefined) {
 				setFields(id.toString(), fieldArray);
 			}
-			if (title != '' && id != undefined) {
+			if (title !== '' && id !== undefined) {
 				setBingoTitle(id.toString(), title);
 			}
 		});
-	}, [navigation, fieldArray, title]);
+	}, [navigation, fieldArray, title, id]);
 
 	useEffect(() => {
 		const unsubscribe = navigation.addListener('focus', () => {
-			if (id != undefined) {
+			if (id !== undefined) {
 				getBoard(id.toString()).then((data) => {
 					setInitialFields(data.fields);
 					setFieldArray(data.fields);
@@ -45,10 +45,10 @@ export default function Editor() {
 			}
 		});
 		return unsubscribe;
-	}, [navigation]);
+	}, [navigation, id]);
 
 	function changeField(index: number, val: string) {
-		if (fieldArray != undefined) {
+		if (fieldArray !== undefined) {
 			var arr = fieldArray;
 			arr[index] = val;
 			setFieldArray(arr);

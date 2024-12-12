@@ -32,7 +32,7 @@ export function TextButton({
 			style={[
 				styles.default,
 				{
-					backgroundColor: type == 'default' ? primaryColor : 'transparent',
+					backgroundColor: type === 'default' ? primaryColor : 'transparent',
 					borderColor: accentColor,
 				},
 				style,
@@ -42,7 +42,7 @@ export function TextButton({
 			<Text
 				style={[
 					styles.text,
-					{ color: type == 'default' ? textColor : ghostTextColor },
+					{ color: type === 'default' ? textColor : ghostTextColor },
 					textStyle,
 				]}
 			>
