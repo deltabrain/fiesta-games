@@ -1,12 +1,12 @@
-import { CardView } from '@/components/CardView';
-import { TopBar } from '@/components/layout/TopBar';
-import { ThemedText } from '@/components/themed/ThemedText';
-import { ThemedTextPressable } from '@/components/themed/ThemedTextPressable';
-import { ThemedView } from '@/components/themed/ThemedView';
-import { useThemeColor } from '@/hooks/useThemeColor';
+import { CardView } from '@components/CardView';
+import { TopBar } from '@components/layout/TopBar';
+import { useThemeColor } from '@hooks/useThemeColor';
+import { TextButton } from '@themed/TextButton';
+import { ThemedText } from '@themed/ThemedText';
+import { ThemedView } from '@themed/ThemedView';
+import * as hol from '@util/higherOrLower';
 import { useState } from 'react';
 import { Modal, StyleSheet } from 'react-native';
-import * as hol from '@/src/higherOrLower';
 
 hol.initDeck();
 
@@ -67,7 +67,7 @@ export default function HigherOrLower() {
 					<ThemedText style={styles.text}>
 						You have to take {scoreBuf} sip(s).
 					</ThemedText>
-					<ThemedTextPressable
+					<TextButton
 						text='Close'
 						style={styles.button}
 						onPress={() => {
@@ -84,7 +84,7 @@ export default function HigherOrLower() {
 			<ThemedView
 				style={[styles.buttonContainer, { backgroundColor: backgroundColor }]}
 			>
-				<ThemedTextPressable
+				<TextButton
 					text={leftButtonText}
 					style={styles.button}
 					onPress={async () => {
@@ -97,7 +97,7 @@ export default function HigherOrLower() {
 						updateCards();
 					}}
 				/>
-				<ThemedTextPressable
+				<TextButton
 					text={rightButtonText}
 					style={styles.button}
 					onPress={async () => {

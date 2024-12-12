@@ -6,6 +6,19 @@ export default function BingoLayout() {
 			screenOptions={{
 				headerShown: false,
 			}}
-		/>
+		>
+			<Stack.Screen
+				name='index'
+				options={{ title: 'Bingo', animation: 'default' }}
+			/>
+			<Stack.Screen
+				name='editor/[id]'
+				options={{ title: 'Editor', animation: 'slide_from_bottom' }}
+			/>
+			<Stack.Screen
+				name='board/[id]'
+				options={{ title: 'Board', animation: 'simple_push' }}
+			/>
+		</Stack>
 	);
 }

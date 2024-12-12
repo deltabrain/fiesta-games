@@ -1,6 +1,6 @@
-import { TopBar } from '@/components/layout/TopBar';
-import { ThemedView } from '@/components/themed/ThemedView';
+import { TopBar } from '@components/layout/TopBar';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { ThemedView } from '@themed/ThemedView';
 import { StyleSheet } from 'react-native';
 
 export default function Teufeln() {
