@@ -1,5 +1,5 @@
 import { Error } from '@components/Error';
-import { IconButton } from '@components/themed/IconButton';
+import { IconButton } from '@themed/IconButton';
 import { useThemeColor } from '@hooks/useThemeColor';
 import { deleteBoard } from '@lib/db';
 import { LinkIconButton } from '@themed/LinkIconButton';
