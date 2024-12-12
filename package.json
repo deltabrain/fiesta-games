@@ -56,5 +56,14 @@
 	"private": true,
 	"trustedDependencies": [
 		"protobufjs"
-	]
+	],
+	"expo": {
+		"doctor": {
+			"reactNativeDirectoryCheck": {
+				"exclude": [
+					"base64-arraybuffer"
+				]
+			}
+		}
+	}
 }
