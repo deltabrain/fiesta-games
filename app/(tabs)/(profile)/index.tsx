@@ -88,7 +88,7 @@ export default function Profile() {
 					contentContainerStyle={{ alignItems: 'center' }}
 					showsVerticalScrollIndicator={false}
 					style={styles.list}
-					data={/* TODO: fetch friend list */}
+					data={[0]}
 					renderItem={({ item }) => <Avatar imageSrc={avatar} />}
 				/>
 			</ThemedView>
