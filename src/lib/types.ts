@@ -29,3 +29,9 @@ export type Board = {
 	title: string;
 	user_id: string;
 };
+
+// TODO: profile
+export type Profile = {
+	user_id: string;
+	avatar_url: string;
+};

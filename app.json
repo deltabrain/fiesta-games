@@ -3,7 +3,7 @@
 		"name": "Fiesta",
 		"slug": "Fiesta-Trinkspiele",
 		"owner": "deltabrain",
-		"version": "0.2.4",
+		"version": "0.2.5",
 		"orientation": "portrait",
 		"icon": "./src/assets/images/logo.png",
 		"scheme": "myapp",
@@ -29,7 +29,18 @@
 			"output": "static",
 			"favicon": "./src/assets/images/favicon.png"
 		},
-		"plugins": ["expo-router", "expo-font", "expo-image-picker"],
+		"plugins": [
+			"expo-router",
+			"expo-image-picker",
+			[
+				"expo-font",
+				{
+					"fonts": [
+						"./node_modules/@expo-google-fonts/comfortaa/Comfortaa_500Medium.ttf"
+					]
+				}
+			]
+		],
 		"experiments": {
 			"typedRoutes": true
 		},

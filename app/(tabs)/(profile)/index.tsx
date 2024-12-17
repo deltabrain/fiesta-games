@@ -8,7 +8,7 @@ import { Image } from 'expo-image';
 import { launchImageLibraryAsync } from 'expo-image-picker';
 import { useNavigation } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Modal, StyleSheet } from 'react-native';
+import { FlatList, Modal, StyleSheet } from 'react-native';
 
 export default function Profile() {
 	const [loading, setLoading] = useState(true);
@@ -84,7 +84,13 @@ export default function Profile() {
 				<Avatar onPress={() => setShowModal(true)} imageSrc={avatar} />
 			</ThemedView>
 			<ThemedView style={styles.contentContainer}>
-				{/* TODO: profile page content, friend list as flat list  */}
+				<FlatList
+					contentContainerStyle={{ alignItems: 'center' }}
+					showsVerticalScrollIndicator={false}
+					style={styles.list}
+					data={/* TODO: fetch friend list */}
+					renderItem={({ item }) => <Avatar imageSrc={avatar} />}
+				/>
 			</ThemedView>
 			<ThemedView style={styles.bottomBar}>
 				<IconButton icon='log-out-outline' onPress={() => signOut()} />
@@ -120,6 +126,9 @@ const styles = StyleSheet.create({
 		marginBottom: '2%',
 		justifyContent: 'space-between',
 		alignItems: 'center',
+	},
+	list: {
+		width: '60%',
 	},
 	contentContainer: {
 		width: '100%',

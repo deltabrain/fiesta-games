@@ -240,6 +240,7 @@ export async function uploadAvatar(file: ImagePickerAsset) {
 
 	if (error) throw error;
 
+	// TODO: data.path to data.fullPath for better typing
 	await supabase
 		.from('users')
 		.update({ avatar_file: data.path })

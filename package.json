@@ -1,7 +1,7 @@
 {
 	"name": "Fiesta",
 	"main": "expo-router/entry",
-	"version": "0.2.4",
+	"version": "0.2.5",
 	"scripts": {
 		"dev": "expo start",
 		"android": "expo run:android",
@@ -11,11 +11,12 @@
 		"preset": "jest-expo"
 	},
 	"dependencies": {
+		"@expo-google-fonts/comfortaa": "^0.2.3",
 		"@expo/vector-icons": "^14.0.4",
 		"@react-native-async-storage/async-storage": "1.23.1",
-		"@supabase/supabase-js": "^2.47.5",
+		"@supabase/supabase-js": "^2.47.8",
 		"base64-arraybuffer": "^1.0.2",
-		"expo": "~52.0.18",
+		"expo": "~52.0.19",
 		"expo-constants": "~17.0.3",
 		"expo-dev-client": "~5.0.6",
 		"expo-font": "~13.0.1",
@@ -23,7 +24,7 @@
 		"expo-image-picker": "~16.0.3",
 		"expo-linking": "~7.0.3",
 		"expo-navigation-bar": "~4.0.6",
-		"expo-router": "~4.0.11",
+		"expo-router": "~4.0.13",
 		"expo-splash-screen": "~0.29.18",
 		"expo-status-bar": "~2.0.0",
 		"expo-system-ui": "~4.0.6",
@@ -41,7 +42,7 @@
 		"@babel/core": "^7.26.0",
 		"@types/bun": "^1.1.14",
 		"@types/jest": "^29.5.14",
-		"@types/react": "~18.3.16",
+		"@types/react": "~18.3.17",
 		"@types/react-test-renderer": "^18.3.1",
 		"eslint": "^8.57.1",
 		"eslint-config-expo": "~8.0.1",
@@ -61,7 +62,8 @@
 		"doctor": {
 			"reactNativeDirectoryCheck": {
 				"exclude": [
-					"base64-arraybuffer"
+					"base64-arraybuffer",
+					"@expo-google-fonts/comfortaa"
 				]
 			}
 		}
