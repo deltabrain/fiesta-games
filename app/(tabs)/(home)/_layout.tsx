@@ -1,4 +1,4 @@
-import { Stack } from 'expo-router';
+import { Stack } from 'expo-router'
 
 export default function HomeLayout() {
 	return (
@@ -7,5 +7,5 @@ export default function HomeLayout() {
 				headerShown: false,
 			}}
 		/>
-	);
+	)
 }

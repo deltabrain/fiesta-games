@@ -1,17 +1,17 @@
-import { useThemeColor } from '@hooks/useThemeColor';
-import { Corner } from '@types';
-import { ThemedText } from '@themed/ThemedText';
-import { useEffect, useState } from 'react';
-import { Pressable, PressableProps, StyleSheet } from 'react-native';
-import { setFieldActive } from '@lib/db';
+import { useThemeColor } from '@hooks/useThemeColor'
+import { Corner } from '@types'
+import { ThemedText } from '@themed/ThemedText'
+import { useEffect, useState } from 'react'
+import { Pressable, PressableProps, StyleSheet } from 'react-native'
+import { setFieldActive } from '@lib/db'
 
 export type BingoBoardItemProps = PressableProps & {
-	value: string;
-	initActive: boolean;
-	corner: Corner | null;
-	id: string;
-	field: number;
-};
+	value: string
+	initActive: boolean
+	corner: Corner | null
+	id: string
+	field: number
+}
 
 export function BingoBoardItem({
 	value,
@@ -21,38 +21,38 @@ export function BingoBoardItem({
 	field,
 	...rest
 }: BingoBoardItemProps) {
-	const [active, setActive] = useState(initActive);
-	const primaryColor = useThemeColor('secondary_dark');
-	const accentColor = useThemeColor('primary_dark');
-	const neutralColor = useThemeColor('neutral');
-	const textButtonColor = useThemeColor('text_button');
-	var cornerStyle;
+	const [active, setActive] = useState(initActive)
+	const primaryColor = useThemeColor('secondary_dark')
+	const accentColor = useThemeColor('primary_dark')
+	const neutralColor = useThemeColor('neutral')
+	const textButtonColor = useThemeColor('text_button')
+	var cornerStyle
 
 	useEffect(() => {
-		setActive(initActive);
-	}, [initActive]);
+		setActive(initActive)
+	}, [initActive])
 
 	function toggle() {
-		setActive(!active);
-		setFieldActive(id, field, !active);
+		setActive(!active)
+		setFieldActive(id, field, !active)
 	}
 
 	switch (corner) {
 		case null:
-			cornerStyle = {};
-			break;
+			cornerStyle = {}
+			break
 		case Corner.TopLeft:
-			cornerStyle = { borderTopLeftRadius: 8 };
-			break;
+			cornerStyle = { borderTopLeftRadius: 8 }
+			break
 		case Corner.TopRight:
-			cornerStyle = { borderTopRightRadius: 8 };
-			break;
+			cornerStyle = { borderTopRightRadius: 8 }
+			break
 		case Corner.BottomLeft:
-			cornerStyle = { borderBottomLeftRadius: 8 };
-			break;
+			cornerStyle = { borderBottomLeftRadius: 8 }
+			break
 		case Corner.BottomRight:
-			cornerStyle = { borderBottomRightRadius: 8 };
-			break;
+			cornerStyle = { borderBottomRightRadius: 8 }
+			break
 	}
 
 	return (
@@ -72,7 +72,7 @@ export function BingoBoardItem({
 				{value}
 			</ThemedText>
 		</Pressable>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -88,4 +88,4 @@ const styles = StyleSheet.create({
 		textAlignVertical: 'center',
 		flexWrap: 'wrap',
 	},
-});
+})

@@ -1,24 +1,24 @@
-import { Avatar } from '@components/profile/Avatar';
-import { signOut } from '@lib/auth';
-import { getAvatarURL, getUserData, uploadAvatar } from '@lib/db';
-import { IconButton } from '@themed/IconButton';
-import { ThemedText } from '@themed/ThemedText';
-import { ThemedView } from '@themed/ThemedView';
-import { Image } from 'expo-image';
-import { launchImageLibraryAsync } from 'expo-image-picker';
-import { useNavigation } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { Modal, StyleSheet } from 'react-native';
+import { Avatar } from '@components/profile/Avatar'
+import { signOut } from '@lib/auth'
+import { getAvatarURL, getUserData, uploadAvatar } from '@lib/db'
+import { IconButton } from '@themed/IconButton'
+import { ThemedText } from '@themed/ThemedText'
+import { ThemedView } from '@themed/ThemedView'
+import { Image } from 'expo-image'
+import { launchImageLibraryAsync } from 'expo-image-picker'
+import { useNavigation } from 'expo-router'
+import { useEffect, useState } from 'react'
+import { Modal, StyleSheet } from 'react-native'
 
 export default function Profile() {
-	const [loading, setLoading] = useState(true);
-	const [name, setName] = useState('');
-	const [showModal, setShowModal] = useState(false);
-	const [reloadAvatar, setReloadAvatar] = useState(false);
+	const [loading, setLoading] = useState(true)
+	const [name, setName] = useState('')
+	const [showModal, setShowModal] = useState(false)
+	const [reloadAvatar, setReloadAvatar] = useState(false)
 	const [avatar, setAvatar] = useState(
-		'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png',
-	);
-	const navigation = useNavigation();
+		'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png'
+	)
+	const navigation = useNavigation()
 
 	const pickImage = async () => {
 		const result = await launchImageLibraryAsync({
@@ -27,26 +27,26 @@ export default function Profile() {
 			base64: true,
 			mediaTypes: ['images'],
 			quality: 1,
-		});
+		})
 
 		if (result.assets) {
-			uploadAvatar(result.assets[0]);
-			setReloadAvatar(!reloadAvatar);
+			uploadAvatar(result.assets[0])
+			setReloadAvatar(!reloadAvatar)
 		}
-	};
+	}
 
 	useEffect(() => {
 		navigation.addListener('focus', () => {
-			setLoading(true);
+			setLoading(true)
 			getUserData().then((res) => {
-				setName(res.username);
+				setName(res.username)
 				getAvatarURL(res.user_id).then((data) => {
-					setAvatar(data);
-				});
-				setLoading(false);
-			});
-		});
-	}, [navigation, reloadAvatar]);
+					setAvatar(data)
+				})
+				setLoading(false)
+			})
+		})
+	}, [navigation, reloadAvatar])
 
 	return (
 		<ThemedView style={styles.default}>
@@ -90,7 +90,7 @@ export default function Profile() {
 				<IconButton icon='log-out-outline' onPress={() => signOut()} />
 			</ThemedView>
 		</ThemedView>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -158,4 +158,4 @@ const styles = StyleSheet.create({
 	hidden: {
 		display: 'none',
 	},
-});
+})

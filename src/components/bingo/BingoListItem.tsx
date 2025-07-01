@@ -1,24 +1,24 @@
-import { Error } from '@components/Error';
-import { IconButton } from '@themed/IconButton';
-import { useThemeColor } from '@hooks/useThemeColor';
-import { deleteBoard } from '@lib/db';
-import { LinkIconButton } from '@themed/LinkIconButton';
-import { ThemedText } from '@themed/ThemedText';
-import { Board } from '@types';
-import { Link } from 'expo-router';
-import { useState } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Error } from '@components/Error'
+import { IconButton } from '@themed/IconButton'
+import { useThemeColor } from '@hooks/useThemeColor'
+import { deleteBoard } from '@lib/db'
+import { LinkIconButton } from '@themed/LinkIconButton'
+import { ThemedText } from '@themed/ThemedText'
+import { Board } from '@types'
+import { Link } from 'expo-router'
+import { useState } from 'react'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 
 export function BingoListItem(board: Board) {
-	const [isDeleting, setIsDeleting] = useState(false);
+	const [isDeleting, setIsDeleting] = useState(false)
 
-	const textColor = useThemeColor('text_button');
-	const bgColor = useThemeColor('secondary_dark');
-	const deletingBgColor = useThemeColor('warning');
-	const borderColor = useThemeColor('secondary');
+	const textColor = useThemeColor('text_button')
+	const bgColor = useThemeColor('secondary_dark')
+	const deletingBgColor = useThemeColor('warning')
+	const borderColor = useThemeColor('secondary')
 
 	if (!board) {
-		return <Error />;
+		return <Error />
 	}
 
 	return (
@@ -62,7 +62,7 @@ export function BingoListItem(board: Board) {
 				)}
 			</TouchableOpacity>
 		</Link>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -90,4 +90,4 @@ const styles = StyleSheet.create({
 		fontSize: 18,
 		marginRight: '5%',
 	},
-});
+})

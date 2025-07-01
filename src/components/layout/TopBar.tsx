@@ -1,12 +1,12 @@
-import { useThemeColor } from '@hooks/useThemeColor';
-import { IconButton } from '@themed/IconButton';
-import { ThemedText } from '@themed/ThemedText';
-import { ThemedView } from '@themed/ThemedView';
-import React from 'react';
-import { Linking, StyleSheet } from 'react-native';
+import { useThemeColor } from '@hooks/useThemeColor'
+import { IconButton } from '@themed/IconButton'
+import { ThemedText } from '@themed/ThemedText'
+import { ThemedView } from '@themed/ThemedView'
+import React from 'react'
+import { Linking, StyleSheet } from 'react-native'
 
 export function TopBar() {
-	const backgroundColor = useThemeColor('background');
+	const backgroundColor = useThemeColor('background')
 
 	return (
 		<ThemedView style={[styles.topBar, { backgroundColor: backgroundColor }]}>
@@ -22,7 +22,7 @@ export function TopBar() {
 				<ThemedText style={styles.text}>Submit feedback</ThemedText>
 			</ThemedView>
 		</ThemedView>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -42,4 +42,4 @@ const styles = StyleSheet.create({
 		fontSize: 12,
 		marginLeft: 15,
 	},
-});
+})

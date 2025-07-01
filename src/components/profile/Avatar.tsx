@@ -1,18 +1,18 @@
-import { useThemeColor } from '@hooks/useThemeColor';
-import { Image } from 'expo-image';
+import { useThemeColor } from '@hooks/useThemeColor'
+import { Image } from 'expo-image'
 import {
 	StyleSheet,
 	TouchableOpacity,
 	TouchableOpacityProps,
-} from 'react-native';
+} from 'react-native'
 
 export type AvatarProps = TouchableOpacityProps & {
-	imageSrc: string;
-	style?: any;
-};
+	imageSrc: string
+	style?: any
+}
 
 export function Avatar({ imageSrc, style, ...rest }: AvatarProps) {
-	const borderColor = useThemeColor('accent_dark');
+	const borderColor = useThemeColor('accent_dark')
 	return (
 		<TouchableOpacity
 			activeOpacity={0.7}
@@ -29,7 +29,7 @@ export function Avatar({ imageSrc, style, ...rest }: AvatarProps) {
 				cachePolicy={'none'}
 			/>
 		</TouchableOpacity>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -44,4 +44,4 @@ const styles = StyleSheet.create({
 		borderStyle: 'solid',
 		borderWidth: 2,
 	},
-});
+})

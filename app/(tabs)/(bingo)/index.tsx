@@ -1,18 +1,18 @@
-import { Loading } from '@components/Loading';
-import { BingoListItem } from '@components/bingo/BingoListItem';
-import { addBoard, getUserBoards } from '@lib/db';
-import { supabase } from '@lib/supabase';
-import { Board } from '@lib/types';
-import { IconButton } from '@themed/IconButton';
-import { ThemedText } from '@themed/ThemedText';
-import { ThemedView } from '@themed/ThemedView';
-import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet } from 'react-native';
+import { Loading } from '@components/Loading'
+import { BingoListItem } from '@components/bingo/BingoListItem'
+import { addBoard, getUserBoards } from '@lib/db'
+import { supabase } from '@lib/supabase'
+import { Board } from '@lib/types'
+import { IconButton } from '@themed/IconButton'
+import { ThemedText } from '@themed/ThemedText'
+import { ThemedView } from '@themed/ThemedView'
+import React, { useEffect, useState } from 'react'
+import { FlatList, StyleSheet } from 'react-native'
 
 export default function Bingo() {
-	const [loading, setLoading] = useState(true);
-	const [reloading, setReloading] = useState(false);
-	const [boards, setBoards] = useState<Board[]>([]);
+	const [loading, setLoading] = useState(true)
+	const [reloading, setReloading] = useState(false)
+	const [boards, setBoards] = useState<Board[]>([])
 
 	// Subscribe to supabase changes
 	supabase
@@ -21,17 +21,17 @@ export default function Bingo() {
 			'postgres_changes',
 			{ event: '*', schema: 'public', table: 'boards' },
 			() => {
-				setReloading(!reloading);
-			},
+				setReloading(!reloading)
+			}
 		)
-		.subscribe();
+		.subscribe()
 
 	useEffect(() => {
 		getUserBoards().then((data) => {
-			setBoards(data);
-		});
-		setLoading(false);
-	}, [loading, reloading]);
+			setBoards(data)
+		})
+		setLoading(false)
+	}, [loading, reloading])
 
 	return loading ? (
 		<Loading />
@@ -42,7 +42,7 @@ export default function Bingo() {
 				<IconButton
 					icon='add-outline'
 					onPress={() => {
-						addBoard();
+						addBoard()
 					}}
 				/>
 			</ThemedView>
@@ -56,7 +56,7 @@ export default function Bingo() {
 				/>
 			</ThemedView>
 		</ThemedView>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -121,4 +121,4 @@ const styles = StyleSheet.create({
 	hidden: {
 		display: 'none',
 	},
-});
+})

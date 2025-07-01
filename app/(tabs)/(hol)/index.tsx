@@ -1,56 +1,56 @@
-import { CardView } from '@components/CardView';
-import { TopBar } from '@components/layout/TopBar';
-import { useThemeColor } from '@hooks/useThemeColor';
-import { TextButton } from '@themed/TextButton';
-import { ThemedText } from '@themed/ThemedText';
-import { ThemedView } from '@themed/ThemedView';
-import * as hol from '@util/higherOrLower';
-import { useState } from 'react';
-import { Modal, StyleSheet } from 'react-native';
+import { CardView } from '@components/CardView'
+import { TopBar } from '@components/layout/TopBar'
+import { useThemeColor } from '@hooks/useThemeColor'
+import { TextButton } from '@themed/TextButton'
+import { ThemedText } from '@themed/ThemedText'
+import { ThemedView } from '@themed/ThemedView'
+import * as hol from '@util/higherOrLower'
+import { useState } from 'react'
+import { Modal, StyleSheet } from 'react-native'
 
-hol.initDeck();
+hol.initDeck()
 
-var scoreBuf = 1;
+var scoreBuf = 1
 
 export default function HigherOrLower() {
-	const backgroundColor = useThemeColor('background');
+	const backgroundColor = useThemeColor('background')
 
 	// this rerenders the view if necessary
 	function updateCards() {
-		setCurrentCardName(hol.getCurrentCardName());
+		setCurrentCardName(hol.getCurrentCardName())
 		// setLastCardName(hol.getLastCardName());
 	}
 
 	function wrongGuess() {
 		setTimeout(() => {
-			setShowScorePopup(true);
-		}, 500);
-		setLeftButtonText(hol.SuitGuess.Red);
-		setRightButtonText(hol.SuitGuess.Black);
-		setFirstRound(true);
+			setShowScorePopup(true)
+		}, 500)
+		setLeftButtonText(hol.SuitGuess.Red)
+		setRightButtonText(hol.SuitGuess.Black)
+		setFirstRound(true)
 	}
 
 	function correctGuess() {
-		setLeftButtonText(hol.RankGuess.Higher);
-		setRightButtonText(hol.RankGuess.Lower);
-		setFirstRound(false);
-		scoreBuf = hol.getScore();
+		setLeftButtonText(hol.RankGuess.Higher)
+		setRightButtonText(hol.RankGuess.Lower)
+		setFirstRound(false)
+		scoreBuf = hol.getScore()
 	}
 
-	const [firstRound, setFirstRound] = useState(true);
+	const [firstRound, setFirstRound] = useState(true)
 	const [currentCardName, setCurrentCardName] = useState(
-		hol.getCurrentCardName(),
-	);
+		hol.getCurrentCardName()
+	)
 	// const [lastCardName, setLastCardName] = useState(hol.getLastCardName());
-	const [showScorePopup, setShowScorePopup] = useState(false);
+	const [showScorePopup, setShowScorePopup] = useState(false)
 	const [leftButtonText, setLeftButtonText]: [
 		hol.RankGuess | hol.SuitGuess,
 		any,
-	] = useState(hol.SuitGuess.Red);
+	] = useState(hol.SuitGuess.Red)
 	const [rightButtonText, setRightButtonText]: [
 		hol.RankGuess | hol.SuitGuess,
 		any,
-	] = useState(hol.SuitGuess.Black);
+	] = useState(hol.SuitGuess.Black)
 
 	return (
 		<ThemedView style={[styles.default, { backgroundColor: backgroundColor }]}>
@@ -71,8 +71,8 @@ export default function HigherOrLower() {
 						text='Close'
 						style={styles.button}
 						onPress={() => {
-							setShowScorePopup(false);
-							scoreBuf = 1;
+							setShowScorePopup(false)
+							scoreBuf = 1
 						}}
 					/>
 				</ThemedView>
@@ -88,31 +88,31 @@ export default function HigherOrLower() {
 					text={leftButtonText}
 					style={styles.button}
 					onPress={async () => {
-						var action = firstRound ? hol.SuitGuess.Red : hol.RankGuess.Higher;
+						var action = firstRound ? hol.SuitGuess.Red : hol.RankGuess.Higher
 						if (!hol.checkWin(action)) {
-							wrongGuess();
+							wrongGuess()
 						} else {
-							correctGuess();
+							correctGuess()
 						}
-						updateCards();
+						updateCards()
 					}}
 				/>
 				<TextButton
 					text={rightButtonText}
 					style={styles.button}
 					onPress={async () => {
-						var action = firstRound ? hol.SuitGuess.Black : hol.RankGuess.Lower;
+						var action = firstRound ? hol.SuitGuess.Black : hol.RankGuess.Lower
 						if (!hol.checkWin(action)) {
-							wrongGuess();
+							wrongGuess()
 						} else {
-							correctGuess();
+							correctGuess()
 						}
-						updateCards();
+						updateCards()
 					}}
 				/>
 			</ThemedView>
 		</ThemedView>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -167,4 +167,4 @@ const styles = StyleSheet.create({
 		alignItems: 'center',
 		opacity: 0.9,
 	},
-});
+})

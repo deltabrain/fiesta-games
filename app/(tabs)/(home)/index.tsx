@@ -1,7 +1,7 @@
-import { TopBar } from '@components/layout/TopBar';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { ThemedView } from '@themed/ThemedView';
-import { StyleSheet } from 'react-native';
+import { TopBar } from '@components/layout/TopBar'
+import Ionicons from '@expo/vector-icons/Ionicons'
+import { ThemedView } from '@themed/ThemedView'
+import { StyleSheet } from 'react-native'
 
 export default function Home() {
 	return (
@@ -11,7 +11,7 @@ export default function Home() {
 				<Ionicons name='flame' size={24} color='red' />
 			</ThemedView>
 		</ThemedView>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		justifyContent: 'space-evenly',
 	},
-});
+})

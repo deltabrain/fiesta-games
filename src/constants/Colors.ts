@@ -1,5 +1,5 @@
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+const tintColorLight = '#0a7ea4'
+const tintColorDark = '#fff'
 
 export const Colors = {
 	light: {
@@ -58,4 +58,4 @@ export const Colors = {
 		buttonBorder: '#0b9eb4',
 		barBackground: '#1a1a1a',
 	},
-};
+}

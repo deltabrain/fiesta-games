@@ -1,13 +1,13 @@
-import { useThemeColor } from '@hooks/useThemeColor';
-import { ThemedView, ThemedViewProps } from '@themed/ThemedView';
-import { useState } from 'react';
-import { StyleSheet, TextInput } from 'react-native';
+import { useThemeColor } from '@hooks/useThemeColor'
+import { ThemedView, ThemedViewProps } from '@themed/ThemedView'
+import { useState } from 'react'
+import { StyleSheet, TextInput } from 'react-native'
 
 export type BingoEditorItemProps = ThemedViewProps & {
-	initialValue: string;
-	updateValue: Function;
-	fieldNumber: number;
-};
+	initialValue: string
+	updateValue: Function
+	fieldNumber: number
+}
 
 export function BingoEditorItem({
 	initialValue,
@@ -15,11 +15,11 @@ export function BingoEditorItem({
 	fieldNumber,
 	...rest
 }: BingoEditorItemProps) {
-	const [value, setValue] = useState(initialValue);
-	const backgroundColor = useThemeColor('background_dark');
-	const placeholderTextColor = useThemeColor('text_placeholder');
-	const accentColor = useThemeColor('primary_dark');
-	const textColor = useThemeColor('text');
+	const [value, setValue] = useState(initialValue)
+	const backgroundColor = useThemeColor('background_dark')
+	const placeholderTextColor = useThemeColor('text_placeholder')
+	const accentColor = useThemeColor('primary_dark')
+	const textColor = useThemeColor('text')
 
 	return (
 		<ThemedView
@@ -37,13 +37,13 @@ export function BingoEditorItem({
 				placeholderTextColor={placeholderTextColor}
 				value={value}
 				onChangeText={(newText) => {
-					setValue(newText);
-					updateValue(fieldNumber, newText);
+					setValue(newText)
+					updateValue(fieldNumber, newText)
 				}}
 				style={[styles.bingoInput, { color: textColor }]}
 			/>
 		</ThemedView>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -67,4 +67,4 @@ const styles = StyleSheet.create({
 		flexWrap: 'wrap',
 		paddingHorizontal: '5%',
 	},
-});
+})

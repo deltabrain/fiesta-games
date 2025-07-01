@@ -1,19 +1,19 @@
-import { Loading } from '@components/Loading';
-import { BingoBoardItem } from '@components/bingo/BingoBoardItem';
-import { getBoard, shuffleBoard } from '@lib/db';
-import { supabase } from '@lib/supabase';
-import { Corner } from '@lib/types';
-import { IconButton } from '@themed/IconButton';
-import { ThemedView } from '@themed/ThemedView';
-import { router, useLocalSearchParams } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { Loading } from '@components/Loading'
+import { BingoBoardItem } from '@components/bingo/BingoBoardItem'
+import { getBoard, shuffleBoard } from '@lib/db'
+import { supabase } from '@lib/supabase'
+import { Corner } from '@lib/types'
+import { IconButton } from '@themed/IconButton'
+import { ThemedView } from '@themed/ThemedView'
+import { router, useLocalSearchParams } from 'expo-router'
+import { useEffect, useState } from 'react'
+import { StyleSheet } from 'react-native'
 
 export default function BoardView() {
-	const { id } = useLocalSearchParams();
-	const [loading, setLoading] = useState(true);
-	const [reloadToggle, setReloadToggle] = useState(false);
-	const [items, setItems] = useState<React.JSX.Element[]>();
+	const { id } = useLocalSearchParams()
+	const [loading, setLoading] = useState(true)
+	const [reloadToggle, setReloadToggle] = useState(false)
+	const [items, setItems] = useState<React.JSX.Element[]>()
 
 	// Subscribe to changes in bingo table for shuffling
 	supabase
@@ -27,32 +27,32 @@ export default function BoardView() {
 				filter: `id=eq.${id}`,
 			},
 			() => {
-				setReloadToggle(!reloadToggle);
-			},
+				setReloadToggle(!reloadToggle)
+			}
 		)
-		.subscribe();
+		.subscribe()
 
 	useEffect(() => {
-		var nextCorner: Corner = Corner.TopLeft;
-		var row: React.JSX.Element[] = [];
-		var rowNumber: number = 0;
-		const itemArray: React.JSX.Element[] = [];
+		var nextCorner: Corner = Corner.TopLeft
+		var row: React.JSX.Element[] = []
+		var rowNumber: number = 0
+		const itemArray: React.JSX.Element[] = []
 
 		getBoard(id.toString()).then((data) => {
-			rowNumber = 0;
+			rowNumber = 0
 			for (var i = 0; i < data.size ** 2; i++) {
-				var corner: Corner | null = null;
+				var corner: Corner | null = null
 				if (i === 0) {
-					corner = nextCorner++;
+					corner = nextCorner++
 				}
 				if (i === data.size - 1) {
-					corner = nextCorner++;
+					corner = nextCorner++
 				}
 				if (i === data.size * (data.size - 1)) {
-					corner = nextCorner++;
+					corner = nextCorner++
 				}
 				if (i === data.size ** 2 - 1) {
-					corner = nextCorner++;
+					corner = nextCorner++
 				}
 
 				row.push(
@@ -63,24 +63,24 @@ export default function BoardView() {
 						value={data.fields[i]}
 						initActive={data.fields_active[i]}
 						corner={corner}
-					/>,
-				);
+					/>
+				)
 				if (i % data.size === data.size - 1) {
 					itemArray.push(
 						<ThemedView key={rowNumber} style={styles.row}>
 							{row}
-						</ThemedView>,
-					);
-					rowNumber++;
-					row = [];
+						</ThemedView>
+					)
+					rowNumber++
+					row = []
 				}
 			}
 
-			setItems(itemArray);
-			setLoading(false);
-			setReloadToggle(false);
-		});
-	}, [id, reloadToggle]);
+			setItems(itemArray)
+			setLoading(false)
+			setReloadToggle(false)
+		})
+	}, [id, reloadToggle])
 
 	return loading ? (
 		<Loading />
@@ -90,19 +90,19 @@ export default function BoardView() {
 				<IconButton
 					icon='arrow-back-outline'
 					onPress={() => {
-						router.back();
+						router.back()
 					}}
 				/>
 				<IconButton
 					icon='reload-outline'
 					onPress={() => {
-						shuffleBoard(id.toString());
+						shuffleBoard(id.toString())
 					}}
 				/>
 			</ThemedView>
 			<ThemedView style={styles.bingoContainer}>{items}</ThemedView>
 		</ThemedView>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -135,4 +135,4 @@ const styles = StyleSheet.create({
 		flexDirection: 'row',
 		height: '15%',
 	},
-});
+})

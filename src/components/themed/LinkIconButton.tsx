@@ -1,14 +1,14 @@
-import { ButtonIcon } from '@components/ButtonIcon';
-import { Ionicons } from '@expo/vector-icons';
-import { useThemeColor } from '@hooks/useThemeColor';
-import { Link, LinkProps } from 'expo-router';
-import { ComponentProps } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { ButtonIcon } from '@components/ButtonIcon'
+import { Ionicons } from '@expo/vector-icons'
+import { useThemeColor } from '@hooks/useThemeColor'
+import { Link, LinkProps } from 'expo-router'
+import { ComponentProps } from 'react'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 
 export type LinkIconButtonProps = LinkProps & {
-	icon: ComponentProps<typeof Ionicons>['name'];
-	style?: any;
-};
+	icon: ComponentProps<typeof Ionicons>['name']
+	style?: any
+}
 
 export function LinkIconButton({
 	icon,
@@ -16,9 +16,9 @@ export function LinkIconButton({
 	href,
 	...rest
 }: LinkIconButtonProps) {
-	const primaryColor = useThemeColor('secondary');
-	const accentColor = useThemeColor('secondary_light');
-	const textColor = useThemeColor('text_button');
+	const primaryColor = useThemeColor('secondary')
+	const accentColor = useThemeColor('secondary_light')
+	const textColor = useThemeColor('text_button')
 
 	return (
 		<Link
@@ -38,7 +38,7 @@ export function LinkIconButton({
 				<ButtonIcon color={textColor} name={icon} />
 			</TouchableOpacity>
 		</Link>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -50,4 +50,4 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		textAlignVertical: 'center',
 	},
-});
+})

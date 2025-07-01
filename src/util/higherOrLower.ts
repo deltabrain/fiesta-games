@@ -32,20 +32,20 @@ enum Rank {
 }
 
 interface Card {
-	suit: Suit;
-	rank: Rank;
+	suit: Suit
+	rank: Rank
 }
 
 const fullDeck: Card[] = Object.values(Suit).flatMap((suit) =>
-	Object.values(Rank).map((rank) => ({ suit, rank })),
-);
-var isFirstDeck: boolean = true;
-var deck: Card[];
-var lastCard: Card;
-var currentCard: Card;
-var nextCard: Card;
-var score: number = 1;
-var remainingCards: number = 0;
+	Object.values(Rank).map((rank) => ({ suit, rank }))
+)
+var isFirstDeck: boolean = true
+var deck: Card[]
+var lastCard: Card
+var currentCard: Card
+var nextCard: Card
+var score: number = 1
+var remainingCards: number = 0
 
 function rankToValue(rank: Rank): number {
 	return {
@@ -62,34 +62,34 @@ function rankToValue(rank: Rank): number {
 		Queen: 10,
 		King: 11,
 		Ace: 12,
-	}[rank];
+	}[rank]
 }
 
 function updateDeck(slice: boolean): void {
 	if (deck.length <= 2) {
-		initDeck();
-		return;
+		initDeck()
+		return
 	}
 
 	if (slice) {
-		lastCard = deck[0];
-		deck = deck.slice(1);
+		lastCard = deck[0]
+		deck = deck.slice(1)
 	}
 
-	currentCard = deck[0];
-	nextCard = deck[1];
-	remainingCards = deck.length - 1;
+	currentCard = deck[0]
+	nextCard = deck[1]
+	remainingCards = deck.length - 1
 }
 
 export function checkWin(guess: RankGuess | SuitGuess): boolean {
-	var win = false;
+	var win = false
 
 	// evaluate win in rank rounds
 	if (guess === 'Higher' || guess === 'Lower') {
 		win =
 			guess === RankGuess.Higher
 				? rankToValue(nextCard.rank) >= rankToValue(currentCard.rank)
-				: rankToValue(nextCard.rank) <= rankToValue(currentCard.rank);
+				: rankToValue(nextCard.rank) <= rankToValue(currentCard.rank)
 	}
 
 	// evaluate win in suit rounds (first round)
@@ -97,55 +97,55 @@ export function checkWin(guess: RankGuess | SuitGuess): boolean {
 		win =
 			guess === SuitGuess.Red
 				? nextCard.suit === 'Hearts' || nextCard.suit === 'Diamonds'
-				: nextCard.suit === 'Spades' || nextCard.suit === 'Clubs';
+				: nextCard.suit === 'Spades' || nextCard.suit === 'Clubs'
 	}
 
 	if (!win) {
-		score = 1;
+		score = 1
 	} else {
-		score++;
+		score++
 	}
 
-	updateDeck(true);
-	return win;
+	updateDeck(true)
+	return win
 }
 
 export function shuffleDeck(first: boolean): void {
 	for (var i = deck.length - 1; i > 0; i--) {
-		const j = Math.floor(Math.random() * (i + 1));
-		[deck[i], deck[j]] = [deck[j], deck[i]];
+		const j = Math.floor(Math.random() * (i + 1))
+		;[deck[i], deck[j]] = [deck[j], deck[i]]
 	}
 	if (first) {
-		lastCard = deck[0];
-		isFirstDeck = false;
+		lastCard = deck[0]
+		isFirstDeck = false
 	}
 }
 
 export function initDeck(): void {
 	if (!isFirstDeck) {
-		lastCard = deck[0];
+		lastCard = deck[0]
 	}
-	deck = fullDeck;
+	deck = fullDeck
 	if (isFirstDeck) {
-		lastCard = deck[0];
+		lastCard = deck[0]
 	}
-	shuffleDeck(isFirstDeck);
-	updateDeck(false);
-	remainingCards = deck.length - 1;
+	shuffleDeck(isFirstDeck)
+	updateDeck(false)
+	remainingCards = deck.length - 1
 }
 
 export function getCurrentCardName(): string {
-	return currentCard.suit + currentCard.rank;
+	return currentCard.suit + currentCard.rank
 }
 
 export function getLastCardName(): string {
-	return lastCard.suit + lastCard.rank;
+	return lastCard.suit + lastCard.rank
 }
 
 export function getScore(): number {
-	return score;
+	return score
 }
 
 export function getRemainingCards(): number {
-	return remainingCards;
+	return remainingCards
 }

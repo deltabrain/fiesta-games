@@ -1,16 +1,16 @@
-import { IconButton } from '@components/themed/IconButton';
-import { uploadAvatar } from '@lib/db';
-import { ThemedView, ThemedViewProps } from '@themed/ThemedView';
-import { Image } from 'expo-image';
-import { launchImageLibraryAsync } from 'expo-image-picker';
-import { useEffect, useState } from 'react';
-import { Modal, StyleSheet } from 'react-native';
+import { IconButton } from '@components/themed/IconButton'
+import { uploadAvatar } from '@lib/db'
+import { ThemedView, ThemedViewProps } from '@themed/ThemedView'
+import { Image } from 'expo-image'
+import { launchImageLibraryAsync } from 'expo-image-picker'
+import { useEffect, useState } from 'react'
+import { Modal, StyleSheet } from 'react-native'
 
 export type AvatarOverlayProps = ThemedViewProps & {
-	imageSrc: string;
-	style?: any;
-	shouldOpen: boolean;
-};
+	imageSrc: string
+	style?: any
+	shouldOpen: boolean
+}
 
 export function AvatarOverlay({
 	imageSrc,
@@ -18,7 +18,7 @@ export function AvatarOverlay({
 	shouldOpen,
 	...rest
 }: AvatarOverlayProps) {
-	const [showModal, setShowModal] = useState(false);
+	const [showModal, setShowModal] = useState(false)
 	const pickImage = async () => {
 		const result = await launchImageLibraryAsync({
 			allowsEditing: true,
@@ -26,16 +26,16 @@ export function AvatarOverlay({
 			base64: true,
 			mediaTypes: ['images'],
 			quality: 1,
-		});
+		})
 
 		if (result.assets) {
-			uploadAvatar(result.assets[0]);
+			uploadAvatar(result.assets[0])
 		}
-	};
+	}
 
 	useEffect(() => {
-		setShowModal(shouldOpen);
-	}, [shouldOpen]);
+		setShowModal(shouldOpen)
+	}, [shouldOpen])
 
 	return (
 		<Modal
@@ -64,7 +64,7 @@ export function AvatarOverlay({
 				</ThemedView>
 			</ThemedView>
 		</Modal>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -107,4 +107,4 @@ const styles = StyleSheet.create({
 		borderRadius: 75,
 	},
 	button: {},
-});
+})

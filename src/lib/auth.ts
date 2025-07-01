@@ -1,32 +1,32 @@
-import { supabase } from '@lib/supabase';
-import { ToastAndroid } from 'react-native';
+import { supabase } from '@lib/supabase'
+import { ToastAndroid } from 'react-native'
 
 const showToast = (msg: string) => {
-	ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM);
-};
+	ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM)
+}
 
 // TODO: rewrite for pocketbase
 export async function signIn(email: string, password: string) {
 	if (email === '' || null || password === '' || null) {
-		showToast('Enter email address and password!');
-		return;
+		showToast('Enter email address and password!')
+		return
 	}
 
 	const { error } = await supabase.auth.signInWithPassword({
 		email: email,
 		password: password,
-	});
+	})
 
 	if (error) {
-		showToast(error.message);
-		throw error;
+		showToast(error.message)
+		throw error
 	}
 }
 
 export async function signUp(
 	email: string,
 	password: string,
-	username: string,
+	username: string
 ) {
 	if (
 		email === '' ||
@@ -36,23 +36,23 @@ export async function signUp(
 		username === '' ||
 		null
 	) {
-		showToast('Fill out all required fields!');
-		return;
+		showToast('Fill out all required fields!')
+		return
 	}
 
 	const {
 		data: { user },
 		error,
-	} = await supabase.auth.signUp({ email: email, password: password });
+	} = await supabase.auth.signUp({ email: email, password: password })
 
 	if (error) {
-		showToast(error.message);
-		throw error;
+		showToast(error.message)
+		throw error
 	}
 
 	if (!user) {
-		showToast('Something went wrong.');
-		return;
+		showToast('Something went wrong.')
+		return
 	}
 
 	await supabase.from('users').insert({
@@ -60,29 +60,29 @@ export async function signUp(
 		email: email,
 		username: username,
 		boards: [],
-	});
+	})
 }
 
 export async function signOut() {
-	await supabase.auth.signOut();
+	await supabase.auth.signOut()
 }
 
 export async function resetPassword(email: string) {
-	const { error } = await supabase.auth.resetPasswordForEmail(email);
+	const { error } = await supabase.auth.resetPasswordForEmail(email)
 
 	if (error) {
-		showToast(error.message);
-		throw error;
+		showToast(error.message)
+		throw error
 	}
 }
 
 export async function getUserId() {
-	const { data: authData } = await supabase.auth.getSession();
+	const { data: authData } = await supabase.auth.getSession()
 
 	if (authData.session == null) {
-		throw 'no user';
+		throw 'no user'
 	}
 
-	const id = authData.session.user.id;
-	return id;
+	const id = authData.session.user.id
+	return id
 }

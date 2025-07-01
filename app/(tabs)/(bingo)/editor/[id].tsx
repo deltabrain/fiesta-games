@@ -1,57 +1,57 @@
-import { Loading } from '@components/Loading';
-import { BingoEditorItem } from '@components/bingo/BingoEditorItem';
-import { useThemeColor } from '@hooks/useThemeColor';
-import { deleteBoard, getBoard, setBingoTitle, setFields } from '@lib/db';
-import { IconButton } from '@themed/IconButton';
-import { ThemedView } from '@themed/ThemedView';
-import { router, useLocalSearchParams, useNavigation } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, TextInput } from 'react-native';
+import { Loading } from '@components/Loading'
+import { BingoEditorItem } from '@components/bingo/BingoEditorItem'
+import { useThemeColor } from '@hooks/useThemeColor'
+import { deleteBoard, getBoard, setBingoTitle, setFields } from '@lib/db'
+import { IconButton } from '@themed/IconButton'
+import { ThemedView } from '@themed/ThemedView'
+import { router, useLocalSearchParams, useNavigation } from 'expo-router'
+import { useEffect, useState } from 'react'
+import { FlatList, StyleSheet, TextInput } from 'react-native'
 
 export default function Editor() {
-	const { id } = useLocalSearchParams();
+	const { id } = useLocalSearchParams()
 
-	const [loading, setLoading] = useState(true);
-	const [title, setTitle] = useState('');
-	const [initialFields, setInitialFields] = useState<string[]>();
-	const [fieldArray, setFieldArray] = useState<string[]>();
+	const [loading, setLoading] = useState(true)
+	const [title, setTitle] = useState('')
+	const [initialFields, setInitialFields] = useState<string[]>()
+	const [fieldArray, setFieldArray] = useState<string[]>()
 
-	const bgColor = useThemeColor('background');
-	const placeholderTextColor = useThemeColor('text_placeholder');
-	const textColor = useThemeColor('text');
-	const warnColor = useThemeColor('warning');
-	const navigation = useNavigation();
+	const bgColor = useThemeColor('background')
+	const placeholderTextColor = useThemeColor('text_placeholder')
+	const textColor = useThemeColor('text')
+	const warnColor = useThemeColor('warning')
+	const navigation = useNavigation()
 
 	useEffect(() => {
 		navigation.addListener('blur', () => {
 			if (fieldArray !== undefined && id !== undefined) {
-				setFields(id.toString(), fieldArray);
+				setFields(id.toString(), fieldArray)
 			}
 			if (title !== '' && id !== undefined) {
-				setBingoTitle(id.toString(), title);
+				setBingoTitle(id.toString(), title)
 			}
-		});
-	}, [navigation, fieldArray, title, id]);
+		})
+	}, [navigation, fieldArray, title, id])
 
 	useEffect(() => {
 		const unsubscribe = navigation.addListener('focus', () => {
 			if (id !== undefined) {
 				getBoard(id.toString()).then((data) => {
-					setInitialFields(data.fields);
-					setFieldArray(data.fields);
-					setTitle(data.title);
-				});
-				setLoading(false);
+					setInitialFields(data.fields)
+					setFieldArray(data.fields)
+					setTitle(data.title)
+				})
+				setLoading(false)
 			}
-		});
-		return unsubscribe;
-	}, [navigation, id]);
+		})
+		return unsubscribe
+	}, [navigation, id])
 
 	function changeField(index: number, val: string) {
 		if (fieldArray !== undefined) {
-			var arr = fieldArray;
-			arr[index] = val;
-			setFieldArray(arr);
+			var arr = fieldArray
+			arr[index] = val
+			setFieldArray(arr)
 		}
 	}
 
@@ -62,7 +62,7 @@ export default function Editor() {
 					style={styles.button}
 					icon='arrow-back'
 					onPress={() => {
-						router.back();
+						router.back()
 					}}
 				/>
 				<TextInput
@@ -73,7 +73,7 @@ export default function Editor() {
 					placeholderTextColor={placeholderTextColor}
 					value={title}
 					onChangeText={(newText) => {
-						setTitle(newText);
+						setTitle(newText)
 					}}
 					style={[styles.title, { color: textColor }]}
 				/>
@@ -81,8 +81,8 @@ export default function Editor() {
 					style={[styles.button, { backgroundColor: warnColor }]}
 					icon='trash-outline'
 					onPress={() => {
-						deleteBoard(id.toString());
-						router.back();
+						deleteBoard(id.toString())
+						router.back()
 					}}
 				/>
 			</ThemedView>
@@ -106,7 +106,7 @@ export default function Editor() {
 				</ThemedView>
 			)}
 		</ThemedView>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -145,4 +145,4 @@ const styles = StyleSheet.create({
 	button: {
 		flex: 0,
 	},
-});
+})

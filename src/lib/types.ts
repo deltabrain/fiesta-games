@@ -23,10 +23,10 @@ export enum Corner {
 
 // TODO: rewrite for pocketbase
 export type Board = {
-	fields: string[];
-	fields_active: boolean[];
-	id: string;
-	size: number;
-	title: string;
-	user_id: string;
-};
+	fields: string[]
+	fields_active: boolean[]
+	id: string
+	size: number
+	title: string
+	user_id: string
+}

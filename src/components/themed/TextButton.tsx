@@ -1,18 +1,18 @@
-import { useThemeColor } from '@hooks/useThemeColor';
-import React from 'react';
+import { useThemeColor } from '@hooks/useThemeColor'
+import React from 'react'
 import {
 	StyleSheet,
 	Text,
 	TouchableOpacity,
 	TouchableOpacityProps,
-} from 'react-native';
+} from 'react-native'
 
 export type TextButtonProps = TouchableOpacityProps & {
-	text: string;
-	style?: any;
-	textStyle?: any;
-	type?: 'default' | 'ghost';
-};
+	text: string
+	style?: any
+	textStyle?: any
+	type?: 'default' | 'ghost'
+}
 
 export function TextButton({
 	text,
@@ -21,10 +21,10 @@ export function TextButton({
 	type = 'default',
 	...rest
 }: TextButtonProps) {
-	const primaryColor = useThemeColor('secondary');
-	const accentColor = useThemeColor('secondary_light');
-	const textColor = useThemeColor('text_button');
-	const ghostTextColor = useThemeColor('text');
+	const primaryColor = useThemeColor('secondary')
+	const accentColor = useThemeColor('secondary_light')
+	const textColor = useThemeColor('text_button')
+	const ghostTextColor = useThemeColor('text')
 
 	return (
 		<TouchableOpacity
@@ -49,7 +49,7 @@ export function TextButton({
 				{text}
 			</Text>
 		</TouchableOpacity>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -65,4 +65,4 @@ const styles = StyleSheet.create({
 		textAlign: 'center',
 		textAlignVertical: 'center',
 	},
-});
+})

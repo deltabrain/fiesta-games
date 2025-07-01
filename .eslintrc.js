@@ -6,14 +6,14 @@ module.exports = {
 		'prettier/prettier': [
 			'error',
 			{
-				semi: true,
+				semi: false,
 				singleQuote: true,
 				jsxSingleQuote: true,
 				tabWidth: 2,
 				endOfLine: 'auto',
-				trailingComma: 'all',
+				trailingComma: 'es5',
 				printWidth: 80,
 			},
 		],
 	},
-};
+}

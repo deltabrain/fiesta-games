@@ -1,33 +1,33 @@
-import { Auth } from '@components/Auth';
-import { TabBarIcon } from '@components/navigation/TabBarIcon';
-import { useThemeColor } from '@hooks/useThemeColor';
-import { supabase } from '@lib/supabase';
-import { Session } from '@supabase/supabase-js';
-import { ThemedView } from '@themed/ThemedView';
-import * as NavigationBar from 'expo-navigation-bar';
-import { Tabs } from 'expo-router';
-import { useEffect, useState } from 'react';
-import { StatusBar, StyleSheet, useColorScheme } from 'react-native';
+import { Auth } from '@components/Auth'
+import { TabBarIcon } from '@components/navigation/TabBarIcon'
+import { useThemeColor } from '@hooks/useThemeColor'
+import { supabase } from '@lib/supabase'
+import { Session } from '@supabase/supabase-js'
+import { ThemedView } from '@themed/ThemedView'
+import * as NavigationBar from 'expo-navigation-bar'
+import { Tabs } from 'expo-router'
+import { useEffect, useState } from 'react'
+import { StatusBar, StyleSheet, useColorScheme } from 'react-native'
 
 export default function TabLayout() {
-	const [session, setSession] = useState<Session | null>(null);
-	const barBackgroundColor = useThemeColor('background_dark');
-	const backgroundColor = useThemeColor('background');
+	const [session, setSession] = useState<Session | null>(null)
+	const barBackgroundColor = useThemeColor('background_dark')
+	const backgroundColor = useThemeColor('background')
 	const statusBarStyle =
-		useColorScheme() === 'light' ? 'dark-content' : 'light-content';
+		useColorScheme() === 'light' ? 'dark-content' : 'light-content'
 
-	NavigationBar.setBackgroundColorAsync(useThemeColor('background_dark'));
-	StatusBar.setBackgroundColor(useThemeColor('background'));
+	NavigationBar.setBackgroundColorAsync(useThemeColor('background_dark'))
+	StatusBar.setBackgroundColor(useThemeColor('background'))
 
 	useEffect(() => {
 		supabase.auth.getSession().then(({ data: { session } }) => {
-			setSession(session);
-		});
+			setSession(session)
+		})
 
 		supabase.auth.onAuthStateChange((_event, session) => {
-			setSession(session);
-		});
-	}, []);
+			setSession(session)
+		})
+	}, [])
 
 	return (
 		<ThemedView style={[styles.default, { backgroundColor: backgroundColor }]}>
@@ -45,7 +45,7 @@ export default function TabLayout() {
 						options={{
 							title: 'Home',
 							tabBarIcon(props) {
-								return <TabBarIcon {...props} name='home-outline' />;
+								return <TabBarIcon {...props} name='home-outline' />
 							},
 						}}
 					/>
@@ -54,7 +54,7 @@ export default function TabLayout() {
 						options={{
 							title: 'Teufeln',
 							tabBarIcon(props) {
-								return <TabBarIcon {...props} name='dice-outline' />;
+								return <TabBarIcon {...props} name='dice-outline' />
 							},
 						}}
 					/>
@@ -63,7 +63,7 @@ export default function TabLayout() {
 						options={{
 							title: 'Bingo',
 							tabBarIcon(props) {
-								return <TabBarIcon {...props} name='people-outline' />;
+								return <TabBarIcon {...props} name='people-outline' />
 							},
 						}}
 					/>
@@ -72,7 +72,7 @@ export default function TabLayout() {
 						options={{
 							title: 'Higher or Lower',
 							tabBarIcon(props) {
-								return <TabBarIcon {...props} name='diamond-outline' />;
+								return <TabBarIcon {...props} name='diamond-outline' />
 							},
 						}}
 					/>
@@ -81,7 +81,7 @@ export default function TabLayout() {
 						options={{
 							title: 'Profile',
 							tabBarIcon(props) {
-								return <TabBarIcon {...props} name='person-outline' />;
+								return <TabBarIcon {...props} name='person-outline' />
 							},
 						}}
 					/>
@@ -90,7 +90,7 @@ export default function TabLayout() {
 				<Auth />
 			)}
 		</ThemedView>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -123,4 +123,4 @@ const styles = StyleSheet.create({
 		width: '75%',
 		borderRadius: 8,
 	},
-});
+})

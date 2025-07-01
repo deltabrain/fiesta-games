@@ -1,5 +1,5 @@
-import { Image } from 'react-native';
-import { StyleSheet } from 'react-native';
+import { Image } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 const cardImages: Record<string, any> = {
 	SpadesAce: require('@assets/images/cards/SpadesAce.png'),
@@ -66,7 +66,7 @@ const cardImages: Record<string, any> = {
 	HeartsKing: require('@assets/images/cards/HeartsKing.png'),
 	DiamondsKing: require('@assets/images/cards/DiamondsKing.png'),
 	ClubsKing: require('@assets/images/cards/ClubsKing.png'),
-};
+}
 
 export function CardView({
 	card,
@@ -74,10 +74,10 @@ export function CardView({
 	visible = true,
 	style,
 }: {
-	card: string;
-	small?: boolean;
-	visible?: boolean;
-	style?: any;
+	card: string
+	small?: boolean
+	visible?: boolean
+	style?: any
 }) {
 	return (
 		<Image
@@ -87,7 +87,7 @@ export function CardView({
 				visible ? { opacity: 1 } : { opacity: 0 },
 			]}
 		/>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -102,4 +102,4 @@ const styles = StyleSheet.create({
 		alignSelf: 'flex-start',
 		flexDirection: 'column',
 	},
-});
+})

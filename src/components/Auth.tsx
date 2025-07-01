@@ -1,21 +1,21 @@
-import { useThemeColor } from '@hooks/useThemeColor';
-import { signIn, signUp } from '@lib/auth';
-import { IconButton } from '@themed/IconButton';
-import { ThemedText } from '@themed/ThemedText';
-import { ThemedView } from '@themed/ThemedView';
-import { useState } from 'react';
-import { StyleSheet, TextInput } from 'react-native';
-import { TextButton } from './themed/TextButton';
+import { useThemeColor } from '@hooks/useThemeColor'
+import { signIn, signUp } from '@lib/auth'
+import { IconButton } from '@themed/IconButton'
+import { ThemedText } from '@themed/ThemedText'
+import { ThemedView } from '@themed/ThemedView'
+import { useState } from 'react'
+import { StyleSheet, TextInput } from 'react-native'
+import { TextButton } from './themed/TextButton'
 
 export function Auth() {
-	const [newAccount, setNewAccount] = useState(false);
-	const [username, setUsername] = useState('');
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+	const [newAccount, setNewAccount] = useState(false)
+	const [username, setUsername] = useState('')
+	const [email, setEmail] = useState('')
+	const [password, setPassword] = useState('')
 
-	const accentColor = useThemeColor('accent_dark');
-	const textColor = useThemeColor('text');
-	const fadedTextColor = useThemeColor('text_faded');
+	const accentColor = useThemeColor('accent_dark')
+	const textColor = useThemeColor('text')
+	const fadedTextColor = useThemeColor('text_faded')
 
 	return (
 		<ThemedView style={[styles.default]}>
@@ -80,7 +80,7 @@ export function Auth() {
 						//eslint-disable-next-line
 						newAccount
 							? signUp(email, password, username)
-							: signIn(email, password);
+							: signIn(email, password)
 					}}
 					icon='arrow-forward-outline'
 					type='round'
@@ -100,7 +100,7 @@ export function Auth() {
 				{/* TODO: add password reset button */}
 			</ThemedView>
 		</ThemedView>
-	);
+	)
 }
 
 const styles = StyleSheet.create({
@@ -154,4 +154,4 @@ const styles = StyleSheet.create({
 	hidden: {
 		display: 'none',
 	},
-});
+})

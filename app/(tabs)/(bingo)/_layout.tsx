@@ -1,4 +1,4 @@
-import { Stack } from 'expo-router';
+import { Stack } from 'expo-router'
 
 export default function BingoLayout() {
 	return (
@@ -20,5 +20,5 @@ export default function BingoLayout() {
 				options={{ title: 'Board', animation: 'simple_push' }}
 			/>
 		</Stack>
-	);
+	)
 }
