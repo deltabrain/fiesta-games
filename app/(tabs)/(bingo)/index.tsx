@@ -21,7 +21,7 @@ export default function Bingo() {
 			'postgres_changes',
 			{ event: '*', schema: 'public', table: 'boards' },
 			() => {
-				setReloading(true);
+				setReloading(!reloading);
 			},
 		)
 		.subscribe();
@@ -31,7 +31,6 @@ export default function Bingo() {
 			setBoards(data);
 		});
 		setLoading(false);
-		setReloading(false);
 	}, [loading, reloading]);
 
 	return loading ? (
