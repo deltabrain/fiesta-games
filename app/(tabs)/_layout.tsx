@@ -96,6 +96,7 @@ export default function TabLayout() {
 const styles = StyleSheet.create({
 	default: {
 		flex: 1,
+		paddingTop: '8%',
 		flexDirection: 'column',
 		justifyContent: 'space-between',
 	},
