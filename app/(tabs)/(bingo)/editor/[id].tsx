@@ -37,8 +37,8 @@ export default function Editor() {
 		const unsubscribe = navigation.addListener('focus', () => {
 			if (id !== undefined) {
 				getBoard(id.toString()).then((data) => {
-					setInitialFields(data.fields)
-					setFieldArray(data.fields)
+					setInitialFields(data.fields.split('~'))
+					setFieldArray(data.fields.split('~'))
 					setTitle(data.title)
 				})
 				setLoading(false)

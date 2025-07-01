@@ -1,5 +1,7 @@
-import { supabase } from '@lib/supabase'
+import { pb } from '@lib/pocketbase'
 import { ToastAndroid } from 'react-native'
+import { User } from './types'
+import { ClientResponseError } from 'pocketbase'
 
 const showToast = (msg: string) => {
 	ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM)
@@ -12,15 +14,13 @@ export async function signIn(email: string, password: string) {
 		return
 	}
 
-	const { error } = await supabase.auth.signInWithPassword({
-		email: email,
-		password: password,
-	})
-
-	if (error) {
-		showToast(error.message)
-		throw error
-	}
+	const res = await pb
+		.collection('users')
+		.authWithPassword(email, password)
+		.catch((error) => {
+			showToast(error.message)
+			throw error
+		})
 }
 
 export async function signUp(
@@ -40,49 +40,48 @@ export async function signUp(
 		return
 	}
 
-	const {
-		data: { user },
-		error,
-	} = await supabase.auth.signUp({ email: email, password: password })
-
-	if (error) {
-		showToast(error.message)
-		throw error
-	}
+	const user = await pb
+		.collection<User>('users')
+		.create({ email: email, password: password })
+		.catch((error: ClientResponseError) => {
+			throw error
+		})
 
 	if (!user) {
 		showToast('Something went wrong.')
 		return
 	}
 
-	await supabase.from('users').insert({
+	await pb.collection<User>('users').create({
 		user_id: user.id,
 		email: email,
 		username: username,
-		boards: [],
+		boards: [''],
 	})
 }
 
 export async function signOut() {
-	await supabase.auth.signOut()
+	pb.authStore.clear()
+	await pb.collection('users').authRefresh()
 }
 
 export async function resetPassword(email: string) {
-	const { error } = await supabase.auth.resetPasswordForEmail(email)
-
-	if (error) {
-		showToast(error.message)
-		throw error
-	}
+	const res = await pb
+		.collection('users')
+		.requestPasswordReset(email)
+		.catch((error: ClientResponseError) => {
+			showToast(error.message)
+			throw error
+		})
 }
 
 export async function getUserId() {
-	const { data: authData } = await supabase.auth.getSession()
+	const res = pb.authStore.record
 
-	if (authData.session == null) {
+	if (res?.id == undefined) {
 		throw 'no user'
 	}
 
-	const id = authData.session.user.id
+	const id = res.id
 	return id
 }

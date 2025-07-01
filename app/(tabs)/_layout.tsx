@@ -1,16 +1,16 @@
 import { Auth } from '@components/Auth'
 import { TabBarIcon } from '@components/navigation/TabBarIcon'
 import { useThemeColor } from '@hooks/useThemeColor'
-import { supabase } from '@lib/supabase'
-import { Session } from '@supabase/supabase-js'
+import { pb } from '@lib/pocketbase'
 import { ThemedView } from '@themed/ThemedView'
 import * as NavigationBar from 'expo-navigation-bar'
 import { Tabs } from 'expo-router'
+import { AuthRecord } from 'pocketbase'
 import { useEffect, useState } from 'react'
 import { StatusBar, StyleSheet, useColorScheme } from 'react-native'
 
 export default function TabLayout() {
-	const [session, setSession] = useState<Session | null>(null)
+	const [record, setRecord] = useState<AuthRecord | null>(null)
 	const barBackgroundColor = useThemeColor('background_dark')
 	const backgroundColor = useThemeColor('background')
 	const statusBarStyle =
@@ -20,19 +20,16 @@ export default function TabLayout() {
 	StatusBar.setBackgroundColor(useThemeColor('background'))
 
 	useEffect(() => {
-		supabase.auth.getSession().then(({ data: { session } }) => {
-			setSession(session)
-		})
-
-		supabase.auth.onAuthStateChange((_event, session) => {
-			setSession(session)
+		setRecord(pb.authStore.record)
+		pb.authStore.onChange((_token, record) => {
+			setRecord(record)
 		})
 	}, [])
 
 	return (
 		<ThemedView style={[styles.default, { backgroundColor: backgroundColor }]}>
 			<StatusBar translucent={true} barStyle={statusBarStyle} />
-			{session && session.user ? (
+			{record && record.id ? (
 				<Tabs
 					screenOptions={{
 						tabBarStyle: { backgroundColor: barBackgroundColor },

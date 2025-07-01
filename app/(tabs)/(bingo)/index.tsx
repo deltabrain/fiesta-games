@@ -1,7 +1,7 @@
 import { Loading } from '@components/Loading'
 import { BingoListItem } from '@components/bingo/BingoListItem'
 import { addBoard, getUserBoards } from '@lib/db'
-import { supabase } from '@lib/supabase'
+import { pb } from '@lib/pocketbase'
 import { Board } from '@lib/types'
 import { IconButton } from '@themed/IconButton'
 import { ThemedText } from '@themed/ThemedText'
@@ -14,17 +14,9 @@ export default function Bingo() {
 	const [reloading, setReloading] = useState(false)
 	const [boards, setBoards] = useState<Board[]>([])
 
-	// Subscribe to supabase changes
-	supabase
-		.channel('custom-all-channel')
-		.on(
-			'postgres_changes',
-			{ event: '*', schema: 'public', table: 'boards' },
-			() => {
-				setReloading(!reloading)
-			}
-		)
-		.subscribe()
+	pb.collection('boards').subscribe('*', () => {
+		setReloading(!reloading)
+	})
 
 	useEffect(() => {
 		getUserBoards().then((data) => {

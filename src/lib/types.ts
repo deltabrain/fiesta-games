@@ -1,3 +1,5 @@
+import { RecordModel } from 'pocketbase'
+
 export enum SignupResult {
 	Success,
 	WeakPassword,
@@ -21,12 +23,15 @@ export enum Corner {
 	BottomRight,
 }
 
-// TODO: rewrite for pocketbase
 export type Board = {
-	fields: string[]
-	fields_active: boolean[]
+	fields: string
+	fields_active: string
 	id: string
 	size: number
 	title: string
 	user_id: string
+}
+
+export type User = RecordModel & {
+	boards: string
 }

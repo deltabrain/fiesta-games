@@ -1,8 +1,8 @@
 import { Loading } from '@components/Loading'
 import { BingoBoardItem } from '@components/bingo/BingoBoardItem'
 import { getBoard, shuffleBoard } from '@lib/db'
-import { supabase } from '@lib/supabase'
-import { Corner } from '@lib/types'
+import { pb } from '@lib/pocketbase'
+import { Board, Corner } from '@lib/types'
 import { IconButton } from '@themed/IconButton'
 import { ThemedView } from '@themed/ThemedView'
 import { router, useLocalSearchParams } from 'expo-router'
@@ -16,21 +16,9 @@ export default function BoardView() {
 	const [items, setItems] = useState<React.JSX.Element[]>()
 
 	// Subscribe to changes in bingo table for shuffling
-	supabase
-		.channel('custom-filter-channel')
-		.on(
-			'postgres_changes',
-			{
-				event: '*',
-				schema: 'public',
-				table: 'boards',
-				filter: `id=eq.${id}`,
-			},
-			() => {
-				setReloadToggle(!reloadToggle)
-			}
-		)
-		.subscribe()
+	pb.collection<Board>('boards').subscribe(`id=${id}`, () => {
+		setReloadToggle(!reloadToggle)
+	})
 
 	useEffect(() => {
 		var nextCorner: Corner = Corner.TopLeft
@@ -60,8 +48,8 @@ export default function BoardView() {
 						key={i}
 						field={i}
 						id={data.id}
-						value={data.fields[i]}
-						initActive={data.fields_active[i]}
+						value={data.fields_active.split('~')[i]}
+						initActive={data.fields_active.split('~')[i] == '0' ? false : true}
 						corner={corner}
 					/>
 				)
