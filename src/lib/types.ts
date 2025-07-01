@@ -21,6 +21,7 @@ export enum Corner {
 	BottomRight,
 }
 
+// TODO: rewrite for pocketbase
 export type Board = {
 	fields: string[];
 	fields_active: boolean[];

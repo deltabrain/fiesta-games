@@ -4,6 +4,7 @@ import { Board } from '@types';
 import { ImagePickerAsset } from 'expo-image-picker';
 import { decode } from 'base64-arraybuffer';
 
+// TODO: rewrite for pocketbase
 export async function getSize(id: string) {
 	const { data, error } = await supabase
 		.from('boards')

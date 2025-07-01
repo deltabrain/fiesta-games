@@ -5,6 +5,7 @@ const showToast = (msg: string) => {
 	ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM);
 };
 
+// TODO: rewrite for pocketbase
 export async function signIn(email: string, password: string) {
 	if (email === '' || null || password === '' || null) {
 		showToast('Enter email address and password!');
