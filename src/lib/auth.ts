@@ -40,24 +40,33 @@ export async function signUp(
 		return
 	}
 
+	// TODO: Resolve ClientResponseError 400: failed to create Record
 	const user = await pb
 		.collection<User>('users')
 		.create({ email: email, password: password })
 		.catch((error: ClientResponseError) => {
+			console.error(error)
 			throw error
 		})
 
 	if (!user) {
 		showToast('Something went wrong.')
+		console.error('no user')
 		return
 	}
 
-	await pb.collection<User>('users').create({
-		user_id: user.id,
-		email: email,
-		username: username,
-		boards: [''],
-	})
+	await pb
+		.collection<User>('users')
+		.create({
+			id: user.id,
+			email: email,
+			name: username,
+			boards: '',
+		})
+		.then((res) => {
+			console.log(res)
+		})
+		.catch((error) => console.error(error))
 }
 
 export async function signOut() {
