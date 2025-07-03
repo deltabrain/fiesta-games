@@ -5,6 +5,7 @@ import { pb } from '@lib/pocketbase'
 import { Board, Corner } from '@lib/types'
 import { IconButton } from '@themed/IconButton'
 import { ThemedView } from '@themed/ThemedView'
+import { pbStringToArray } from '@util/util'
 import { router, useLocalSearchParams } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
@@ -16,7 +17,7 @@ export default function BoardView() {
 	const [items, setItems] = useState<React.JSX.Element[]>()
 
 	// Subscribe to changes in bingo table for shuffling
-	pb.collection<Board>('boards').subscribe(`id=${id}`, () => {
+	pb.collection<Board>('boards').subscribe(`${id}`, () => {
 		setReloadToggle(!reloadToggle)
 	})
 
@@ -48,8 +49,10 @@ export default function BoardView() {
 						key={i}
 						field={i}
 						id={data.id}
-						value={data.fields_active.split('~')[i]}
-						initActive={data.fields_active.split('~')[i] == '0' ? false : true}
+						text={pbStringToArray(data.fields)[i]}
+						initActive={
+							pbStringToArray(data.fieldsActive)[i] == '0' ? false : true
+						}
 						corner={corner}
 					/>
 				)

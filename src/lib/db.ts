@@ -1,14 +1,12 @@
 import { getUserId } from '@lib/auth'
 import { pb } from '@lib/pocketbase'
 import { Board, User } from '@types'
-import { ImagePickerAsset } from 'expo-image-picker'
-import { decode } from 'base64-arraybuffer'
+import { pbArrayToString, pbStringToArray } from '@util/util'
 
-// TODO: rewrite for pocketbase
 export async function getSize(id: string) {
 	const res = await pb
 		.collection('boards')
-		.getFullList({ filter: `id=${id}` })
+		.getFullList({ filter: `${id}` })
 		.then((res) => {
 			return res.length
 		})
@@ -23,31 +21,34 @@ export async function setBingoTitle(id: string, value: string) {
 export async function getFields(id: string) {
 	const res = await pb.collection<Board>('boards').getOne(id)
 
-	return res.fields
+	return pbStringToArray(res.fields)
 }
 
 export async function getField(id: string, field: number) {
-	const res = await pb
-		.collection<Board>('boards')
-		.getOne(id, { fields: 'fields' })
+	const res = await pb.collection<Board>('boards').getOne(id)
 
-	return res.fields[field]
+	return pbStringToArray(res.fields)[field]
 }
 
 export async function setFields(id: string, fields: string[]) {
+	const board = await getBoard(id)
+	board.fields = pbArrayToString(fields)
 	const res = await pb
-		.collection<Board>('boards')
-		.update(id, { fields: fields })
+		.collection('boards')
+		.update(id, board)
+		.catch((error) => {
+			console.error(error)
+		})
 }
 
 export async function setField(id: string, field: number, value: string) {
 	const fields = await getFields(id)
-	const tempFields = fields.split('~')
+	const tempFields = fields
 	tempFields[field] = value
 
 	const res = await pb
 		.collection<Board>('boards')
-		.update(id, { fields: tempFields.join('~') })
+		.update(id, { fields: pbArrayToString(tempFields) })
 }
 
 export async function getBoard(id: string) {
@@ -57,11 +58,11 @@ export async function getBoard(id: string) {
 }
 
 export async function getUserBoards() {
-	const id = await getUserId()
+	const id = getUserId()
 
 	const res = await pb
 		.collection<Board>('boards')
-		.getFullList({ filter: `id=${id}`, sort: 'title' })
+		.getFullList({ filter: `owner.id='${id}'`, sort: '-updated' })
 
 	return res
 }
@@ -73,30 +74,30 @@ export async function setFieldActive(
 ) {
 	const fields = await getFieldsActive(id)
 
-	const tempFields = fields.split('~')
-	tempFields[field] = String(value)
+	const tempFields = pbStringToArray(fields)
+	tempFields[field] = value ? '0' : '1'
 
 	const res = await pb
 		.collection('boards')
-		.update(id, { fields_active: tempFields.join('~') })
+		.update(id, { fieldsActive: pbArrayToString(tempFields) })
 }
 
 export async function getFieldActive(id: string, field: number) {
 	const res = await pb
 		.collection<Board>('boards')
-		.getOne(id, { fields: 'fields_active' })
+		.getOne(id, { fields: 'fieldsActive' })
 
-	return res.fields_active[field]
+	return res.fieldsActive[field]
 }
 
 export async function getFieldsActive(id: string) {
 	const res = await pb.collection<Board>('boards').getOne(id)
 
-	return res.fields_active
+	return res.fieldsActive
 }
 
 export async function getUserData() {
-	const id = await getUserId()
+	const id = getUserId()
 
 	const res = await pb.collection<User>('users').getOne(id)
 
@@ -105,22 +106,22 @@ export async function getUserData() {
 
 export async function shuffleBoard(id: string) {
 	const board = await getBoard(id)
-	const fields = board.fields.split('~')
+	const fields = pbStringToArray(board.fields)
 	const newFields = fields
-	const fields_active = board.fields_active.split('~')
-	const newFieldsActive = fields_active
+	const fieldsActive = pbStringToArray(board.fieldsActive)
+	const newFieldsActive = fieldsActive
 
 	for (var i = board.fields.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1))
 		;[fields[i], newFields[j]] = [newFields[j], fields[i]]
-		;[fields_active[i], fields_active[j]] = [
+		;[fieldsActive[i], fieldsActive[j]] = [
 			newFieldsActive[j],
 			newFieldsActive[i],
 		]
 	}
 
-	board.fields = newFields.join('~')
-	board.fields_active = newFieldsActive.join('~')
+	board.fields = pbArrayToString(newFields)
+	board.fieldsActive = pbArrayToString(newFieldsActive)
 
 	await setBoard(board)
 }
@@ -130,47 +131,29 @@ export async function setBoard(data: Board) {
 }
 
 export async function addBoard(size: number = 3) {
-	const id = await getUserId()
-	const values: string[] = []
+	const id = getUserId()
+	const fields: string[] = []
+	const fieldsActive: string[] = []
 
 	for (var i = 0; i < size ** 2; i++) {
-		values.push('')
+		fields.push('')
 	}
 
-	const newBoard = await pb
-		.collection<Board>('boards')
-		.create({ title: 'New Board', fields: values.join('~') })
+	for (var i = 0; i < size ** 2; i++) {
+		fieldsActive.push('0')
+	}
 
-	const user = await pb.collection<User>('users').getOne(id)
-
-	const tempBoards = user.boards.split('~')
-	tempBoards.push(String(newBoard.id))
-	const newBoards = tempBoards.join('~')
-
-	await pb
-		.collection<User>('users')
-		.update(id, { boards: newBoards })
-		.catch((error) => {
-			throw error
-		})
+	const newBoard = await pb.collection<Board>('boards').create({
+		title: 'New Board',
+		size: size,
+		fields: pbArrayToString(fields),
+		fieldsActive: pbArrayToString(fieldsActive),
+		owner: id,
+	})
 }
 
 export async function deleteBoard(id: string) {
-	const user_id = await getUserId()
-
-	const res = await pb.collection('boards').delete(id)
-
-	const data = await pb
-		.collection<User>('users')
-		.getOne(user_id, { fields: 'boards' })
-
-	const tempData = data.boards.split('~')
-	const index = tempData.indexOf(id)
-	tempData.splice(index)
-
-	const error = await pb
-		.collection<User>('users')
-		.update(id, { boards: tempData.join('~') })
+	await pb.collection('boards').delete(id)
 }
 
 // TODO: add Avatar stuff in pocketbase

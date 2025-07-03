@@ -14,16 +14,24 @@ export default function Bingo() {
 	const [reloading, setReloading] = useState(false)
 	const [boards, setBoards] = useState<Board[]>([])
 
-	pb.collection('boards').subscribe('*', () => {
-		setReloading(!reloading)
+	useEffect(() => {
+		pb.collection('boards').subscribe(
+			`owner.id='${pb.authStore.record!.id}'`,
+			() => {
+				setReloading(!reloading)
+			}
+		)
+		getUserBoards().then((data) => {
+			setBoards(data)
+		})
+		setLoading(false)
 	})
 
 	useEffect(() => {
 		getUserBoards().then((data) => {
 			setBoards(data)
 		})
-		setLoading(false)
-	}, [loading, reloading])
+	}, [reloading])
 
 	return loading ? (
 		<Loading />

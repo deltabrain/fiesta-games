@@ -7,7 +7,6 @@ const showToast = (msg: string) => {
 	ToastAndroid.showWithGravity(msg, ToastAndroid.LONG, ToastAndroid.BOTTOM)
 }
 
-// TODO: rewrite for pocketbase
 export async function signIn(email: string, password: string) {
 	if (email === '' || null || password === '' || null) {
 		showToast('Enter email address and password!')
@@ -40,13 +39,24 @@ export async function signUp(
 		return
 	}
 
-	// TODO: Resolve ClientResponseError 400: failed to create Record
-	const user = await pb
+	const user = pb
 		.collection<User>('users')
-		.create({ email: email, password: password })
-		.catch((error: ClientResponseError) => {
-			console.error(error)
-			throw error
+		.create({
+			email: email,
+			name: username,
+			password: password,
+			passwordConfirm: password,
+		})
+		.then(() => {
+			return pb
+				.collection('users')
+				.authWithPassword(email, password)
+				.then(() => {
+					return true
+				})
+				.catch(() => {
+					return false
+				})
 		})
 
 	if (!user) {
@@ -54,19 +64,6 @@ export async function signUp(
 		console.error('no user')
 		return
 	}
-
-	await pb
-		.collection<User>('users')
-		.create({
-			id: user.id,
-			email: email,
-			name: username,
-			boards: '',
-		})
-		.then((res) => {
-			console.log(res)
-		})
-		.catch((error) => console.error(error))
 }
 
 export async function signOut() {
@@ -84,13 +81,12 @@ export async function resetPassword(email: string) {
 		})
 }
 
-export async function getUserId() {
+export function getUserId() {
 	const res = pb.authStore.record
 
-	if (res?.id == undefined) {
-		throw 'no user'
+	if (res == null || res.id == undefined) {
+		return 'none'
 	}
 
-	const id = res.id
-	return id
+	return res.id
 }

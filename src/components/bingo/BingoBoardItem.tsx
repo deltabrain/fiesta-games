@@ -6,7 +6,7 @@ import { Pressable, PressableProps, StyleSheet } from 'react-native'
 import { setFieldActive } from '@lib/db'
 
 export type BingoBoardItemProps = PressableProps & {
-	value: string
+	text: string
 	initActive: boolean
 	corner: Corner | null
 	id: string
@@ -14,7 +14,7 @@ export type BingoBoardItemProps = PressableProps & {
 }
 
 export function BingoBoardItem({
-	value,
+	text,
 	initActive,
 	corner,
 	id,
@@ -34,7 +34,7 @@ export function BingoBoardItem({
 
 	function toggle() {
 		setActive(!active)
-		setFieldActive(id, field, !active)
+		setFieldActive(id, field, active)
 	}
 
 	switch (corner) {
@@ -69,7 +69,7 @@ export function BingoBoardItem({
 			{...rest}
 		>
 			<ThemedText style={[styles.bingoText, { color: textButtonColor }]}>
-				{value}
+				{text}
 			</ThemedText>
 		</Pressable>
 	)

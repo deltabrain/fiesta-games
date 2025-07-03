@@ -4,6 +4,7 @@ import { useThemeColor } from '@hooks/useThemeColor'
 import { deleteBoard, getBoard, setBingoTitle, setFields } from '@lib/db'
 import { IconButton } from '@themed/IconButton'
 import { ThemedView } from '@themed/ThemedView'
+import { pbStringToArray } from '@util/util'
 import { router, useLocalSearchParams, useNavigation } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { FlatList, StyleSheet, TextInput } from 'react-native'
@@ -37,8 +38,8 @@ export default function Editor() {
 		const unsubscribe = navigation.addListener('focus', () => {
 			if (id !== undefined) {
 				getBoard(id.toString()).then((data) => {
-					setInitialFields(data.fields.split('~'))
-					setFieldArray(data.fields.split('~'))
+					setInitialFields(pbStringToArray(data.fields))
+					setFieldArray(pbStringToArray(data.fields))
 					setTitle(data.title)
 				})
 				setLoading(false)

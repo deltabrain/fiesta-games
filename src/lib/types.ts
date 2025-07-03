@@ -25,11 +25,11 @@ export enum Corner {
 
 export type Board = {
 	fields: string
-	fields_active: string
+	fieldsActive: string
 	id: string
+	owner: string
 	size: number
 	title: string
-	user_id: string
 }
 
 export type User = RecordModel & {
