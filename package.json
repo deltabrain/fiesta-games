@@ -62,7 +62,8 @@
 		"doctor": {
 			"reactNativeDirectoryCheck": {
 				"exclude": [
-					"base64-arraybuffer"
+					"base64-arraybuffer",
+					"pocketbase"
 				]
 			}
 		}
