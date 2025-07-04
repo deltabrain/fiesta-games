@@ -74,6 +74,15 @@ export default function TabLayout() {
 						}}
 					/>
 					<Tabs.Screen
+						name='(rapdle)'
+						options={{
+							title: 'Rapdle',
+							tabBarIcon(props) {
+								return <TabBarIcon {...props} name='musical-note-outline' />
+							},
+						}}
+					/>
+					<Tabs.Screen
 						name='(profile)'
 						options={{
 							title: 'Profile',
