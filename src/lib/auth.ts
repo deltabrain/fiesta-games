@@ -1,6 +1,5 @@
 import { pb } from '@lib/pocketbase'
 import { ToastAndroid } from 'react-native'
-import { User } from './types'
 import { ClientResponseError } from 'pocketbase'
 
 const showToast = (msg: string) => {
@@ -16,6 +15,9 @@ export async function signIn(email: string, password: string) {
 	const res = await pb
 		.collection('users')
 		.authWithPassword(email, password)
+		.then((res) => {
+			console.log(res)
+		})
 		.catch((error) => {
 			showToast(error.message)
 			throw error
@@ -40,7 +42,7 @@ export async function signUp(
 	}
 
 	const user = pb
-		.collection<User>('users')
+		.collection('users')
 		.create({
 			email: email,
 			name: username,

@@ -1,5 +1,3 @@
-import { RecordModel } from 'pocketbase'
-
 export enum SignupResult {
 	Success,
 	WeakPassword,
@@ -30,8 +28,4 @@ export type Board = {
 	owner: string
 	size: number
 	title: string
-}
-
-export type User = RecordModel & {
-	boards: string
 }
