@@ -1,11 +1,12 @@
 {
 	"name": "Fiesta",
 	"main": "expo-router/entry",
-	"version": "0.2.4",
+	"version": "0.3.0",
 	"scripts": {
 		"dev": "expo start",
 		"android": "expo run:android",
-		"ios": "expo run:ios"
+		"lint": "eslint .",
+		"lint:fix": "eslint . --fix"
 	},
 	"jest": {
 		"preset": "jest-expo"
