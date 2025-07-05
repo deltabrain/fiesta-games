@@ -1,6 +1,6 @@
 import { getUserId } from '@lib/auth'
 import { pb } from '@lib/pocketbase'
-import { Board, User } from '@types'
+import { Board } from '@types'
 import { pbArrayToString, pbStringToArray } from '@util/util'
 
 export async function getSize(id: string) {
@@ -99,7 +99,7 @@ export async function getFieldsActive(id: string) {
 export async function getUserData() {
 	const id = getUserId()
 
-	const res = await pb.collection<User>('users').getOne(id)
+	const res = await pb.collection('users').getOne(id)
 
 	return res
 }
@@ -139,7 +139,7 @@ export async function addBoard(size: number = 3) {
 		fields.push('')
 	}
 
-	for (var i = 0; i < size ** 2; i++) {
+	for (i = 0; i < size ** 2; i++) {
 		fieldsActive.push('0')
 	}
 
