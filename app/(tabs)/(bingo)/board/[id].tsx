@@ -51,7 +51,7 @@ export default function BoardView() {
 						id={data.id}
 						text={pbStringToArray(data.fields)[i]}
 						initActive={
-							pbStringToArray(data.fieldsActive)[i] == '0' ? false : true
+							pbStringToArray(data.fieldsActive)[i] === '0' ? false : true
 						}
 						corner={corner}
 					/>

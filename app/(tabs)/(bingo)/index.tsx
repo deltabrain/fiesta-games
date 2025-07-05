@@ -18,14 +18,14 @@ export default function Bingo() {
 		pb.collection('boards').subscribe(
 			`owner.id='${pb.authStore.record!.id}'`,
 			() => {
-				setReloading(!reloading)
+				setReloading((reloading) => !reloading)
 			}
 		)
 		getUserBoards().then((data) => {
 			setBoards(data)
 		})
 		setLoading(false)
-	})
+	}, [])
 
 	useEffect(() => {
 		getUserBoards().then((data) => {
