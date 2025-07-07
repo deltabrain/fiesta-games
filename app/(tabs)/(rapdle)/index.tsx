@@ -5,23 +5,26 @@ import { WebView } from 'react-native-webview'
 export default function Rapdle() {
 	return (
 		<ThemedView style={styles.default}>
-			<ThemedView style={styles.bottomBar}>
-				<WebView source={{ uri: 'http://89.58.34.65:8090' }} />
-			</ThemedView>
+			<WebView
+				style={styles.webView}
+				source={{
+					uri: '89.58.34.65:3000',
+				}}
+			/>
 		</ThemedView>
 	)
 }
 
 const styles = StyleSheet.create({
 	default: {
+		width: '100%',
+		height: '100%',
+	},
+	webView: {
 		flex: 1,
 		alignItems: 'center',
-		justifyContent: 'space-between',
-	},
-	bottomBar: {
+		justifyContent: 'center',
 		width: '100%',
-		marginBottom: '5%',
-		flexDirection: 'row',
-		justifyContent: 'space-evenly',
+		height: '100%',
 	},
 })
