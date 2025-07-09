@@ -86,7 +86,7 @@ export async function resetPassword(email: string) {
 export function getUserId() {
 	const res = pb.authStore.record
 
-	if (res == null || res.id === undefined) {
+	if (res === null || res.id === undefined) {
 		return 'none'
 	}
 

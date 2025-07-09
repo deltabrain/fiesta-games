@@ -1,5 +1,6 @@
 import { Loading } from '@components/Loading'
 import { BingoListItem } from '@components/bingo/BingoListItem'
+import { getUserId } from '@lib/auth'
 import { addBoard, getUserBoards } from '@lib/db'
 import { pb } from '@lib/pocketbase'
 import { Board } from '@lib/types'
@@ -15,12 +16,9 @@ export default function Bingo() {
 	const [boards, setBoards] = useState<Board[]>([])
 
 	useEffect(() => {
-		pb.collection('boards').subscribe(
-			`owner.id='${pb.authStore.record!.id}'`,
-			() => {
-				setReloading((reloading) => !reloading)
-			}
-		)
+		pb.collection('boards').subscribe(`owner.id='${getUserId()}'`, () => {
+			setReloading((reloading) => !reloading)
+		})
 		getUserBoards().then((data) => {
 			setBoards(data)
 		})
