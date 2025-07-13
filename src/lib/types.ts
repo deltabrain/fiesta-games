@@ -1,3 +1,13 @@
+export type Song = {
+	id: string
+	artist: string
+	title: string
+	url: string
+	lyrics: string
+	release_year: string
+	views: number
+}
+
 export enum SignupResult {
 	Success,
 	WeakPassword,

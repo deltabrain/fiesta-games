@@ -1,7 +1,8 @@
 import { getUserId } from '@lib/auth'
 import { pb } from '@lib/pocketbase'
-import { Board } from '@types'
+import { Board, Song } from '@types'
 import { pbArrayToString, pbStringToArray } from '@util/util'
+import { ClientResponseError, ListResult } from 'pocketbase'
 
 export async function getSize(id: string) {
 	const res = await pb
@@ -154,6 +155,56 @@ export async function addBoard(size: number = 3) {
 
 export async function deleteBoard(id: string) {
 	await pb.collection('boards').delete(id)
+}
+
+export async function getRandomSong() {
+	const res = await pb
+		.collection<Song>('songs')
+		.getFirstListItem('', { sort: '@random' })
+		.then((res) => {
+			return res
+		})
+		.catch((error: ClientResponseError) => {
+			if (error.status != 0 && error.status != 404) {
+				console.error(error)
+				return undefined
+			}
+		})
+
+	return res
+}
+
+export async function getSongById(id: string) {
+	const res = await pb
+		.collection<Song>('songs')
+		.getOne(id)
+		.then((res) => {
+			return res
+		})
+
+	return res
+}
+
+export async function searchSongs(
+	searchString: string
+): Promise<ListResult<Song> | undefined> {
+	const res = await pb
+		.collection<Song>('songs')
+		.getList(1, 10, {
+			filter: `title?~'${searchString}' || artist?~'${searchString}'`,
+			sort: '@random',
+		})
+		.then((res) => {
+			return res
+		})
+		.catch((error: ClientResponseError) => {
+			if (error.status != 0 && error.status != 400) {
+				console.error(error)
+				return undefined
+			}
+		})
+
+	return res
 }
 
 // TODO: add Avatar stuff in pocketbase
