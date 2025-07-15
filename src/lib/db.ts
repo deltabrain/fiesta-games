@@ -1,6 +1,6 @@
 import { getUserId } from '@lib/auth'
 import { pb } from '@lib/pocketbase'
-import { Board, Song } from '@types'
+import { Board, Song, User } from '@types'
 import { pbArrayToString, pbStringToArray } from '@util/util'
 import { ClientResponseError, ListResult } from 'pocketbase'
 
@@ -83,14 +83,6 @@ export async function getFieldsActive(id: string) {
 	const res = await pb.collection<Board>('boards').getOne(id)
 
 	return res.fieldsActive
-}
-
-export async function getUserData() {
-	const id = getUserId()
-
-	const res = await pb.collection('users').getOne(id)
-
-	return res
 }
 
 export async function shuffleBoard(id: string) {
@@ -188,6 +180,22 @@ export async function searchSongs(searchString: string): Promise<ListResult<Song
 		})
 
 	return res
+}
+
+export async function getUserData() {
+	const id = getUserId()
+
+	const res = await pb.collection('users').getOne(id)
+
+	return res
+}
+
+export async function getUserElo() {
+	const id = getUserId()
+
+	const res = await pb.collection<User>('users').getOne(id)
+
+	return res.elo
 }
 
 // TODO: add Avatar stuff in pocketbase

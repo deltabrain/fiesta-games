@@ -2,12 +2,14 @@ import { TextButton } from '@components/themed/TextButton'
 import { ThemedDiv } from '@components/themed/ThemedDiv'
 import { ThemedText } from '@components/themed/ThemedText'
 import { useThemeColor } from '@hooks/useThemeColor'
-import { getRandomSong } from '@lib/db'
+import { getRandomSong, getUserElo } from '@lib/db'
 import { Song } from '@lib/types'
 import { ThemedView } from '@themed/ThemedView'
 import { calcDifficulty } from '@util/util'
 import { useEffect, useState } from 'react'
 import { StyleSheet } from 'react-native'
+
+const difficulties = ['Sehr Einfach', 'Einfach', 'Mittel', 'Schwierig', 'Sehr Schwierig']
 
 // TODO: Replace webView with native implementation of rapdle
 export default function Rapdle() {
@@ -24,6 +26,7 @@ export default function Rapdle() {
 	const [gameActive, setGameActive] = useState(true)
 	const [gameWin, setGameWin] = useState(false)
 	const [newGame, setNewGame] = useState(false)
+	const [elo, setElo] = useState(0)
 
 	const [lyricsExcerpt, setLyricsExerpt] = useState<string[]>([])
 	const [guessError, setGuessError] = useState(false)
@@ -35,7 +38,10 @@ export default function Rapdle() {
 			.then((res) => {
 				if (res !== undefined) {
 					setSongToGuess(res)
-					setSongDifficulty(calcDifficulty(res.views))
+					// WARN: Bad code ahead, this calculates the difficulty of given song
+					// and uses it to index the array and then set the corresponding string
+					// to the state variable
+					setSongDifficulty(difficulties[calcDifficulty(res.views)])
 					if (typeof res.lyrics == 'string') {
 						const lyrics = res.lyrics.split('>')
 						const tempLyrics = []
@@ -53,6 +59,10 @@ export default function Rapdle() {
 			})
 			.catch((error) => console.error(error))
 
+		getUserElo().then((res) => {
+			setElo(res)
+		})
+
 		setLoading(false)
 	}, [newGame])
 
@@ -68,7 +78,7 @@ export default function Rapdle() {
 					<TextButton
 						style={[styles.topButton, { backgroundColor: successColor }]}
 						textStyle={{ color: '#252525' }}
-						text='1515'
+						text={elo.toString()}
 					/>
 				</ThemedView>
 				<ThemedView style={styles.container}>

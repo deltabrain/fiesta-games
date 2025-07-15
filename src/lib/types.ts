@@ -1,3 +1,5 @@
+import { RecordModel } from 'pocketbase'
+
 export type Song = {
 	id: string
 	artist: string
@@ -38,4 +40,8 @@ export type Board = {
 	owner: string
 	size: number
 	title: string
+}
+
+export type User = RecordModel & {
+	elo: number
 }
