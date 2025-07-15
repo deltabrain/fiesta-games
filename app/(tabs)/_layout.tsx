@@ -13,8 +13,7 @@ export default function TabLayout() {
 	const [record, setRecord] = useState<AuthRecord | null>(null)
 	const barBackgroundColor = useThemeColor('background_dark')
 	const backgroundColor = useThemeColor('background')
-	const statusBarStyle =
-		useColorScheme() === 'light' ? 'dark-content' : 'light-content'
+	const statusBarStyle = useColorScheme() === 'light' ? 'dark-content' : 'light-content'
 
 	NavigationBar.setBackgroundColorAsync(useThemeColor('background_dark'))
 	StatusBar.setBackgroundColor(useThemeColor('background'))

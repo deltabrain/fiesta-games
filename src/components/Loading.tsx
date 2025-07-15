@@ -1,8 +1,4 @@
-import {
-	ActivityIndicator,
-	ActivityIndicatorProps,
-	StyleSheet,
-} from 'react-native'
+import { ActivityIndicator, ActivityIndicatorProps, StyleSheet } from 'react-native'
 import { ThemedView } from './themed/ThemedView'
 import { useThemeColor } from '../hooks/useThemeColor'
 

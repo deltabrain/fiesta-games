@@ -12,12 +12,7 @@ export type AvatarOverlayProps = ThemedViewProps & {
 	shouldOpen: boolean
 }
 
-export function AvatarOverlay({
-	imageSrc,
-	style,
-	shouldOpen,
-	...rest
-}: AvatarOverlayProps) {
+export function AvatarOverlay({ imageSrc, style, shouldOpen, ...rest }: AvatarOverlayProps) {
 	const [showModal, setShowModal] = useState(false)
 	const pickImage = async () => {
 		const result = await launchImageLibraryAsync({
@@ -38,29 +33,16 @@ export function AvatarOverlay({
 	}, [shouldOpen])
 
 	return (
-		<Modal
-			visible={showModal}
-			style={styles.modal}
-			animationType='fade'
-			statusBarTranslucent
-		>
+		<Modal visible={showModal} style={styles.modal} animationType='fade' statusBarTranslucent>
 			<ThemedView style={[styles.default, style]} {...rest}>
 				<ThemedView style={styles.topBar}>
-					<IconButton
-						onPress={pickImage}
-						style={styles.button}
-						icon='swap-horizontal-outline'
-						type='round'
-					/>
+					<IconButton onPress={pickImage} style={styles.button} icon='swap-horizontal-outline' type='round' />
 				</ThemedView>
 				<ThemedView style={styles.contentContainer}>
 					<Image style={styles.avatar} source={imageSrc} />
 				</ThemedView>
 				<ThemedView style={styles.contentContainer}>
-					<IconButton
-						onPress={() => setShowModal(false)}
-						icon='close-outline'
-					/>
+					<IconButton onPress={() => setShowModal(false)} icon='close-outline' />
 				</ThemedView>
 			</ThemedView>
 		</Modal>

@@ -1,11 +1,6 @@
 import { useThemeColor } from '@hooks/useThemeColor'
 import React from 'react'
-import {
-	StyleSheet,
-	Text,
-	TouchableOpacity,
-	TouchableOpacityProps,
-} from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps } from 'react-native'
 
 export type TextButtonProps = TouchableOpacityProps & {
 	text: string
@@ -14,13 +9,7 @@ export type TextButtonProps = TouchableOpacityProps & {
 	type?: 'default' | 'ghost'
 }
 
-export function TextButton({
-	text,
-	style,
-	textStyle,
-	type = 'default',
-	...rest
-}: TextButtonProps) {
+export function TextButton({ text, style, textStyle, type = 'default', ...rest }: TextButtonProps) {
 	const primaryColor = useThemeColor('secondary')
 	const accentColor = useThemeColor('secondary_light')
 	const textColor = useThemeColor('text_button')
@@ -39,15 +28,7 @@ export function TextButton({
 			]}
 			{...rest}
 		>
-			<Text
-				style={[
-					styles.text,
-					{ color: type === 'default' ? textColor : ghostTextColor },
-					textStyle,
-				]}
-			>
-				{text}
-			</Text>
+			<Text style={[styles.text, { color: type === 'default' ? textColor : ghostTextColor }, textStyle]}>{text}</Text>
 		</TouchableOpacity>
 	)
 }

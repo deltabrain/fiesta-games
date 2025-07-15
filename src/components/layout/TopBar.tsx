@@ -13,9 +13,7 @@ export function TopBar() {
 				<IconButton
 					icon='bug-outline'
 					type='round'
-					onPress={() =>
-						Linking.openURL('https://github.com/Deltabrain/fiesta-games/issues')
-					}
+					onPress={() => Linking.openURL('https://github.com/Deltabrain/fiesta-games/issues')}
 				/>
 			</ThemedView>
 		</ThemedView>

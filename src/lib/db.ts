@@ -47,9 +47,7 @@ export async function setField(id: string, field: number, value: string) {
 	const tempFields = fields
 	tempFields[field] = value
 
-	const res = await pb
-		.collection<Board>('boards')
-		.update(id, { fields: pbArrayToString(tempFields) })
+	const res = await pb.collection<Board>('boards').update(id, { fields: pbArrayToString(tempFields) })
 }
 
 export async function getBoard(id: string) {
@@ -61,32 +59,22 @@ export async function getBoard(id: string) {
 export async function getUserBoards() {
 	const id = getUserId()
 
-	const res = await pb
-		.collection<Board>('boards')
-		.getFullList({ filter: `owner.id='${id}'`, sort: '-updated' })
+	const res = await pb.collection<Board>('boards').getFullList({ filter: `owner.id='${id}'`, sort: '-updated' })
 
 	return res
 }
 
-export async function setFieldActive(
-	id: string,
-	field: number,
-	value: boolean
-) {
+export async function setFieldActive(id: string, field: number, value: boolean) {
 	const fields = await getFieldsActive(id)
 
 	const tempFields = pbStringToArray(fields)
 	tempFields[field] = value ? '0' : '1'
 
-	const res = await pb
-		.collection('boards')
-		.update(id, { fieldsActive: pbArrayToString(tempFields) })
+	const res = await pb.collection('boards').update(id, { fieldsActive: pbArrayToString(tempFields) })
 }
 
 export async function getFieldActive(id: string, field: number) {
-	const res = await pb
-		.collection<Board>('boards')
-		.getOne(id, { fields: 'fieldsActive' })
+	const res = await pb.collection<Board>('boards').getOne(id, { fields: 'fieldsActive' })
 
 	return res.fieldsActive[field]
 }
@@ -115,10 +103,7 @@ export async function shuffleBoard(id: string) {
 	for (var i = board.fields.length - 1; i > 0; i--) {
 		const j = Math.floor(Math.random() * (i + 1))
 		;[fields[i], newFields[j]] = [newFields[j], fields[i]]
-		;[fieldsActive[i], fieldsActive[j]] = [
-			newFieldsActive[j],
-			newFieldsActive[i],
-		]
+		;[fieldsActive[i], fieldsActive[j]] = [newFieldsActive[j], newFieldsActive[i]]
 	}
 
 	board.fields = pbArrayToString(newFields)
@@ -165,7 +150,7 @@ export async function getRandomSong() {
 			return res
 		})
 		.catch((error: ClientResponseError) => {
-			if (error.status != 0 && error.status != 404) {
+			if (error.status !== 0 && error.status !== 404) {
 				console.error(error)
 				return undefined
 			}
@@ -185,9 +170,7 @@ export async function getSongById(id: string) {
 	return res
 }
 
-export async function searchSongs(
-	searchString: string
-): Promise<ListResult<Song> | undefined> {
+export async function searchSongs(searchString: string): Promise<ListResult<Song> | undefined> {
 	const res = await pb
 		.collection<Song>('songs')
 		.getList(1, 10, {
@@ -198,7 +181,7 @@ export async function searchSongs(
 			return res
 		})
 		.catch((error: ClientResponseError) => {
-			if (error.status != 0 && error.status != 400) {
+			if (error.status !== 0 && error.status !== 400) {
 				console.error(error)
 				return undefined
 			}

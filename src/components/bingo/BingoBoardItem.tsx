@@ -13,14 +13,7 @@ export type BingoBoardItemProps = PressableProps & {
 	field: number
 }
 
-export function BingoBoardItem({
-	text,
-	initActive,
-	corner,
-	id,
-	field,
-	...rest
-}: BingoBoardItemProps) {
+export function BingoBoardItem({ text, initActive, corner, id, field, ...rest }: BingoBoardItemProps) {
 	const [active, setActive] = useState(initActive)
 	const primaryColor = useThemeColor('secondary_dark')
 	const accentColor = useThemeColor('primary_dark')
@@ -60,17 +53,13 @@ export function BingoBoardItem({
 			style={[
 				{ borderColor: accentColor },
 				styles.bingoItem,
-				active
-					? { backgroundColor: primaryColor }
-					: { backgroundColor: neutralColor },
+				active ? { backgroundColor: primaryColor } : { backgroundColor: neutralColor },
 				cornerStyle,
 			]}
 			onPress={() => toggle()}
 			{...rest}
 		>
-			<ThemedText style={[styles.bingoText, { color: textButtonColor }]}>
-				{text}
-			</ThemedText>
+			<ThemedText style={[styles.bingoText, { color: textButtonColor }]}>{text}</ThemedText>
 		</Pressable>
 	)
 }

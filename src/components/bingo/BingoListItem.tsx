@@ -37,13 +37,8 @@ export function BingoListItem(board: Board) {
 				params: { id: board.id },
 			}}
 		>
-			<TouchableOpacity
-				style={{ shadowColor: bgColor, elevation: 10 }}
-				activeOpacity={0.8}
-			>
-				<ThemedText style={[styles.text, { color: textColor }]}>
-					{board.title}
-				</ThemedText>
+			<TouchableOpacity style={{ shadowColor: bgColor, elevation: 10 }} activeOpacity={0.8}>
+				<ThemedText style={[styles.text, { color: textColor }]}>{board.title}</ThemedText>
 				{isDeleting ? (
 					<IconButton
 						icon='trash-outline'

@@ -19,9 +19,7 @@ export function Auth() {
 
 	return (
 		<ThemedView style={[styles.default]}>
-			<ThemedText style={styles.title}>
-				{newAccount ? 'Create new account' : 'Sign in'}
-			</ThemedText>
+			<ThemedText style={styles.title}>{newAccount ? 'Create new account' : 'Sign in'}</ThemedText>
 			<ThemedView style={styles.inputs}>
 				<TextInput
 					style={[
@@ -85,11 +83,7 @@ export function Auth() {
 					icon='arrow-forward-outline'
 					type='round'
 				/>
-				<ThemedText
-					style={{ color: fadedTextColor, marginBottom: 10, marginTop: 20 }}
-				>
-					or
-				</ThemedText>
+				<ThemedText style={{ color: fadedTextColor, marginBottom: 10, marginTop: 20 }}>or</ThemedText>
 				<TextButton
 					type='ghost'
 					text={newAccount ? 'Sign in' : 'Create an account'}

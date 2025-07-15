@@ -10,12 +10,7 @@ export type LinkIconButtonProps = LinkProps & {
 	style?: any
 }
 
-export function LinkIconButton({
-	icon,
-	style,
-	href,
-	...rest
-}: LinkIconButtonProps) {
+export function LinkIconButton({ icon, style, href, ...rest }: LinkIconButtonProps) {
 	const primaryColor = useThemeColor('secondary')
 	const accentColor = useThemeColor('secondary_light')
 	const textColor = useThemeColor('text_button')

@@ -9,12 +9,7 @@ export type BingoEditorItemProps = ThemedViewProps & {
 	fieldNumber: number
 }
 
-export function BingoEditorItem({
-	initialValue,
-	updateValue,
-	fieldNumber,
-	...rest
-}: BingoEditorItemProps) {
+export function BingoEditorItem({ initialValue, updateValue, fieldNumber, ...rest }: BingoEditorItemProps) {
 	const [value, setValue] = useState(initialValue)
 	const backgroundColor = useThemeColor('background_dark')
 	const placeholderTextColor = useThemeColor('text_placeholder')
@@ -22,13 +17,7 @@ export function BingoEditorItem({
 	const textColor = useThemeColor('text')
 
 	return (
-		<ThemedView
-			style={[
-				{ backgroundColor: backgroundColor, borderColor: accentColor },
-				styles.row,
-			]}
-			{...rest}
-		>
+		<ThemedView style={[{ backgroundColor: backgroundColor, borderColor: accentColor }, styles.row]} {...rest}>
 			<TextInput
 				multiline={true}
 				spellCheck={false}

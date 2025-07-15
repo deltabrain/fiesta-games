@@ -15,9 +15,7 @@ export default function Profile() {
 	const [name, setName] = useState('')
 	const [showModal, setShowModal] = useState(false)
 	const [reloadAvatar, setReloadAvatar] = useState(false)
-	const [avatar, setAvatar] = useState(
-		'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png'
-	)
+	const [avatar, setAvatar] = useState('https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_1280.png')
 	const navigation = useNavigation()
 
 	const pickImage = async () => {
@@ -50,32 +48,16 @@ export default function Profile() {
 
 	return (
 		<ThemedView style={styles.default}>
-			<Modal
-				visible={showModal}
-				style={styles.modal}
-				animationType='fade'
-				statusBarTranslucent
-			>
+			<Modal visible={showModal} style={styles.modal} animationType='fade' statusBarTranslucent>
 				<ThemedView style={[styles.default]}>
 					<ThemedView style={styles.topBar}>
-						<IconButton
-							onPress={pickImage}
-							icon='swap-horizontal-outline'
-							type='round'
-						/>
+						<IconButton onPress={pickImage} icon='swap-horizontal-outline' type='round' />
 					</ThemedView>
 					<ThemedView style={styles.contentContainer}>
-						<Image
-							style={styles.avatarBig}
-							source={avatar}
-							cachePolicy={'none'}
-						/>
+						<Image style={styles.avatarBig} source={avatar} cachePolicy={'none'} />
 					</ThemedView>
 					<ThemedView style={styles.bottomBar}>
-						<IconButton
-							onPress={() => setShowModal(false)}
-							icon='close-outline'
-						/>
+						<IconButton onPress={() => setShowModal(false)} icon='close-outline' />
 					</ThemedView>
 				</ThemedView>
 			</Modal>

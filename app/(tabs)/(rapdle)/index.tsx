@@ -33,24 +33,18 @@ export default function Rapdle() {
 	useEffect(() => {
 		getRandomSong()
 			.then((res) => {
-				if (res != undefined) {
+				if (res !== undefined) {
 					setSongToGuess(res)
 					setSongDifficulty(calcDifficulty(res.views))
 					if (typeof res.lyrics == 'string') {
 						const lyrics = res.lyrics.split('>')
 						const tempLyrics = []
-						let randomLineNumber = Math.floor(
-							Math.random() * (lyrics.length - guessLinesAmount)
-						)
-						if (randomLineNumber != 0) {
+						let randomLineNumber = Math.floor(Math.random() * (lyrics.length - guessLinesAmount))
+						if (randomLineNumber !== 1) {
 							randomLineNumber = randomLineNumber - (randomLineNumber % 4)
 						}
 						const endLine = randomLineNumber + guessLinesAmount
-						for (
-							randomLineNumber;
-							randomLineNumber < endLine;
-							randomLineNumber++
-						) {
+						for (randomLineNumber; randomLineNumber < endLine; randomLineNumber++) {
 							tempLyrics.push(lyrics[randomLineNumber]!)
 						}
 						setLyricsExerpt(tempLyrics)

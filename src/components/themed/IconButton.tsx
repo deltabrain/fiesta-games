@@ -2,11 +2,7 @@ import { ButtonIcon } from '@components/ButtonIcon'
 import { useThemeColor } from '@hooks/useThemeColor'
 import { Ionicons } from '@expo/vector-icons'
 import React, { ComponentProps } from 'react'
-import {
-	StyleSheet,
-	TouchableOpacity,
-	TouchableOpacityProps,
-} from 'react-native'
+import { StyleSheet, TouchableOpacity, TouchableOpacityProps } from 'react-native'
 
 export type IconButtonProps = TouchableOpacityProps & {
 	icon: ComponentProps<typeof Ionicons>['name']
@@ -14,12 +10,7 @@ export type IconButtonProps = TouchableOpacityProps & {
 	type?: 'default' | 'round'
 }
 
-export function IconButton({
-	icon,
-	style,
-	type = 'default',
-	...rest
-}: IconButtonProps) {
+export function IconButton({ icon, style, type = 'default', ...rest }: IconButtonProps) {
 	const primaryColor = useThemeColor('secondary')
 	const accentColor = useThemeColor('secondary_light')
 	const textColor = useThemeColor('text_button')
@@ -40,11 +31,7 @@ export function IconButton({
 			]}
 			{...rest}
 		>
-			<ButtonIcon
-				color={textColor}
-				style={type === 'round' ? styles.roundIcon : {}}
-				name={icon}
-			/>
+			<ButtonIcon color={textColor} style={type === 'round' ? styles.roundIcon : {}} name={icon} />
 		</TouchableOpacity>
 	)
 }

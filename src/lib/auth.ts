@@ -24,19 +24,8 @@ export async function signIn(email: string, password: string) {
 		})
 }
 
-export async function signUp(
-	email: string,
-	password: string,
-	username: string
-) {
-	if (
-		email === '' ||
-		null ||
-		password === '' ||
-		null ||
-		username === '' ||
-		null
-	) {
+export async function signUp(email: string, password: string, username: string) {
+	if (email === '' || null || password === '' || null || username === '' || null) {
 		showToast('Fill out all required fields!')
 		return
 	}

@@ -97,11 +97,7 @@ export default function Editor() {
 						style={styles.list}
 						data={initialFields}
 						renderItem={({ item, index }) => (
-							<BingoEditorItem
-								initialValue={item}
-								fieldNumber={index}
-								updateValue={changeField}
-							/>
+							<BingoEditorItem initialValue={item} fieldNumber={index} updateValue={changeField} />
 						)}
 					/>
 				</ThemedView>
